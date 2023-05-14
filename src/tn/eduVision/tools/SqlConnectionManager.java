@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class SqlConnectionManager {
     private static SqlConnectionManager instance;
     private Connection connection;
-    private static final Logger LOGGER = Logger.getLogger(SqlConnectionManager.class.getName());
+    private static final Logger LOGGER = CustomLogger.getInstance().getLogger();
     private final Properties properties = loadProperties("app.settings");
     
     private SqlConnectionManager() {
@@ -45,7 +45,7 @@ public class SqlConnectionManager {
                 String password = properties.getProperty("password");
 
                 connection = DriverManager.getConnection(url, username, password);
-                LOGGER.log(Level.INFO, "conencted to {0}", url);
+                LOGGER.log(Level.INFO, "cpnnected to database you can find details in the app.settings");
             } catch (SQLException e) {
                 LOGGER.log(Level.SEVERE, "Error found while trying to connect to the database reason : {0}", e.getMessage());
             }
@@ -59,7 +59,7 @@ public class SqlConnectionManager {
                 connection.close();
                 connection = null;
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.WARNING, "Connection can not be closed!");
             }
         }
     }
@@ -69,7 +69,7 @@ public class SqlConnectionManager {
     try (FileInputStream fis = new FileInputStream(filePath)) {
         properties.load(fis);
     } catch (IOException e) {
-        e.printStackTrace();
+        LOGGER.log(Level.SEVERE, "app.settings can't be opened");
     }
     return properties;
 }
