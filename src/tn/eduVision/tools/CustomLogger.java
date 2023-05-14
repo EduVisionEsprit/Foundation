@@ -11,4 +11,25 @@ package tn.eduVision.tools;
  */
 public class CustomLogger {
     
+    private static CustomLogger instance;
+    private Logger logger;
+    private ConsoleHandler consoleHandler;
+
+    private CustomLogger() {
+        logger = Logger.getLogger(CustomLogger.class.getName());
+        consoleHandler = new ConsoleHandler();
+        logger.addHandler(consoleHandler);
+        logger.setLevel(Level.ALL);
+    }
+
+    public static synchronized CustomLogger getInstance() {
+        if (instance == null) {
+            instance = new CustomLogger();
+        }
+        return instance;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
 }
