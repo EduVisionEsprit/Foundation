@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 public class Personne implements IEntitiy{
 
-    protected UUID id;
+    protected int id;
     protected String nom;
     protected String prenom;
     protected String email;
@@ -45,17 +45,6 @@ public class Personne implements IEntitiy{
         return true;
     }
     
-    
-    @Override
-    public void SetId(UUID id) {
-       this.id = id;
-    }
-
-    @Override
-    public UUID GetId() {
-        return id;
-    }
-
     public String getNom() {
         return nom;
     }
@@ -86,6 +75,16 @@ public class Personne implements IEntitiy{
 
     public void setAdress(String adress) {
         this.adress = adress;
+    }
+
+    @Override
+    public void SetId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public int GetId() {
+        return id;
     }
     
     

@@ -5,6 +5,10 @@
  */
 package tn.eduVision.tools;
 
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author job_j
@@ -12,8 +16,8 @@ package tn.eduVision.tools;
 public class CustomLogger {
     
     private static CustomLogger instance;
-    private Logger logger;
-    private ConsoleHandler consoleHandler;
+    private static Logger logger;
+    private final ConsoleHandler consoleHandler;
 
     private CustomLogger() {
         logger = Logger.getLogger(CustomLogger.class.getName());
