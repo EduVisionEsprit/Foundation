@@ -6,7 +6,6 @@
 package tn.eduVision.entités;
 
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  *
