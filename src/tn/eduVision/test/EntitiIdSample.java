@@ -17,7 +17,6 @@ public class EntitiIdSample {
     public static void main(String args[]){
         
         Personne p = new Personne();
-        p.SetId(UUID.randomUUID());
         System.out.println(p.GetId());
         
     }
