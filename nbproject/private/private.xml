@@ -5,8 +5,11 @@
         <group>
             <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/test/DbConnectionTest.java</file>
             <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/tools/SqlConnectionManager.java</file>
+            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/entités/Personne.java</file>
             <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/tools/CustomLogger.java</file>
+            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/services/Iservices.java</file>
             <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/test/EntitiIdSample.java</file>
+            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/entités/IEntitiy.java</file>
         </group>
     </open-files>
 </project-private>
