@@ -21,22 +21,11 @@ import java.util.logging.Logger;
  */
 public class SqlConnectionManager {
     private static SqlConnectionManager instance;
-    private Connection connection;
+    private static Connection connection;
     private static final Logger LOGGER = CustomLogger.getInstance().getLogger();
     private final Properties properties = loadProperties("app.settings");
     
     private SqlConnectionManager() {
-        // Private constructor to prevent instantiation outside the class
-    }
-
-    public static synchronized SqlConnectionManager getInstance() {
-        if (instance == null) {
-            instance = new SqlConnectionManager();
-        }
-        return instance;
-    }
-
-    public Connection getConnection() {
         if (connection == null) {
             try {
                 
@@ -50,6 +39,17 @@ public class SqlConnectionManager {
                 LOGGER.log(Level.SEVERE, "Error found while trying to connect to the database reason : {0}", e.getMessage());
             }
         }
+        
+    }
+
+    public static synchronized SqlConnectionManager getInstance() {
+        if (instance == null) {
+            instance = new SqlConnectionManager();
+        }
+        return instance;
+    }
+
+    public static Connection getConnection() {
         return connection;
     }
 
