@@ -34,7 +34,7 @@ public class SqlConnectionManager {
                 String password = properties.getProperty("password");
 
                 connection = DriverManager.getConnection(url, username, password);
-                LOGGER.log(Level.INFO, "cpnnected to database you can find details in the app.settings");
+                LOGGER.log(Level.INFO, "connected to database you can find details in the app.settings");
             } catch (SQLException e) {
                 LOGGER.log(Level.SEVERE, "Error found while trying to connect to the database reason : {0}", e.getMessage());
             }
