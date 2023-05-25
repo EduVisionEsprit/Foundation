@@ -13,11 +13,11 @@ public class Salle extends Ressource{
     private int capacite;
     private String equipements;
     private String disponibilite;
-    private String typeSalle;
+    private TypeSalle typeSalle;
 
     // Constructeur, getters et setters
 
-    public Salle(String nomSalle, int capacite, String equipements, String disponibilite, String typeSalle, int idRessource, TypeRessource typeRessource) {
+    public Salle(String nomSalle, int capacite, String equipements, String disponibilite, TypeSalle typeSalle, int idRessource, TypeRessource typeRessource) {
         super(idRessource, typeRessource);
         this.nomSalle = nomSalle;
         this.capacite = capacite;
@@ -58,11 +58,11 @@ public class Salle extends Ressource{
         this.disponibilite = disponibilite;
     }
 
-    public String getTypeSalle() {
+    public TypeSalle getTypeSalle() {
         return typeSalle;
     }
 
-    public void setTypeSalle(String typeSalle) {
+    public void setTypeSalle(TypeSalle typeSalle) {
         this.typeSalle = typeSalle;
     }
     
