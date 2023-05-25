@@ -6,6 +6,7 @@
 package tn.eduVision.test;
 
 import java.sql.Connection;
+import java.util.List;
 import tn.eduVision.entités.Salle;
 import tn.eduVision.entités.TypeRessource;
 import tn.eduVision.entités.TypeSalle;
@@ -22,17 +23,6 @@ public class DbConnectionTest {
         Connection connection = connectionManager.getConnection();
         //sould only log info once
         Connection connection2 = connectionManager.getConnection();
-        Salle salle = new Salle("test", 1000, "test", "yes" , TypeSalle.Amphi, 3); 
-        
-         SallesService sv = new SallesService();
-         try{
-         Salle x = sv.getById(5);
-         }
-         catch(UnsupportedOperationException ex){
-             System.out.println("not found");
-         }
-         
-         
-        
+          
     }
 }

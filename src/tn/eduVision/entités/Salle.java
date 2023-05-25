@@ -26,6 +26,11 @@ public class Salle extends Ressource{
         this.typeSalle = typeSalle;
     }
 
+    @Override
+    public String toString() {
+        return "Salle{" + "nomSalle=" + nomSalle + ", capacite=" + capacite + ", equipements=" + equipements + ", disponibilite=" + disponibilite + ", typeSalle=" + typeSalle + '}';
+    }
+
     public String getNomSalle() {
         return nomSalle;
     }

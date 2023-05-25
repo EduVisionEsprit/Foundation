@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,15 +70,29 @@ public class SallesService implements Iservices<Salle> {
     }
 
     @Override
-    public void delete(Salle item) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(Salle salle) {
+        try{
+            
+            String insertSalle = "DELETE FROM ressources WHERE `ressources`.`id_ressource` =  ?";
+            PreparedStatement statement = _connection.prepareStatement(insertSalle);
+            statement.setInt(1, salle.getIdRessource());
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                _logger.log(Level.INFO, "Delete operation successful. Rows deleted: {0}" , rowsDeleted);
+            }
+            else{
+               _logger.log(Level.INFO, "No rows deleted Delete operation failed."); 
+            }
+        }
+        catch(SQLException ex){
+            _logger.log(Level.SEVERE, ex.getMessage());
+        }
     }
 
     @Override
     public Salle getById(int id) throws UnsupportedOperationException {
         
         //retrive the data to cunstruct the object 
-        int count = 0;
         Salle salle = null;
         try{
         String selectById = " select * from `ressources` where `ressources`.`id_ressource` = ?;";
@@ -88,7 +103,6 @@ public class SallesService implements Iservices<Salle> {
         //custuction of the object
         
         if(resultSet.next()){
-            count++;
             salle = new Salle(
                     resultSet.getString("nom_salle"),
                     resultSet.getInt("capacite"),
@@ -97,10 +111,10 @@ public class SallesService implements Iservices<Salle> {
                     TypeSalle.valueOf(resultSet.getString("type_salle")),
                     resultSet.getInt("id_ressource")
             );
-        }
-        if(count > 0){
+             _logger.log(Level.INFO, salle.toString());
             return salle;
         }
+       
         throw new UnsupportedOperationException();
         }
         catch(SQLException ex){
@@ -110,8 +124,44 @@ public class SallesService implements Iservices<Salle> {
     }
 
     @Override
-    public List<Salle> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Salle> getAll() throws UnsupportedOperationException{
+         //retrive the data to cunstruct the object
+        boolean HasData = false;
+        List<Salle> salleList = new ArrayList<>();
+        try{
+        String selectById = " select * from `ressources` where `ressources`.`type_ressource` = 'salle' ;";
+        PreparedStatement statement = _connection.prepareStatement(selectById);
+        ResultSet resultSet = statement.executeQuery();
+        
+        //custuction of the objects and adding to the list
+        
+        while(resultSet.next()){
+            HasData = true;
+            Salle salle;
+            salle = new Salle(
+                    resultSet.getString("nom_salle"),
+                    resultSet.getInt("capacite"),
+                    resultSet.getString("equipements"),
+                    resultSet.getString("disponibilite"),
+                    TypeSalle.valueOf(resultSet.getString("type_salle")),
+                    resultSet.getInt("id_ressource")
+            );
+            
+             salleList.add(salle);
+        }
+       
+        if(!HasData){
+            throw new UnsupportedOperationException();
+        }
+        }
+        catch(SQLException ex ){
+            _logger.log(Level.SEVERE, ex.getMessage(), this.getClass());
+        }
+        catch(Exception ex ){
+            _logger.log(Level.SEVERE, ex.getMessage(), this.getClass());
+        }
+        
+        return salleList;
     }
     
 }
