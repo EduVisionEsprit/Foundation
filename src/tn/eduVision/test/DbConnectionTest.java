@@ -6,6 +6,10 @@
 package tn.eduVision.test;
 
 import java.sql.Connection;
+import tn.eduVision.entités.Salle;
+import tn.eduVision.entités.TypeRessource;
+import tn.eduVision.entités.TypeSalle;
+import tn.eduVision.services.SallesService;
 import tn.eduVision.tools.SqlConnectionManager;
 
 /**
@@ -18,5 +22,11 @@ public class DbConnectionTest {
         Connection connection = connectionManager.getConnection();
         //sould only log info once
         Connection connection2 = connectionManager.getConnection();
+        Salle salle = new Salle("test", 35, "test", "yes" , TypeSalle.Amphi, 35, TypeRessource.Salle); 
+        System.out.println(salle.getTypeSalle());
+         SallesService sv = new SallesService();
+         
+         sv.add(salle);
+        
     }
 }
