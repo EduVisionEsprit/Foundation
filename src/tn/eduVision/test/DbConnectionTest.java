@@ -26,9 +26,5 @@ public class DbConnectionTest {
         Connection connection = connectionManager.getConnection();
         //sould only log info once
         Connection connection2 = connectionManager.getConnection();
-        Materiel m = new Materiel("Lecteur dvd", 13 , TypeRessource.Salle, 6);
-        MaterielService ms = new MaterielService();
-        ms.update(m);
-          
     }
 }

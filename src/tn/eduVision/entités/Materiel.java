@@ -20,6 +20,11 @@ public class Materiel extends Ressource{
         
     }
 
+    @Override
+    public String toString() {
+        return "Materiel{" + "nomMateriel=" + nomMateriel + ", quantite=" + quantite + '}';
+    }
+
     public String getNomMateriel() {
         return nomMateriel;
     }

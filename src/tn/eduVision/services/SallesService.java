@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import tn.eduVision.entités.Salle;
 import tn.eduVision.entités.TypeSalle;
+import tn.eduVision.exceptions.NoDataFoundException;
 import tn.eduVision.tools.CustomLogger;
 import tn.eduVision.tools.SqlConnectionManager;
 
@@ -26,14 +27,16 @@ public class SallesService implements Iservices<Salle> {
 
     private final Connection _connection = SqlConnectionManager.getConnection();
     private static final Logger _logger = CustomLogger.getInstance().getLogger();
+    private static PreparedStatement statement = null;
     @Override
     public void add(Salle salle) {
+        PreparedStatement statement = null;
         try{
             
             String insertSalle = "INSERT INTO `ressources` "
                     + "(`type_ressource`, `type_salle`, `nom_salle`, `capacite`, `equipements`, `disponibilite`) "
                     + "VALUES (?, ?, ?, ?, ?, ?);";
-            PreparedStatement statement = _connection.prepareStatement(insertSalle);
+            statement = _connection.prepareStatement(insertSalle);
             statement.setString(1, salle.getTypeRessource().name());
             statement.setString(2, salle.getTypeSalle().toString());
             statement.setString(3, salle.getNomSalle());
@@ -42,10 +45,14 @@ public class SallesService implements Iservices<Salle> {
             statement.setString(6, salle.getDisponibilite());
             
             statement.executeUpdate();
+            
+            
         }
         catch(SQLException ex){
             _logger.log(Level.SEVERE, ex.getMessage());
+            
         }
+        
     }
 
     @Override
@@ -67,6 +74,9 @@ public class SallesService implements Iservices<Salle> {
         catch(SQLException ex){
             _logger.log(Level.SEVERE, ex.getMessage());
         }
+        finally{
+            CloseStatment(statement);
+        }
     }
 
     @Override
@@ -74,7 +84,7 @@ public class SallesService implements Iservices<Salle> {
         try{
             
             String insertSalle = "DELETE FROM ressources WHERE `ressources`.`id_ressource` =  ?";
-            PreparedStatement statement = _connection.prepareStatement(insertSalle);
+            statement = _connection.prepareStatement(insertSalle);
             statement.setInt(1, salle.getIdRessource());
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
@@ -87,16 +97,19 @@ public class SallesService implements Iservices<Salle> {
         catch(SQLException ex){
             _logger.log(Level.SEVERE, ex.getMessage());
         }
+        finally{
+            CloseStatment(statement);
+        }
     }
 
     @Override
-    public Salle getById(int id) throws UnsupportedOperationException {
+    public Salle getById(int id) throws NoDataFoundException {
         
         //retrive the data to cunstruct the object 
         Salle salle = null;
         try{
         String selectById = " select * from `ressources` where `ressources`.`id_ressource` = ?;";
-        PreparedStatement statement = _connection.prepareStatement(selectById);
+        statement = _connection.prepareStatement(selectById);
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
         
@@ -115,22 +128,25 @@ public class SallesService implements Iservices<Salle> {
             return salle;
         }
        
-        throw new UnsupportedOperationException();
+        throw new NoDataFoundException("no data found for id " + id);
         }
         catch(SQLException ex){
             _logger.log(Level.SEVERE, ex.getMessage(), this.getClass());
+        }
+        finally{
+            CloseStatment(statement);
         }
         return null;
     }
 
     @Override
-    public List<Salle> getAll() throws UnsupportedOperationException{
+    public List<Salle> getAll() throws NoDataFoundException{
          //retrive the data to cunstruct the object
         boolean HasData = false;
         List<Salle> salleList = new ArrayList<>();
         try{
         String selectById = " select * from `ressources` where `ressources`.`type_ressource` = 'salle' ;";
-        PreparedStatement statement = _connection.prepareStatement(selectById);
+        statement = _connection.prepareStatement(selectById);
         ResultSet resultSet = statement.executeQuery();
         
         //custuction of the objects and adding to the list
@@ -151,17 +167,28 @@ public class SallesService implements Iservices<Salle> {
         }
        
         if(!HasData){
-            throw new UnsupportedOperationException();
+            throw new NoDataFoundException("no data found empty table : ressources type salle");
         }
         }
         catch(SQLException ex ){
             _logger.log(Level.SEVERE, ex.getMessage(), this.getClass());
         }
-        catch(Exception ex ){
-            _logger.log(Level.SEVERE, ex.getMessage(), this.getClass());
+        
+        finally{
+            CloseStatment(statement);
         }
         
         return salleList;
+        
     }
     
+    private void CloseStatment(PreparedStatement statment){
+        try{
+            if(statment !=null){
+                statment.close();
+            }
+        }
+        catch(SQLException ex){
+        }
+    }
 }
