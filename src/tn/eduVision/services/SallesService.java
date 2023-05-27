@@ -105,7 +105,11 @@ public class SallesService implements Iservices<Salle> {
     @Override
     public Salle getById(int id) throws NoDataFoundException {
         
-     return this.getAll().stream().filter(e -> e.getIdRessource()==id).findFirst().get();
+     Salle salle = this.getAll().stream().filter(e -> e.getIdRessource()==id).findFirst().get();
+     if(salle == null){
+         throw new NoDataFoundException("pas de salle avec id " + id);
+     }
+     return salle;
     }
 
     @Override

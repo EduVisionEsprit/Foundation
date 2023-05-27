@@ -110,40 +110,14 @@ public class MaterielService implements Iservices<Materiel>{
     }
 
     @Override
-    public Materiel getById(int id) {
-         //retrive the data to cunstruct the object 
-        Materiel materiel = null;
-        try{
-        String selectById = " select nom_materiel ,  id_ressource , type_ressource , quantite_materiel"
-                + " from `ressources` "
-                + "where `ressources`.`id_ressource` = ?;";
-        statement = _connection.prepareStatement(selectById);
-        statement.setInt(1, id);
-        ResultSet resultSet = statement.executeQuery();
-        
-        //custuction of the object
-        
-        if(resultSet.next()){
-            materiel = new Materiel(
-                    resultSet.getString("nom_materiel"),
-                    resultSet.getInt("id_ressource"),
-                    TypeRessource.valueOf(resultSet.getString("type_ressource")),
-                    resultSet.getInt("quantite_materiel")        
-            );
-             _logger.log(Level.INFO, materiel.toString());
-            return materiel;
-        }
-       
-        throw new NoDataFoundException("no data found for id " + id);
-        }
-        catch(SQLException ex){
-            _logger.log(Level.SEVERE, ex.getMessage(), this.getClass());
-        }
-        finally{
-            CloseStatment(statement);
-        }
-        return null;
-    }
+    public Materiel getById(int id) throws NoDataFoundException{
+         Materiel materiel = this.getAll().stream().filter( m -> m.getIdRessource() == id).findFirst().get();
+         if(materiel == null){
+             throw new NoDataFoundException("pas de materiel avec id " + id);
+         }
+         return materiel;
+         }
+    
 
     @Override
     public List<Materiel> getAll() {
