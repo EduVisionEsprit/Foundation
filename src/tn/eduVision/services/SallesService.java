@@ -105,38 +105,7 @@ public class SallesService implements Iservices<Salle> {
     @Override
     public Salle getById(int id) throws NoDataFoundException {
         
-        //retrive the data to cunstruct the object 
-        Salle salle = null;
-        try{
-        String selectById = " select * from `ressources` where `ressources`.`id_ressource` = ?;";
-        statement = _connection.prepareStatement(selectById);
-        statement.setInt(1, id);
-        ResultSet resultSet = statement.executeQuery();
-        
-        //custuction of the object
-        
-        if(resultSet.next()){
-            salle = new Salle(
-                    resultSet.getString("nom_salle"),
-                    resultSet.getInt("capacite"),
-                    resultSet.getString("equipements"),
-                    resultSet.getString("disponibilite"),
-                    TypeSalle.valueOf(resultSet.getString("type_salle")),
-                    resultSet.getInt("id_ressource")
-            );
-             _logger.log(Level.INFO, salle.toString());
-            return salle;
-        }
-       
-        throw new NoDataFoundException("no data found for id " + id);
-        }
-        catch(SQLException ex){
-            _logger.log(Level.SEVERE, ex.getMessage(), this.getClass());
-        }
-        finally{
-            CloseStatment(statement);
-        }
-        return null;
+     return this.getAll().stream().filter(e -> e.getIdRessource()==id).findFirst().get();
     }
 
     @Override
