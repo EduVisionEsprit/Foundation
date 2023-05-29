@@ -17,7 +17,7 @@ jobs:
           pr_body=$(curl -sL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
                     "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" | \
                     jq -r '.body')
-          if [[ ! $pr_body =~ ES-[0-9]+ ]]; then
+          if [[ ! $pr_body =~ TASK-[0-9]+ ]]; then
             echo "Jira task link not found in PR description."
             exit 1
           fi
