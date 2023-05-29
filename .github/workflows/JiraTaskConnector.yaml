@@ -1,0 +1,50 @@
+name: JiraTaskConnector
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      
+env:
+  JIRA_API_URL: https://eduvisionesprit.atlassian.net/jira/software/projects/ES/boards/3
+  JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+jobs:
+  create-jira-task:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create Jira Task
+        run: |
+          # Extract pull request information
+          PR_TITLE=$(jq --raw-output .pull_request.title $GITHUB_EVENT_PATH)
+          PR_DESCRIPTION=$(jq --raw-output .pull_request.body $GITHUB_EVENT_PATH)
+          PR_AUTHOR=$(jq --raw-output .pull_request.user.login $GITHUB_EVENT_PATH)
+
+          # Construct API request payload
+          PAYLOAD=$(cat <<EOF
+          {
+            "title": "$PR_TITLE",
+            "description": "$PR_DESCRIPTION",
+            "author": "$PR_AUTHOR"
+          }
+          EOF
+          )
+
+          # Send API request to create Jira task
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $JIRA_API_TOKEN" \
+            -d "$PAYLOAD" \
+            $JIRA_API_URL/tasks
