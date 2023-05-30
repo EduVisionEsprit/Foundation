@@ -24,7 +24,7 @@ import tn.eduVision.tools.SqlConnectionManager;
  */
 public class MaterielService implements Iservices<Materiel>{
 
-     private final Connection _connection = SqlConnectionManager.getConnection();
+     private final Connection _connection = SqlConnectionManager.getInstance().getConnection();
      private static final Logger _logger = CustomLogger.getInstance().getLogger();
      private static PreparedStatement statement = null;
     
@@ -153,7 +153,7 @@ public class MaterielService implements Iservices<Materiel>{
             _logger.log(Level.SEVERE, ex.getMessage(), this.getClass());
         }
         
-        finally{
+        finally{    
             CloseStatment(statement);
         }
         

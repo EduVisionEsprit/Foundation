@@ -25,12 +25,12 @@ import tn.eduVision.tools.SqlConnectionManager;
  */
 public class SallesService implements Iservices<Salle> {
 
-    private final Connection _connection = SqlConnectionManager.getConnection();
+    private final Connection _connection = SqlConnectionManager.getInstance().getConnection();
     private static final Logger _logger = CustomLogger.getInstance().getLogger();
     private static PreparedStatement statement = null;
     @Override
     public void add(Salle salle) {
-        PreparedStatement statement = null;
+        
         try{
             
             String insertSalle = "INSERT INTO `ressources` "
@@ -83,9 +83,10 @@ public class SallesService implements Iservices<Salle> {
     public void delete(Salle salle) {
         try{
             
-            String insertSalle = "DELETE FROM ressources WHERE `ressources`.`id_ressource` =  ?";
+            String insertSalle = "UPDATE `ressources` SET `Archive` = '1' WHERE `ressources`.`id_ressource` = ? ;";
             statement = _connection.prepareStatement(insertSalle);
             statement.setInt(1, salle.getIdRessource());
+            System.out.println(salle.getIdRessource());
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
                 _logger.log(Level.INFO, "Delete operation successful. Rows deleted: {0}" , rowsDeleted);
@@ -118,7 +119,7 @@ public class SallesService implements Iservices<Salle> {
         boolean HasData = false;
         List<Salle> salleList = new ArrayList<>();
         try{
-        String selectById = " select * from `ressources` where `ressources`.`type_ressource` = 'salle' ;";
+        String selectById = " select * from `ressources` where `ressources`.`type_ressource` = 'salle' and `ressources`.`Archive` = 0 ;";
         statement = _connection.prepareStatement(selectById);
         ResultSet resultSet = statement.executeQuery();
         
