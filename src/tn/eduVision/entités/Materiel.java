@@ -10,12 +10,19 @@ package tn.eduVision.entités;
  */
 public class Materiel extends Ressource{
       private String nomMateriel;
-
+      private int quantite;
     // Constructeur, getters et setters
 
-    public Materiel(String nomMateriel, int idRessource, TypeRessource typeRessource) {
+    public Materiel(String nomMateriel, int idRessource, TypeRessource typeRessource, int quantite) {
         super(idRessource, typeRessource);
         this.nomMateriel = nomMateriel;
+        this.quantite = quantite;
+        
+    }
+
+    @Override
+    public String toString() {
+        return "Materiel{" + "nomMateriel=" + nomMateriel + ", quantite=" + quantite + '}';
     }
 
     public String getNomMateriel() {
@@ -25,5 +32,14 @@ public class Materiel extends Ressource{
     public void setNomMateriel(String nomMateriel) {
         this.nomMateriel = nomMateriel;
     }
+
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+    
     
 }

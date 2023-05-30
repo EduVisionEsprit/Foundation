@@ -3,13 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/test/DbConnectionTest.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/tools/SqlConnectionManager.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/entités/Personne.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/tools/CustomLogger.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/services/Iservices.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/test/EntitiIdSample.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/entités/IEntitiy.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/Materiel.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/calander.fxml</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/services/SallesService.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/TypeRessource.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/tools/CustomLogger.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/CalanderController.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/Main.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/CalendarActivity.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/Reservation.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/GuiExample.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/services/MaterielService.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/test/DbConnectionTest.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/services/Iservices.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/tools/SqlConnectionManager.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/Ressource.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/Salle.java</file>
         </group>
     </open-files>
 </project-private>

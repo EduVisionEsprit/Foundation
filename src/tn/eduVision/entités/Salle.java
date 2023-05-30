@@ -17,13 +17,18 @@ public class Salle extends Ressource{
 
     // Constructeur, getters et setters
 
-    public Salle(String nomSalle, int capacite, String equipements, String disponibilite, TypeSalle typeSalle, int idRessource, TypeRessource typeRessource) {
-        super(idRessource, typeRessource);
+    public Salle(String nomSalle, int capacite, String equipements, String disponibilite, TypeSalle typeSalle, int idRessource) {
+        super(idRessource, TypeRessource.Salle);
         this.nomSalle = nomSalle;
         this.capacite = capacite;
         this.equipements = equipements;
         this.disponibilite = disponibilite;
         this.typeSalle = typeSalle;
+    }
+
+    @Override
+    public String toString() {
+        return "Salle{" + "nomSalle=" + nomSalle + ", capacite=" + capacite + ", equipements=" + equipements + ", disponibilite=" + disponibilite + ", typeSalle=" + typeSalle + '}';
     }
 
     public String getNomSalle() {
