@@ -19,6 +19,11 @@ public class Matiere {
         this.nomMatiere = nomMatiere;
         this.module = module;
     }
+      public Matiere(int idMatiere, String nomMatiere) {
+        this.idMatiere = idMatiere;
+        this.nomMatiere = nomMatiere;
+        this.module = module;
+    }
 
     public int getIdMatiere() {
         return idMatiere;

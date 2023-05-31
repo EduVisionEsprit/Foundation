@@ -22,6 +22,13 @@ public class Module {
         this.matieres = matieres;
     }
 
+    
+    
+    public Module(int idModule, String nomModule) {
+        this.idModule = idModule;
+        this.nomModule = nomModule;
+    }
+
     public int getIdModule() {
         return idModule;
     }
