@@ -25,6 +25,17 @@ public class Etudiant extends Utilisateur {
         this.notes = notes;
     }
 
+    public Etudiant(int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role) {
+        super(idUtilisateur, nom, prenom, email, motDePasse, role);
+    }
+    
+     public Etudiant() {
+    }
+ 
+    
+    
+  
+
     public int getAnneeInscrit() {
         return anneeInscrit;
     }

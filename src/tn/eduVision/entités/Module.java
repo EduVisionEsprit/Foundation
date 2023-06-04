@@ -13,8 +13,14 @@ import java.util.List;
 public class Module {
     private int idModule;
     private String nomModule;
-    
+    private ProgrammeEtude programme; 
     private List<Matiere> matieres;
+
+    public Module(int idModule, String nomModule, ProgrammeEtude programme) {
+        this.idModule = idModule;
+        this.nomModule = nomModule;
+        this.programme = programme;
+    }
 
     public Module(int idModule, String nomModule, List<Matiere> matieres) {
         this.idModule = idModule;
@@ -22,11 +28,20 @@ public class Module {
         this.matieres = matieres;
     }
 
-    
-    
     public Module(int idModule, String nomModule) {
         this.idModule = idModule;
         this.nomModule = nomModule;
+    }
+
+    public Module(int idModule, String nomModule, ProgrammeEtude programme, List<Matiere> matieres) {
+        this.idModule = idModule;
+        this.nomModule = nomModule;
+        this.programme = programme;
+        this.matieres = matieres;
+    }
+
+    public Module(String module_3) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getIdModule() {
@@ -45,6 +60,14 @@ public class Module {
         this.nomModule = nomModule;
     }
 
+    public ProgrammeEtude getProgramme() {
+        return programme;
+    }
+
+    public void setProgramme(ProgrammeEtude programme) {
+        this.programme = programme;
+    }
+
     public List<Matiere> getMatieres() {
         return matieres;
     }
@@ -52,6 +75,8 @@ public class Module {
     public void setMatieres(List<Matiere> matieres) {
         this.matieres = matieres;
     }
+
+  
 
     
 }

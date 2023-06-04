@@ -25,6 +25,11 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
         this.role = role;
     }
+    
+    
+      public Utilisateur() {
+      
+    }
 
     public int getIdUtilisateur() {
         return idUtilisateur;

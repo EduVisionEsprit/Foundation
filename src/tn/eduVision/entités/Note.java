@@ -23,6 +23,10 @@ public class Note {
         this.note = note;
     }
 
+
+    public Note() {
+    }
+
     public int getIdNote() {
         return idNote;
     }
