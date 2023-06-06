@@ -5,6 +5,7 @@
 package tn.eduVision.entités;
 
 import java.util.List;
+import javafx.scene.Scene;
 
 /**
  *
@@ -25,6 +26,10 @@ public class Stage {
         this.nomOffreStage = nomOffreStage;
         this.critereSelection = critereSelection;
         this.candidatures = candidatures;
+    }
+
+    public Stage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getIdStage() {
@@ -65,6 +70,14 @@ public class Stage {
 
     public void setCandidatures(List<Candidature> candidatures) {
         this.candidatures = candidatures;
+    }
+
+    public void setScene(Scene scene) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void show() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

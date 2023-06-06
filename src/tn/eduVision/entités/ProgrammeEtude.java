@@ -6,6 +6,10 @@
 package tn.eduVision.entités;
 
 import java.util.List;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -26,6 +30,12 @@ public class ProgrammeEtude {
         this.id = id;
         this.description = description;
     }
+
+  public ProgrammeEtude() {
+    this.id = 0; // Set a default value for the id property
+    this.description = ""; // Set a default value for the description property
+    this.modules = null;// Initialize the modules property with an empty list
+}
 
     public int getId() {
         return id;
@@ -50,6 +60,12 @@ public class ProgrammeEtude {
     public void setModules(List<Module> modules) {
         this.modules = modules;
     }
-        
+         public StringProperty descriptionProperty() {
+        return new SimpleStringProperty(description);
+    }
+
+    public IntegerProperty idProperty() {
+        return new SimpleIntegerProperty(id);
+    }
 
 }

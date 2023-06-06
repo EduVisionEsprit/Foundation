@@ -27,45 +27,37 @@ public class ProgrammeEtudeService implements Iservices<ProgrammeEtude> {
     }
    
 
-    @Override
-    public void add(ProgrammeEtude programmeEtude) {
+ @Override
+public void add(ProgrammeEtude programmeEtude) {
+    PreparedStatement programmeStatement = null;
+    
     try {
         String insertProgrammeEtude = "INSERT INTO `programmes_etudes` (`description`) VALUES (?);";
-        statement = _connection.prepareStatement(insertProgrammeEtude, Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1, programmeEtude.getDescription());
+        programmeStatement = _connection.prepareStatement(insertProgrammeEtude, Statement.RETURN_GENERATED_KEYS);
+        programmeStatement.setString(1, programmeEtude.getDescription());
 
-        int rowsAffected = statement.executeUpdate();
+        int rowsAffected = programmeStatement.executeUpdate();
 
         if (rowsAffected == 0) {
             _logger.log(Level.WARNING, "No data has been inserted!");
             throw new UnsupportedOperationException();
         }
 
-        ResultSet generatedKeys = statement.getGeneratedKeys();
+        ResultSet generatedKeys = programmeStatement.getGeneratedKeys();
         if (generatedKeys.next()) {
             int programmeEtudeId = generatedKeys.getInt(1);
             programmeEtude.setId(programmeEtudeId);
-
-            // Insert the associated modules
-            String insertModule = "INSERT INTO `modules` (`id_module`, `id_programme`) VALUES (?, ?);";
-            statement = _connection.prepareStatement(insertModule);
-            for (Module module : programmeEtude.getModules()) {
-                statement.setString(1, module.getNomModule());
-                statement.setInt(2, programmeEtudeId);
-                statement.addBatch();
-            }
-
-            statement.executeBatch();
         }
 
         _logger.log(Level.INFO, "Insertion done");
     } catch (SQLException ex) {
         _logger.log(Level.SEVERE, ex.getMessage());
     } finally {
-        CloseStatement(statement);
+        CloseStatement(programmeStatement);
     }
+}
 
-    }
+
 
     @Override
     public void update(ProgrammeEtude programmeEtude) {

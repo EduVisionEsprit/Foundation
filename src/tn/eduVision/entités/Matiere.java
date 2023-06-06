@@ -12,7 +12,6 @@ public class Matiere {
     private int idMatiere;
     private String nomMatiere;
     private Module module;
-    // Constructeur, getters et setters
 
     public Matiere(int idMatiere, String nomMatiere, Module module) {
         this.idMatiere = idMatiere;
@@ -23,6 +22,10 @@ public class Matiere {
         this.idMatiere = idMatiere;
         this.nomMatiere = nomMatiere;
         this.module = module;
+    }
+
+    public Matiere() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getIdMatiere() {
