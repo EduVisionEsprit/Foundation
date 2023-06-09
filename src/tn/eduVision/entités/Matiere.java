@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package tn.eduVision.entités;
 
-/**
- *
- * @author Sayf
- */
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Matiere {
     private int idMatiere;
     private String nomMatiere;
@@ -18,14 +15,16 @@ public class Matiere {
         this.nomMatiere = nomMatiere;
         this.module = module;
     }
-      public Matiere(int idMatiere, String nomMatiere) {
+    
+    public Matiere(int idMatiere) {
+     
+    }
+       public Matiere(int idMatiere, String nomMatiere) {
         this.idMatiere = idMatiere;
         this.nomMatiere = nomMatiere;
-        this.module = module;
     }
 
     public Matiere() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getIdMatiere() {
@@ -51,5 +50,15 @@ public class Matiere {
     public void setModule(Module module) {
         this.module = module;
     }
-    
+
+    public StringProperty nomMatiereProperty() {
+        return new SimpleStringProperty(nomMatiere);
+    }
+
+    public ObjectProperty<Module> moduleProperty() {
+        return new SimpleObjectProperty<>(module);
+    }
+
+    public void setModule(String nom) {
+this.nomMatiere=nom;     }
 }

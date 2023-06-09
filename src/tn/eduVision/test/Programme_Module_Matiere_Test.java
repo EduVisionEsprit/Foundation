@@ -23,25 +23,24 @@ import tn.eduVision.tools.SqlConnectionManager;
 public class Programme_Module_Matiere_Test {
  
     public static void main(String[] args) {
-      
-        //Testing ModuleService
-     ModuleService moduleService = new ModuleService();
-     ProgrammeEtude e =new ProgrammeEtude(1, "cc");
 
-        // Create a new module
-   Module module = new Module(2, "Module added");
-        System.out.println(module.getIdModule());
-        System.out.println(module.getNomModule());
-           Module modulea = new Module(2, "Module 3",e);
-        System.out.println(modulea.getIdModule());
-        System.out.println(modulea.getNomModule());
-                System.out.println(modulea.getProgramme().getDescription());
-                
-                       moduleService.add(module);
-                       module.setNomModule("cc");
-                       moduleService.update(module);
-                       
-    }}        
+    MatiereService matiereService = new MatiereService();
+    ModuleService moduleService = new ModuleService();
+
+    // Create a module
+    Module module = new Module("Module 1");
+    moduleService.add(module);
+
+    // Create a matiere with the valid module ID
+    Matiere matiere = new Matiere(1,"Matiere 1", module);
+    matiereService.add(matiere);
+
+    // Get all matieres
+    List<Matiere> allMatieres = matiereService.getAll();
+    for (Matiere m : allMatieres) {
+        System.out.println(m.getNomMatiere());
+    }
+}}
         // Add the module
      //   moduleService.add(module);
 

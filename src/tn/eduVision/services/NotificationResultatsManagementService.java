@@ -132,7 +132,6 @@ public class NotificationResultatsManagementService implements NotificationResul
                 }
             }
         } catch (SQLException e) {
-            // Gérer l'exception en conséquence
             e.printStackTrace();
         }
         return sessionExamen;

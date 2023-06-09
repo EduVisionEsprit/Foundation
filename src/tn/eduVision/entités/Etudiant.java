@@ -31,6 +31,10 @@ public class Etudiant extends Utilisateur {
     
      public Etudiant() {
     }
+
+    public Etudiant(int etudiantId) {
+        super();//To change body of generated methods, choose Tools | Templates.
+    }
  
     
     

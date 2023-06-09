@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="tn.eduVision.GUI.PublierResultatController">
+    <children>
+        <ComboBox fx:id="cmbEtudiants" layoutX="14.0" layoutY="72.0" promptText="Sélectionner un étudiant" />
+        <ComboBox fx:id="cmbMatieres" layoutX="13.0" layoutY="27.0" promptText="Sélectionner une matière" />
+        <Button layoutX="319.0" layoutY="26.0" onAction="#publierResultats" prefHeight="26.0" prefWidth="226.0" text="Publier le de l'étudiant  résultats" />
+      <Button layoutX="319.0" layoutY="72.0" onAction="#publierResultats" text="Publier les résultats à tout les étudiants " />
+    </children>
+</AnchorPane>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="tn.eduVision.GUI.SessionExamenManagementUIController">
+    <children>
+        <VBox layoutX="40.0" layoutY="40.0" spacing="10">
+            <HBox spacing="10">
+                <Label text="Matière:" />
+                <ComboBox fx:id="cmbMatieres" prefWidth="200.0" />
+                <Label text="Date de début:" />
+                <DatePicker fx:id="datePickerDebut" />
+                <Label text="Date de fin:" />
+                <DatePicker fx:id="datePickerFin" />
+                <Button onAction="#creerSessionExamen" text="Créer Session Examen" />
+            </HBox>
+            <HBox spacing="10">
+                <Label text="Session Examen:" />
+                <ComboBox fx:id="cmbSessionsExamen" prefWidth="200.0" />
+                <Label text="Nouvelle date de début:" />
+                <DatePicker fx:id="datePickerNouveauDebut" />
+                <Label text="Nouvelle date de fin:" />
+                <DatePicker fx:id="datePickerNouveauFin" />
+                <Button onAction="#modifierSessionExamen" text="Modifier Session Examen" />
+            </HBox>
+            <HBox spacing="10">
+                <Label text="Session Examen à supprimer:" />
+                <ComboBox fx:id="cmbSessionsExamenSupprimer" prefWidth="200.0" />
+                <Button onAction="#supprimerSessionExamen" text="Supprimer Session Examen" />
+            </HBox>
+        </VBox>
+        <ListView fx:id="lstSessionsExamen" layoutX="269.0" layoutY="162.0" prefHeight="224.0" prefWidth="610.0" />
+      <Label layoutX="142.0" layoutY="170.0" text="Détails de la session: " />
+    </children>
+</AnchorPane>

@@ -16,35 +16,43 @@ import tn.eduVision.tools.SqlConnectionManager;
 
 public class MatiereService implements Iservices<Matiere> {
 
-      private Connection _connection;
+    private Connection _connection;
     private static final Logger _logger = CustomLogger.getInstance().getLogger();
     private PreparedStatement statement = null;
 
     public MatiereService() {
         _connection = SqlConnectionManager.getInstance().getConnection();
     }
-    @Override
-    public void add(Matiere matiere) {
-        try {
-            String insertMatiere = "INSERT INTO `matieres` (`nom_matiere`, `id_module`) VALUES (?, ?);";
-            statement = _connection.prepareStatement(insertMatiere);
-            statement.setString(1, matiere.getNomMatiere());
-            statement.setInt(2, matiere.getModule().getIdModule());
-            
-            int rowsAffected = statement.executeUpdate();
-            
-            if (rowsAffected == 0) {
-                _logger.log(Level.WARNING, "No data been inserted !");
-                throw new UnsupportedOperationException();
-            }
-            
-            _logger.log(Level.INFO, "Insertion done");
-        } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, ex.getMessage());
-        } finally {
-            CloseStatement(statement);
+@Override
+public void add(Matiere matiere) {
+    try {
+        String insertMatiere = "INSERT INTO `matieres` (`nom_matiere`, `id_module`) VALUES (?, ?);";
+        statement = _connection.prepareStatement(insertMatiere);
+        statement.setString(1, matiere.getNomMatiere());
+        
+        Module module = matiere.getModule();
+        if (module != null) {
+            statement.setInt(2, module.getIdModule());
+        } else {
+            // Handle the case when the module is null
+            statement.setNull(2, java.sql.Types.INTEGER);
         }
+
+        int rowsAffected = statement.executeUpdate();
+
+        if (rowsAffected == 0) {
+            _logger.log(Level.WARNING, "No data has been inserted!");
+            throw new UnsupportedOperationException();
+        }
+
+        _logger.log(Level.INFO, "Insertion done");
+    } catch (SQLException ex) {
+        _logger.log(Level.SEVERE, ex.getMessage());
+    } finally {
+        closeStatement(statement);
     }
+}
+
 
     @Override
     public void update(Matiere matiere) {
@@ -54,19 +62,19 @@ public class MatiereService implements Iservices<Matiere> {
             statement.setString(1, matiere.getNomMatiere());
             statement.setInt(2, matiere.getModule().getIdModule());
             statement.setInt(3, matiere.getIdMatiere());
-            
+
             int rowsAffected = statement.executeUpdate();
-            
+
             if (rowsAffected == 0) {
-                _logger.log(Level.WARNING, "No data been updated !");
+                _logger.log(Level.WARNING, "No data has been updated!");
                 throw new UnsupportedOperationException();
             }
-            
+
             _logger.log(Level.INFO, "Update done");
         } catch (SQLException ex) {
             _logger.log(Level.SEVERE, ex.getMessage());
         } finally {
-            CloseStatement(statement);
+            closeStatement(statement);
         }
     }
 
@@ -76,77 +84,110 @@ public class MatiereService implements Iservices<Matiere> {
             String deleteMatiere = "DELETE FROM `matieres` WHERE `id_matiere` = ?;";
             statement = _connection.prepareStatement(deleteMatiere);
             statement.setInt(1, matiere.getIdMatiere());
-            
+
             int rowsAffected = statement.executeUpdate();
-            
+
             if (rowsAffected == 0) {
-                _logger.log(Level.WARNING, "No data got deleted!");
+                _logger.log(Level.WARNING, "No data has been deleted!");
                 throw new UnsupportedOperationException();
             }
-            
+
             _logger.log(Level.INFO, "Deleted");
         } catch (SQLException ex) {
             _logger.log(Level.SEVERE, ex.getMessage());
         } finally {
-            CloseStatement(statement);
+            closeStatement(statement);
         }
     }
 
     @Override
     public Matiere getById(int id) throws NoDataFoundException {
-        Matiere matiere = this.getAll().stream()
-                .filter(m -> m.getIdMatiere() == id)
-                .findFirst()
-                .orElse(null);
-        
-        if (matiere == null) {
-            throw new NoDataFoundException("No matiere found with id " + id);
+        String selectMatiereById = "SELECT * FROM `matieres` WHERE `id_matiere` = ?;";
+
+        try (PreparedStatement stmt = _connection.prepareStatement(selectMatiereById)) {
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                int matiereId = resultSet.getInt("id_matiere");
+                String matiereNom = resultSet.getString("nom_matiere");
+                int moduleId = resultSet.getInt("id_module");
+
+                // Retrieve the associated Module object
+                Module module = getModuleById(moduleId);
+
+                return new Matiere(matiereId, matiereNom, module);
+            } else {
+                throw new NoDataFoundException("No matiere found with id " + id);
+            }
+        } catch (SQLException ex) {
+            _logger.log(Level.SEVERE, ex.getMessage());
+            return null;
         }
-        
-        return matiere;
     }
 
     @Override
     public List<Matiere> getAll() {
-        boolean hasData = false;
         List<Matiere> matiereList = new ArrayList<>();
-        
+        boolean hasData = false;
+
         try {
             String selectAllMatieres = "SELECT * FROM `matieres`;";
             statement = _connection.prepareStatement(selectAllMatieres);
             ResultSet resultSet = statement.executeQuery();
-            
+
             while (resultSet.next()) {
                 hasData = true;
-                Matiere matiere = new Matiere(
-                        resultSet.getInt("id_matiere"),
-                        resultSet.getString("nom_matiere")
-                );
-                
-                Module module = new ModuleService().getById(resultSet.getInt("id_module"));
-                matiere.setModule(module);
-                
+                int matiereId = resultSet.getInt("id_matiere");
+                String matiereNom = resultSet.getString("nom_matiere");
+                int moduleId = resultSet.getInt("id_module");
+
+                // Retrieve the associated Module object
+                Module module = getModuleById(moduleId);
+
+                Matiere matiere = new Matiere(matiereId, matiereNom, module);
                 matiereList.add(matiere);
             }
-            
+
             if (!hasData) {
-                throw new NoDataFoundException("No data found in table: matiere");
+                throw new NoDataFoundException("No data found in table: matieres");
             }
         } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, ex.getMessage(), this.getClass());
+            _logger.log(Level.SEVERE, ex.getMessage());
         } finally {
-            CloseStatement(statement);
+            closeStatement(statement);
         }
-        
+
         return matiereList;
     }
-    
-    private void CloseStatement(PreparedStatement statement) {
+
+    private Module getModuleById(int moduleId) {
+        String selectModuleById = "SELECT * FROM `modules` WHERE `id_module` = ?;";
+
+        try (PreparedStatement stmt = _connection.prepareStatement(selectModuleById)) {
+            stmt.setInt(1, moduleId);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                int moduleEtudeId = resultSet.getInt("id_module");
+                String moduleEtudeDescription = resultSet.getString("nom_module");
+
+                return new Module(moduleEtudeId, moduleEtudeDescription);
+            }
+        } catch (SQLException ex) {
+            _logger.log(Level.SEVERE, ex.getMessage());
+        }
+
+        return null;
+    }
+
+    private void closeStatement(PreparedStatement statement) {
         try {
             if (statement != null) {
                 statement.close();
             }
         } catch (SQLException ex) {
+            _logger.log(Level.SEVERE, ex.getMessage());
         }
     }
 }

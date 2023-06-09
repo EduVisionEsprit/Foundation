@@ -107,6 +107,11 @@ this.programme=selectedProgramme;   }
 
 
     }
+        @Override
+public String toString() {
+    return nomModule;
+}
+
 
     
 }
