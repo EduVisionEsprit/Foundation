@@ -11,11 +11,13 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import tn.eduVision.GUI.Login.LoginWindow;
@@ -28,6 +30,16 @@ import tn.eduVision.GUI.Login.LoginWindow;
 public class SignUpController implements Initializable {
 
     public void signUpFrom(ActionEvent event) {
+        
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }
+
+    @FXML
+    private void signUpFrom(MouseEvent event) {
         try {
             
              FXMLLoader loader = new FXMLLoader(getClass().getResource("/tn/eduVision/GUI/SignUp/SignupForm.fxml"));
@@ -65,11 +77,6 @@ public class SignUpController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(SignUpController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
 }
