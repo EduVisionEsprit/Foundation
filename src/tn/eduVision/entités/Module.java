@@ -5,6 +5,10 @@
 package tn.eduVision.entités;
 
 import java.util.List;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -21,6 +25,7 @@ public class Module {
         this.nomModule = nomModule;
         this.programme = programme;
     }
+   
 
     public Module(int idModule, String nomModule, List<Matiere> matieres) {
         this.idModule = idModule;
@@ -39,15 +44,20 @@ public class Module {
         this.programme = programme;
         this.matieres = matieres;
     }
+    
+    
 
-    public Module(String module_3) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 
     public Module() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public Module(String nom) {
+this.nomModule=nom;    }
+
+    public Module(String nomModule, ProgrammeEtude selectedProgramme) {
+this.nomModule=nomModule;
+this.programme=selectedProgramme;   }
     public int getIdModule() {
         return idModule;
     }
@@ -80,7 +90,23 @@ public class Module {
         this.matieres = matieres;
     }
 
+           public StringProperty nomModuleProperty() {
+        return new SimpleStringProperty(nomModule);
+    }
+
+    public IntegerProperty idProperty() {
+        return new SimpleIntegerProperty(idModule);
+    }
+
+
+
+
   
+        public Object programmeProperty() {
+    return this.getProgramme().descriptionProperty();
+
+
+    }
 
     
 }

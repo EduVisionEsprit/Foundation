@@ -1,0 +1,44 @@
+/* Styles for gestionmodules.fxml */
+
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-family: Arial;
+    -fx-underline: true;
+    -fx-text-fill: #876a14;
+}
+
+.label-description {
+    -fx-font-size: 12px;
+    -fx-font-family: Arial;
+}
+
+.text-field-description {
+    -fx-pref-height: 48px;
+    -fx-pref-width: 227px;
+}
+
+.pane-description {
+    -fx-background-color: #f2f2f2;
+    -fx-padding: 10px;
+}
+
+.button-action {
+    -fx-pref-width: 80px;
+    -fx-pref-height: 30px;
+    -fx-font-family: Arial;
+}
+
+.table-view {
+    -fx-pref-width: 389px;
+    -fx-pref-height: 206px;
+}
+
+.table-column {
+    -fx-pref-width: 160px;
+}
+
+.mainFxmlClass {
+    -fx-background-color: #f8f8f8;
+}
+
+

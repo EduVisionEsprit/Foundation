@@ -4,20 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import tn.eduVision.entités.Module;
 import tn.eduVision.entités.ProgrammeEtude;
 import tn.eduVision.exceptions.NoDataFoundException;
-import tn.eduVision.services.Iservices;
 import tn.eduVision.tools.CustomLogger;
 import tn.eduVision.tools.SqlConnectionManager;
 
 public class ProgrammeEtudeService implements Iservices<ProgrammeEtude> {
- 
+
     private Connection _connection;
     private static final Logger _logger = CustomLogger.getInstance().getLogger();
     private PreparedStatement statement = null;
@@ -25,39 +22,36 @@ public class ProgrammeEtudeService implements Iservices<ProgrammeEtude> {
     public ProgrammeEtudeService() {
         _connection = SqlConnectionManager.getInstance().getConnection();
     }
-   
 
- @Override
-public void add(ProgrammeEtude programmeEtude) {
-    PreparedStatement programmeStatement = null;
-    
-    try {
-        String insertProgrammeEtude = "INSERT INTO `programmes_etudes` (`description`) VALUES (?);";
-        programmeStatement = _connection.prepareStatement(insertProgrammeEtude, Statement.RETURN_GENERATED_KEYS);
-        programmeStatement.setString(1, programmeEtude.getDescription());
+    @Override
+    public void add(ProgrammeEtude programmeEtude) {
+        PreparedStatement programmeStatement = null;
 
-        int rowsAffected = programmeStatement.executeUpdate();
+        try {
+            String insertProgrammeEtude = "INSERT INTO `programmes_etudes` (`description`) VALUES (?);";
+            programmeStatement = _connection.prepareStatement(insertProgrammeEtude, PreparedStatement.RETURN_GENERATED_KEYS);
+            programmeStatement.setString(1, programmeEtude.getDescription());
 
-        if (rowsAffected == 0) {
-            _logger.log(Level.WARNING, "No data has been inserted!");
-            throw new UnsupportedOperationException();
+            int rowsAffected = programmeStatement.executeUpdate();
+
+            if (rowsAffected == 0) {
+                _logger.log(Level.WARNING, "No data has been inserted!");
+                throw new UnsupportedOperationException();
+            }
+
+            ResultSet generatedKeys = programmeStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int programmeEtudeId = generatedKeys.getInt(1);
+                programmeEtude.setId(programmeEtudeId);
+            }
+
+            _logger.log(Level.INFO, "Insertion done");
+        } catch (SQLException ex) {
+            _logger.log(Level.SEVERE, ex.getMessage());
+        } finally {
+            closeStatement(programmeStatement);
         }
-
-        ResultSet generatedKeys = programmeStatement.getGeneratedKeys();
-        if (generatedKeys.next()) {
-            int programmeEtudeId = generatedKeys.getInt(1);
-            programmeEtude.setId(programmeEtudeId);
-        }
-
-        _logger.log(Level.INFO, "Insertion done");
-    } catch (SQLException ex) {
-        _logger.log(Level.SEVERE, ex.getMessage());
-    } finally {
-        CloseStatement(programmeStatement);
     }
-}
-
-
 
     @Override
     public void update(ProgrammeEtude programmeEtude) {
@@ -70,7 +64,7 @@ public void add(ProgrammeEtude programmeEtude) {
             int rowsAffected = statement.executeUpdate();
 
             if (rowsAffected == 0) {
-                _logger.log(Level.WARNING, "No data been updated!");
+                _logger.log(Level.WARNING, "No data has been updated!");
                 throw new UnsupportedOperationException();
             }
 
@@ -78,7 +72,7 @@ public void add(ProgrammeEtude programmeEtude) {
         } catch (SQLException ex) {
             _logger.log(Level.SEVERE, ex.getMessage());
         } finally {
-            CloseStatement(statement);
+            closeStatement(statement);
         }
     }
 
@@ -92,7 +86,7 @@ public void add(ProgrammeEtude programmeEtude) {
             int rowsAffected = statement.executeUpdate();
 
             if (rowsAffected == 0) {
-                _logger.log(Level.WARNING, "No data got deleted!");
+                _logger.log(Level.WARNING, "No data has been deleted!");
                 throw new UnsupportedOperationException();
             }
 
@@ -100,13 +94,13 @@ public void add(ProgrammeEtude programmeEtude) {
         } catch (SQLException ex) {
             _logger.log(Level.SEVERE, ex.getMessage());
         } finally {
-            CloseStatement(statement);
+            closeStatement(statement);
         }
     }
 
     @Override
     public ProgrammeEtude getById(int id) throws NoDataFoundException {
-        ProgrammeEtude programmeEtude = this.getAll().stream()
+        ProgrammeEtude programmeEtude = getAll().stream()
                 .filter(p -> p.getId() == id)
                 .findFirst()
                 .orElse(null);
@@ -144,18 +138,19 @@ public void add(ProgrammeEtude programmeEtude) {
         } catch (SQLException ex) {
             _logger.log(Level.SEVERE, ex.getMessage(), this.getClass());
         } finally {
-            CloseStatement(statement);
+            closeStatement(statement);
         }
 
         return programmeEtudeList;
     }
 
-    private void CloseStatement(PreparedStatement statement) {
+    private void closeStatement(PreparedStatement statement) {
         try {
             if (statement != null) {
                 statement.close();
             }
         } catch (SQLException ex) {
+            _logger.log(Level.SEVERE, ex.getMessage());
         }
     }
 }

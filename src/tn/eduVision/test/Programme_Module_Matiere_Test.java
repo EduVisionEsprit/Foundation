@@ -24,12 +24,24 @@ public class Programme_Module_Matiere_Test {
  
     public static void main(String[] args) {
       
-        // Testing ModuleService
-  /*     ModuleService moduleService = new ModuleService();
+        //Testing ModuleService
+     ModuleService moduleService = new ModuleService();
+     ProgrammeEtude e =new ProgrammeEtude(1, "cc");
 
         // Create a new module
-   Module module = new Module(2, "Module 2");
-
+   Module module = new Module(2, "Module added");
+        System.out.println(module.getIdModule());
+        System.out.println(module.getNomModule());
+           Module modulea = new Module(2, "Module 3",e);
+        System.out.println(modulea.getIdModule());
+        System.out.println(modulea.getNomModule());
+                System.out.println(modulea.getProgramme().getDescription());
+                
+                       moduleService.add(module);
+                       module.setNomModule("cc");
+                       moduleService.update(module);
+                       
+    }}        
         // Add the module
      //   moduleService.add(module);
 
@@ -38,15 +50,14 @@ public class Programme_Module_Matiere_Test {
         //moduleService.update(module);}}
 
         // Get all modules
-        List<Module> modules = moduleService.getAll();
-        System.out.println("Modules:");
-        for (Module m : modules) {
-            System.out.println("ID: " + m.getIdModule() + ", Name: " + m.getNomModule());
-              }
-          // Delete the module
-           //     moduleService.delete(module);
 
     
+   // Add the module
+
+// Delete the module
+        //     moduleService.delete(module);
+
+    /*
 
      
   // Testing MatiereService
@@ -60,7 +71,7 @@ public class Programme_Module_Matiere_Test {
         // Update the matiere
         matiere.setNomMatiere("Updated Matiere 1");
         matiereService.update(matiere);
-*/
+/*
 /*
         // Get all matieres
         List<Matiere> matieres = matiereService.getAll();
@@ -72,7 +83,7 @@ public class Programme_Module_Matiere_Test {
         // Delete the matiere
         //matiereService.delete(matiere);
     
-      // Testing ProgrammeEtudeService
+    /*  // Testing ProgrammeEtudeService
         ProgrammeEtudeService programmeEtudeService = new ProgrammeEtudeService();
 
         // Create a new programme etude
@@ -96,8 +107,8 @@ public class Programme_Module_Matiere_Test {
        List<ProgrammeEtude> programmeEtudes = programmeEtudeService.getAll();
         System.out.println("Programme Etudes:");
              // Delete the programme etude
-        programmeEtudeService.delete(programmeEtude);
-    }   }
+        programmeEtudeService.delete(programmeEtude);*/
+    
 
 
     
