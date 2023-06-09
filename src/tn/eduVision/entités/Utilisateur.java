@@ -16,6 +16,8 @@ public class Utilisateur {
     private String email;
     private String motDePasse;
     private Role role;
+    
+    public Utilisateur() {}
 
     public Utilisateur(int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role) {
         this.idUtilisateur = idUtilisateur;
