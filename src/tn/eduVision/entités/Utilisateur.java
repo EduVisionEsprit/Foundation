@@ -29,9 +29,7 @@ public class Utilisateur {
     }
     
     
-      public Utilisateur() {
-      
-    }
+    
 
     public int getIdUtilisateur() {
         return idUtilisateur;
@@ -79,6 +77,10 @@ public class Utilisateur {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+      @Override
+    public String toString() {
+        return getNom();
     }
  
     
