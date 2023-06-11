@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tn.eduVision.GUI;
+package tn.eduVision.GUI.SignUp;
 
 /**
  *
- * @author job_j
+ * @author thinkpad
  */
-public class GuiExample {
+public class SignUp {
     
 }
