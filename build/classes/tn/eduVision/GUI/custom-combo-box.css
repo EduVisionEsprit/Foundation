@@ -1,0 +1,11 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.custom-combo-box {
+    /* Define your regular styling for the ComboBox */
+}
+
+.custom-combo-box.invalid {
+    -fx-border-color: red;
+}
