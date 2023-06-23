@@ -121,6 +121,7 @@ public class MaterielService implements Iservices<Materiel>{
 
     @Override
     public List<Materiel> getAll() throws NoDataFoundException {
+
         boolean HasData = false;
         List<Materiel> salleList = new ArrayList<>();
         try{

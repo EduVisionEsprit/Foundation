@@ -261,7 +261,6 @@ private Spinner<Integer> createMinuteSpinner(int initialValue) {
                     handleRectangleClick(clickedDate);
                 }
             });
-                //rectangle.setWidth(500);
                 double rectangleWidth =(calendarWidth/7) - strokeWidth - spacingH;
                 rectangle.setWidth(rectangleWidth);
                 double rectangleHeight = (calendarHeight/6) - strokeWidth - spacingV;
@@ -369,19 +368,3 @@ private Spinner<Integer> createMinuteSpinner(int initialValue) {
 
 
 }
-
-    
-    /*List<CalendarActivity> calendarActivities = new ArrayList<>();
-        int year = dateFocus.getYear();
-        int month = dateFocus.getMonth().getValue();
-
-        Random random = new Random();
-        for (int i = 0; i < 50; i++) {
-            ZonedDateTime time = ZonedDateTime.of(year, month, random.nextInt(27)+1, 16,0,0,0,dateFocus.getZone());
-            calendarActivities.add(new CalendarActivity(time, "aaaaaaa", 1111));
-        }
-
-        return createCalendarMap(calendarActivities);*/
-
-
-    
