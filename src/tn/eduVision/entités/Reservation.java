@@ -4,6 +4,7 @@
  */
 package tn.eduVision.entités;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 /**
@@ -13,21 +14,31 @@ import java.util.Date;
 public class Reservation {
     private int idReservation;
     private Utilisateur utilisateur;
-    private Salle salle;
     private Date dateReservation;
-    private Date heureDebut;
-    private Date heureFin;
+    private LocalTime heureDebut;
+    private LocalTime heureFin;
     private Etat etat;
+    private Ressource ressource;
 
-    public Reservation(int idReservation, Utilisateur utilisateur, Salle salle, Date dateReservation, Date heureDebut, Date heureFin, Etat etat) {
+    public Reservation(int idReservation, Utilisateur utilisateur, Date dateReservation, LocalTime heureDebut, LocalTime heureFin, Etat etat, Ressource ressource) {
         this.idReservation = idReservation;
         this.utilisateur = utilisateur;
-        this.salle = salle;
         this.dateReservation = dateReservation;
         this.heureDebut = heureDebut;
         this.heureFin = heureFin;
         this.etat = etat;
+        this.ressource = ressource;
     }
+
+    @Override
+    public String toString() {
+        return "Reservation{" + "idReservation=" + idReservation + ", dateReservation=" + dateReservation + ", heureDebut=" + heureDebut + ", heureFin=" + heureFin + ", etat=" + etat + '}';
+    }
+    
+    public Reservation(int idReservation){
+        this.idReservation = idReservation;
+    }
+    
 
     public int getIdReservation() {
         return idReservation;
@@ -45,14 +56,6 @@ public class Reservation {
         this.utilisateur = utilisateur;
     }
 
-    public Salle getSalle() {
-        return salle;
-    }
-
-    public void setSalle(Salle salle) {
-        this.salle = salle;
-    }
-
     public Date getDateReservation() {
         return dateReservation;
     }
@@ -61,19 +64,19 @@ public class Reservation {
         this.dateReservation = dateReservation;
     }
 
-    public Date getHeureDebut() {
+    public LocalTime getHeureDebut() {
         return heureDebut;
     }
 
-    public void setHeureDebut(Date heureDebut) {
+    public void setHeureDebut(LocalTime heureDebut) {
         this.heureDebut = heureDebut;
     }
 
-    public Date getHeureFin() {
+    public LocalTime getHeureFin() {
         return heureFin;
     }
 
-    public void setHeureFin(Date heureFin) {
+    public void setHeureFin(LocalTime heureFin) {
         this.heureFin = heureFin;
     }
 
@@ -83,6 +86,14 @@ public class Reservation {
 
     public void setEtat(Etat etat) {
         this.etat = etat;
+    }
+
+    public Ressource getRessource() {
+        return ressource;
+    }
+
+    public void setRessource(Ressource ressource) {
+        this.ressource = ressource;
     }
     
     

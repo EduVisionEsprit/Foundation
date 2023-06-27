@@ -27,9 +27,9 @@ public class DbConnectionTest {
         //sould only log info once
         //Connection connection2 = connectionManager.getConnection();
         MaterielService ms = new MaterielService();
-        Materiel m = new Materiel("test", 8, TypeRessource.Salle, 7);
+        Materiel m = new Materiel("test", 10, TypeRessource.Salle, 99);
         //ms.add(m);
-        
+        ms.update(m);
         Salle s = new Salle("aaa", 75, "test", "test", TypeSalle.Amphi, 7);
         SallesService ss = new SallesService();
         

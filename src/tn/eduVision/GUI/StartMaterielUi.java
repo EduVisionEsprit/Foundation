@@ -5,33 +5,37 @@
  */
 package tn.eduVision.GUI;
 
-/**
- *
- * @author job_j
- */
-
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tn.eduVision.GUI.*;
 
-
-public class Main extends Application {
-
+/**
+ *
+ * @author job_j
+ */
+public class StartMaterielUi extends Application {
+    
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("calander.fxml"));
+    public void start(Stage primaryStage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MaterielUI.fxml"));
         Parent root = loader.load();
-
-        primaryStage.setTitle("Calendar");
+        
+        MaterielUIController controller = loader.getController();
+        // You can pass any required dependencies to the controller here
+        
+        primaryStage.setTitle("Materiel UI");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
+    
 }
-

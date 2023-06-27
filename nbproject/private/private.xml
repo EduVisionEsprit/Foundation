@@ -3,20 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/Materiel.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/exceptions/ReservedRessourceException.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/services/GenralRessourcesDetails.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/Etat.java</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/calander.fxml</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/Materiel.java</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/services/SallesService.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/MaterielUI.fxml</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/StartMaterielUi.java</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/TypeRessource.java</file>
-            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/tools/CustomLogger.java</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/CalanderController.java</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/Main.java</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/CalendarActivity.java</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/Reservation.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/MaterielUIController.java</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/GuiExample.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/materielui.css</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/services/ResvationMaterielService.java</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/services/MaterielService.java</file>
+            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/GUI/confirmationadminfxml.css</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/test/DbConnectionTest.java</file>
-            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/services/Iservices.java</file>
-            <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/tools/SqlConnectionManager.java</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/Ressource.java</file>
             <file>file:/C:/Users/job_j/Desktop/PI%20dev/Foundation/src/tn/eduVision/entités/Salle.java</file>
         </group>
