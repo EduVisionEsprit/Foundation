@@ -11,9 +11,9 @@ package tn.eduVision.entités;
 public class Candidature {
     private int idCandidature;
     private Utilisateur utilisateur;
-    private Stage stage;
+    private StageEtudiant stage;
 
-    public Candidature(int idCandidature, Utilisateur utilisateur, Stage stage) {
+    public Candidature(int idCandidature, Utilisateur utilisateur, StageEtudiant stage) {
         this.idCandidature = idCandidature;
         this.utilisateur = utilisateur;
         this.stage = stage;
@@ -36,11 +36,11 @@ public class Candidature {
         this.utilisateur = utilisateur;
     }
 
-    public Stage getStage() {
+    public StageEtudiant getStage() {
         return stage;
     }
 
-    public void setStage(Stage stage) {
+    public void setStage(StageEtudiant stage) {
         this.stage = stage;
     }
 

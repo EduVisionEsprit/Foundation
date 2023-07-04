@@ -23,6 +23,7 @@ public class Communication {
         this.message = message;
     }
 
+    
     public int getIdCommunication() {
         return idCommunication;
     }

@@ -3,24 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tn.eduVision.entités;
+package tn.eduVision.services;
 
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.scene.control.Label;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 
@@ -65,8 +59,12 @@ public class EspaceStageEtudiant extends Application{
         
         addButton2.setOnAction(e -> {
         
-         ListeStagesEtudiant liste = new ListeStagesEtudiant();
-         liste.start(primaryStage);
+         ListeStageEtudiant liste = new ListeStageEtudiant();
+            try {
+                liste.start(primaryStage);
+            } catch (IOException ex) {
+                Logger.getLogger(EspaceStageEtudiant.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
     
         });

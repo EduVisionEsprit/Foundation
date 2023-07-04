@@ -10,11 +10,11 @@ package tn.eduVision.entités;
  */
 public class EvaluationStage {
     private int idEvaluation;
-    private Stage stage;
+    private StageEtudiant stage;
     private Utilisateur utilisateur;
     private float note;
 
-    public EvaluationStage(int idEvaluation, Stage stage, Utilisateur utilisateur, float note) {
+    public EvaluationStage(int idEvaluation, StageEtudiant stage, Utilisateur utilisateur, float note) {
         this.idEvaluation = idEvaluation;
         this.stage = stage;
         this.utilisateur = utilisateur;
@@ -29,11 +29,11 @@ public class EvaluationStage {
         this.idEvaluation = idEvaluation;
     }
 
-    public Stage getStage() {
+    public StageEtudiant getStage() {
         return stage;
     }
 
-    public void setStage(Stage stage) {
+    public void setStage(StageEtudiant stage) {
         this.stage = stage;
     }
 

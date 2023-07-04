@@ -3,13 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/test/DbConnectionTest.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/tools/SqlConnectionManager.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/entités/Personne.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/tools/CustomLogger.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/services/Iservices.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/test/EntitiIdSample.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/entités/IEntitiy.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/entités/Role.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/GUI/Login/LoginController.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/services/UserServices.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/services/ESPACE_ETUDIANT_LISTE_STAGESController.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/services/ESPACE_STAGE_ENSEIGNANT.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/services/ESPACE_STAGE_ENSEIGNANTController.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/GUI/Login/LoginWindow.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/GUI/Login/login.fxml</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/services/DecisionButtonCell.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/GUI/Home/HomeController.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/services/ListeStageEnseignant.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/services/ListeStageEtudiant.java</file>
+            <file>file:/C:/Users/Meher/Documents/esprit/Foundation/src/tn/eduVision/GUI/Home/Home.fxml</file>
         </group>
     </open-files>
 </project-private>

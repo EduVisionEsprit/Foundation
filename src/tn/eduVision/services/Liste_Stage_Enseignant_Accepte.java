@@ -1,7 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package tn.eduVision.services;
 
+
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,11 +21,16 @@ import tn.eduVision.entités.Role;
 import tn.eduVision.entités.StageEtudiant;
 import tn.eduVision.entités.Utilisateur;
 
-public class ListeStageEtudiant extends Application{
+/**
+ *
+ * @author Meher
+ */
+public class Liste_Stage_Enseignant_Accepte extends Application {
     
     
     
-    public static void main(String[] args) {
+    
+     public static void main(String[] args) {
         launch(args);
  
        
@@ -28,20 +38,22 @@ public class ListeStageEtudiant extends Application{
     
     
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/ESPACE_ETUDIANT_LISTE_STAGES.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/ESPACE_ENSEIGNANT_LISTE_STAGE_Accepte.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-    public List<StageEtudiant> getListeStagesFromDatabase() {
+    
+    
+    
+    
+    
+    public List<StageEtudiant> getListeStagesaccepteFromDatabase() {
         List<StageEtudiant> listeStages = new ArrayList<>();
          try {
-             SessionManager sessionManager = SessionManager.getInstance();
-             int userId = sessionManager.getUserId();
             DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
-            String query = "SELECT * from stages where id_utilisateur="+userId;
-            String query2 = "select * from Utilisateurs where id_utilisateur="+userId;
+            String query = "SELECT * from stages";
+            String query2 = "select * from Utilisateurs";
             ResultSet resultSet = dbManager.executeQuery(query);
             ResultSet resultSet2 = dbManager.executeQuery(query2);
             
@@ -82,64 +94,25 @@ public class ListeStageEtudiant extends Application{
                 stage.setTitrestage(titreStage);
                 stage.setDescriptionstage(descriptionStage);
                 stage.setDecision(decision);
+                 System.out.println("Nomentreprise: " + stage.getNomentreprise());
+                 System.out.println("Nomentreprise: " + stage.getUtilisateur()); 
+                 System.out.println("Nomentreprise: " + utilisateur.getIdUtilisateur());
                  
                 
                  listeStages.add(stage);
                  
                  
-                      
                  
             }}
-dbManager.closeConnection();
-            
+
+            dbManager.closeConnection();
         } catch (SQLException e) {
             System.out.println(e);
         }
 
         return listeStages;
     }
-
-  
-    
-    
-   public void updateStageInDatabase(StageEtudiant stage) {
-       
-     System.out.println(stage.getNomentreprise());
-        try {
-            DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
-
-            String query = "UPDATE stages SET nom_entreprise = ?, titre_stage = ?, description_stage = ? WHERE id_stage = ?";
-
-            try (PreparedStatement statement = dbManager.getConnection().prepareStatement(query)) {
-                statement.setString(1, stage.getNomentreprise());
-                statement.setString(2, stage.getTitrestage());
-                statement.setString(3, stage.getDescriptionstage());
-                statement.setInt(4, stage.getIdStage());
-
-                int rowsAffected = statement.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    System.out.println("Stage updated successfully.");
-                } else {
-                    System.out.println("Failed to update stage.");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     
     
     
-    
-    
-    
-    
-    
-    
-    
-     
 }
-

@@ -11,13 +11,13 @@ package tn.eduVision.entités;
 public class SuiviStage {
     private int idSuivi;
     private Utilisateur utilisateur;
-    private Stage stage;
+    private StageEtudiant stage;
     private String rapportStage;
     private Boolean validationRapport;
     
     // Ajoutez ici les getters et les setters
 
-    public SuiviStage(int idSuivi, Utilisateur utilisateur, Stage stage, String rapportStage, Boolean validationRapport) {
+    public SuiviStage(int idSuivi, Utilisateur utilisateur, StageEtudiant stage, String rapportStage, Boolean validationRapport) {
         this.idSuivi = idSuivi;
         this.utilisateur = utilisateur;
         this.stage = stage;
@@ -41,11 +41,11 @@ public class SuiviStage {
         this.utilisateur = utilisateur;
     }
 
-    public Stage getStage() {
+    public StageEtudiant getStage() {
         return stage;
     }
 
-    public void setStage(Stage stage) {
+    public void setStage(StageEtudiant stage) {
         this.stage = stage;
     }
 

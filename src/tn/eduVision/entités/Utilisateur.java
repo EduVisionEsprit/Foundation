@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package tn.eduVision.entités;
-
-/**
- *
- * @author Sayf
- */
 
 public class Utilisateur {
     private int idUtilisateur;
@@ -25,6 +16,8 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
         this.role = role;
     }
+
+    
 
     public int getIdUtilisateur() {
         return idUtilisateur;
@@ -73,9 +66,10 @@ public class Utilisateur {
     public void setRole(Role role) {
         this.role = role;
     }
- 
     
- 
-
-   
+    
+    @Override
+public String toString() {
+    return "Utilisateur [id=" + idUtilisateur + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", role=" + role + "]";
+}
 }

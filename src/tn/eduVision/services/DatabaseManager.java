@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tn.eduVision.entités;
+package tn.eduVision.services;
 
 
 import java.sql.Connection;
@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 
 
 /**
@@ -27,6 +28,9 @@ public class DatabaseManager {
         connection = DriverManager.getConnection(url, username, password);
     }
 
+    
+    
+    
     public void closeConnection() throws SQLException {
         if (connection != null) {
             connection.close();
@@ -42,6 +46,11 @@ public class DatabaseManager {
         Statement statement = connection.createStatement();
         return statement.executeQuery(query);
     }
+
+   public Connection getConnection() {
+        return connection;
+    }
+    
     
     
     

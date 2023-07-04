@@ -11,5 +11,7 @@ package tn.eduVision.entités;
 public enum Role {
     ENSEIGNANT,
     ADMIN,
-    ETUDIANT
-}
+    ETUDIANT;
+
+    
+    }

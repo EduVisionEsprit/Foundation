@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="782.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.services.ESPACE_ENSEIGNANT_LISTE_STAGESController">
+    <stylesheets>
+        <URL value="@espace_etudiant_liste_stages.css" />
+    </stylesheets>
+   <children>
+      <TableView fx:id="tableView" layoutX="7.0" layoutY="26.0" prefHeight="463.0" prefWidth="782.0">
+        <columns>
+          <TableColumn fx:id="nom_entreprise" prefWidth="139.999966442585" text="Nom Entreprise" />
+          <TableColumn fx:id="titre_stage" prefWidth="172.7999267578125" text="Titre de Stage" />
+            <TableColumn fx:id="description_stage" prefWidth="158.4000244140625" text="Description de Stage" />
+            <TableColumn fx:id="id_user" prefWidth="80.79995727539062" text="ID utilisateur" />
+          
+            <TableColumn fx:id="decision" prefWidth="224.0" text="Décision    " />
+        </columns>
+         <effect>
+            <Glow />
+         </effect>
+      </TableView>
+      <Button fx:id="stagehome" layoutX="41.0" layoutY="515.0" mnemonicParsing="false" onAction="#stagehome" text="Stage Home" />
+   </children>
+</AnchorPane>

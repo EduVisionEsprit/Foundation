@@ -1,41 +1,28 @@
-package tn.eduVision.services;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package tn.eduVision.entités;
 
-import java.io.IOException;
+import tn.eduVision.services.DatabaseManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import tn.eduVision.entités.Role;
-import tn.eduVision.entités.StageEtudiant;
-import tn.eduVision.entités.Utilisateur;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-
-public class ListeStageEnseignant extends Application{
+/**
+ *
+ * @author Meher
+ */
+public class test202 {
     
     
-    
+        
     public static void main(String[] args) {
-        launch(args);
- 
-       
-    }
+        
     
-    
-    public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/ESPACE_ENSEIGNANT_LISTE_STAGES.fxml"));
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public List<StageEtudiant> getListeStagesFromDatabase() {
-        List<StageEtudiant> listeStages = new ArrayList<>();
-         try {
+       try {
             DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
             String query = "SELECT * from stages";
             String query2 = "select * from Utilisateurs";
@@ -59,6 +46,7 @@ public class ListeStageEnseignant extends Application{
                     utilisateur.setEmail(email);
                     utilisateur.setMotDePasse(motDePasse);
                     utilisateur.setRole(role);
+                    System.out.println("Nomentreprise: " + utilisateur.getIdUtilisateur());    
             
             
             
@@ -79,24 +67,19 @@ public class ListeStageEnseignant extends Application{
                 stage.setDescriptionstage(descriptionStage);
                 stage.setDecision(decision);
                  System.out.println("Nomentreprise: " + stage.getNomentreprise());
-                 System.out.println("Nomentreprise: " + stage.getUtilisateur()); 
-                 System.out.println("Nomentreprise: " + utilisateur.getIdUtilisateur());
-                 
-                
-                 listeStages.add(stage);
+                 System.out.println("Nomentreprise: " + stage.getUtilisateur());    
+                  
                  
                  
                  
+                 dbManager.closeConnection();
             }}
-
-            dbManager.closeConnection();
         } catch (SQLException e) {
             System.out.println(e);
         }
-
-        return listeStages;
     }
-
-  
+    
+    
    
+    
 }

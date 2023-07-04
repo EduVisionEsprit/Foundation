@@ -10,32 +10,40 @@ import java.util.List;
  *
  * @author Sayf
  */
-public class Stage {
+public class StageEtudiant {
     private int idStage;
     private Utilisateur utilisateur;
-    private String nomOffreStage;
-    private String critereSelection;
+    private String nomentreprise;
+    private String titrestage;
+     private String descriptionstage;
+     private String decision;
+     private String path;
     
     private List<Candidature> candidatures;
     // Ajoutez ici les getters et les setters
 
-    public Stage(int idStage, Utilisateur utilisateur, String nomOffreStage, String critereSelection, List<Candidature> candidatures) {
+    public StageEtudiant(int idStage, Utilisateur utilisateur, String nomentreprise, String titrestage,String descriptionstage,String decision) {
         this.idStage = idStage;
         this.utilisateur = utilisateur;
-        this.nomOffreStage = nomOffreStage;
-        this.critereSelection = critereSelection;
-        this.candidatures = candidatures;
+        this.nomentreprise = nomentreprise;
+        this.titrestage = titrestage;
+        this.descriptionstage = descriptionstage;
+        this.decision=decision;
+        
+        
     }
+
+    
 
     public int getIdStage() {
         return idStage;
     }
 
-    public void setIdStage(int idStage) {
+    public void setStageId(int idStage) {
         this.idStage = idStage;
     }
 
-    public Utilisateur getUtilisateur() {
+   public Utilisateur getUtilisateur() {
         return utilisateur;
     }
 
@@ -43,22 +51,40 @@ public class Stage {
         this.utilisateur = utilisateur;
     }
 
-    public String getNomOffreStage() {
-        return nomOffreStage;
+    public String getNomentreprise() {
+        return nomentreprise;
     }
 
-    public void setNomOffreStage(String nomOffreStage) {
-        this.nomOffreStage = nomOffreStage;
+    public void setNomentreprise(String nomentreprise) {
+        this.nomentreprise = nomentreprise;
     }
 
-    public String getCritereSelection() {
-        return critereSelection;
+    public String getTitrestage() {
+        return titrestage;
     }
 
-    public void setCritereSelection(String critereSelection) {
-        this.critereSelection = critereSelection;
+    public void setTitrestage(String titrestage) {
+        this.titrestage = titrestage;
+    }
+    
+    
+    public String getDescriptionstage() {
+        return descriptionstage;
     }
 
+    public void setDescriptionstage(String Descriptionstage) {
+        this.descriptionstage = descriptionstage;
+    }
+
+    
+    
+    public String getDecision() {
+        return decision;
+    }
+
+    public void setDecision(String decesion) {
+        this.decision = decision;
+    }
     public List<Candidature> getCandidatures() {
         return candidatures;
     }
@@ -66,5 +92,18 @@ public class Stage {
     public void setCandidatures(List<Candidature> candidatures) {
         this.candidatures = candidatures;
     }
+    
+    
+    
+    @Override
+public String toString() {
+    return "Stage ID: " + idStage + 
+           "\nUtilisateur: " + utilisateur + 
+           "\nNom Entreprise: " + nomentreprise + 
+           "\nTitre de Stage: " + titrestage +
+           "\nDescription de Stage: " + descriptionstage +
+           "\nDecision: " + decision;
+}
+
     
 }
