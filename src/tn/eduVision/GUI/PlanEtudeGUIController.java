@@ -37,7 +37,6 @@ import javafx.util.Callback;
 import tn.eduVision.entités.Groupe;
 import tn.eduVision.entités.Module;
 import tn.eduVision.entités.ProgrammeEtude;
-import tn.eduVision.services.GroupeService;
 import tn.eduVision.services.ModuleService;
 import tn.eduVision.services.ProgrammeEtudeService;
 import tn.eduVision.entités.Matiere;
