@@ -219,7 +219,6 @@ private void saveTranscriptAsHtml(String transcript) {
                 writer.println("<td>" + note.getNote() + "</td>");
                 writer.println("<td>" + coefficient + "</td>");
                 writer.println("<td>" + moyenne + "</td>");
-                writer.println("<td>" + (moyenne >= 10.0 ? "Passable" : "Redouble") + "</td>");
                 writer.println("</tr>");
             }
 
