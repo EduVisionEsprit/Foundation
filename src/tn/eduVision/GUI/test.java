@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import tn.eduVision.services.ModuleService;
 
 /**
  *
@@ -22,15 +23,18 @@ import javafx.stage.Stage;
  */
 public class test extends Application {
     
-  @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("GestionMatieres.fxml"));
-        Parent root = loader.load();
+ @Override
+public void start(Stage primaryStage) throws Exception {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("PublierResultatUI.fxml"));
+    Parent root = loader.load();
 
-        primaryStage.setTitle("Modules");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }
+    ResultatEtudiantsController  controller = loader.getController();
+ 
+    Scene scene = new Scene(root);
+    primaryStage.setScene(scene);
+    primaryStage.show();
+}
+
 
     public static void main(String[] args) {
         launch(args);
