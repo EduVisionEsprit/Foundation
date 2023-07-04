@@ -22,6 +22,24 @@ public class ProgrammeEtudeService implements Iservices<ProgrammeEtude> {
     public ProgrammeEtudeService() {
         _connection = SqlConnectionManager.getInstance().getConnection();
     }
+public int getProgrammeIdByDescription(String description) {
+    int programId = 0;
+
+    try {
+        String selectProgramId = "SELECT id_programme FROM programmes_etudes WHERE description = ?;";
+        PreparedStatement statement = _connection.prepareStatement(selectProgramId);
+        statement.setString(1, description);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            programId = resultSet.getInt("id_programme");
+        }
+    } catch (SQLException ex) {
+        _logger.log(Level.SEVERE, ex.getMessage());
+    }
+
+    return programId;
+}
 
     @Override
     public void add(ProgrammeEtude programmeEtude) {

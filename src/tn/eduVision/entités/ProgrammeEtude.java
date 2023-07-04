@@ -20,7 +20,9 @@ public class ProgrammeEtude {
     private String description ; 
         private List<Module> modules;
 
-
+  public String toString() {
+        return getDescription(); // Replace getDescription() with the appropriate method to retrieve the description of the ProgrammeEtude
+    }
     public ProgrammeEtude(int id, String description, List<Module> modules) {
         this.id = id;
         this.description = description;

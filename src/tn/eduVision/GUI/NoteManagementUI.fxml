@@ -3,20 +3,31 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="NoteManagementController">
-   <children>
-        <ComboBox fx:id="cmbEtudiants" layoutX="40.0" layoutY="40.0" prefWidth="200.0" />
-        <ComboBox fx:id="cmbMatieres" layoutX="40.0" layoutY="100.0" prefWidth="200.0" />
-        <Slider fx:id="sliderNote" layoutX="40.0" layoutY="160.0" max="20" min="0" prefWidth="200.0" />
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.NoteManagementController">
+ <children>
+        <ComboBox fx:id="cmbEtudiants" layoutX="55.0" layoutY="40.0" prefWidth="200.0" />
+        <ComboBox fx:id="cmbMatieres" layoutX="55.0" layoutY="100.0" prefWidth="200.0" />
+        <TextField fx:id="txtNote" layoutX="55.0" layoutY="160.0" prefWidth="200.0" />
         <Button fx:id="btnSaisirNote" layoutX="103.0" layoutY="200.0" onAction="#saisirNote" text="Saisir Note" />
         <Button fx:id="btnUpdateNote" layoutX="330.0" layoutY="340.0" onAction="#updateNote" text="Update Note" />
         <Button fx:id="btnDeleteNote" layoutX="456.0" layoutY="340.0" onAction="#deleteNote" text="Delete Note" />
-        <ListView fx:id="lstNotes" layoutX="300.0" layoutY="14.0" prefHeight="320.0" prefWidth="260.0" />
-      <Label layoutX="14.0" layoutY="14.0" text="Etudiant:" />
-      <Label layoutX="12.0" layoutY="76.0" text="Matiere:" />
+        
+        <TableView fx:id="tblNotes" layoutX="40.0" layoutY="240.0" prefHeight="140.0" prefWidth="520.0">
+            <columns>
+                <TableColumn fx:id="colNomEtudiant" prefWidth="150.0" text="Nom Etudiant" />
+                <TableColumn fx:id="colMatiere" prefWidth="190.39996337890625" text="Matiere" />
+                <TableColumn fx:id="colNote" prefWidth="178.39996337890625" text="Note" />
+            </columns>
+        </TableView>
+        <Label fx:id="lblNote" layoutX="14.0" layoutY="164.0" text="Note:" />
+        <Label layoutX="14.0" layoutY="14.0" text="Etudiant:" />
+        <Label layoutX="12.0" layoutY="76.0" text="Matiere:" />
+        <Button fx:id="btnUpdateNote1" layoutX="199.0" layoutY="200.0" onAction="#updateNote" text="Modifier Note" />
+        <Button fx:id="btnSupprimerNote11" layoutX="314.0" layoutY="200.0" onAction="#deleteNote" text="Supprimer Note" />
     </children>
 </AnchorPane>

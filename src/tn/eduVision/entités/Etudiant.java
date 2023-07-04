@@ -1,21 +1,69 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package tn.eduVision.entités;
 
-import java.util.List;
+import java.util.ArrayList;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-/**
- *
- * @author Sayf
- */
+import java.util.List;
+import tn.eduVision.services.NoteManagementService;
+
 public class Etudiant extends Utilisateur {
     private int anneeInscrit;
     private int nombreAbsences;
-   
     private List<Absence> absences;
     private List<Note> notes;
+
+    // Constructor
+    public Etudiant() {
+        notes = new ArrayList<>(); // Initialize the notes list
+    }
+  
+   public double getMoyenne() {
+    // Calculate the moyenne for the student
+    double total = 0;
+    int count = 0;
+        NoteManagementService noteManagementService = new NoteManagementService(); // Create an instance of NoteManagementService
+
+    List<Note> fetchedNotes = noteManagementService.obtenirNotesParEtudiant(this);
+    
+    for (Note note : fetchedNotes) {
+        total += note.getNote();
+        count++;
+    }
+    
+    if (count != 0) {
+        return total / count;
+    } else {
+        return 0.0; // Handle the case when no notes are available
+    }
+}
+public String getResultat() {
+    double moyenne = getMoyenne();
+    
+    if (moyenne >= 10.0 && moyenne < 14.0) {
+        return "Réussite";
+    } else if (moyenne >= 14.0 && moyenne < 16.0) {
+        return "Réussite avec mention Bien";
+    } else if (moyenne >= 16.0) {
+        return "Réussite avec mention Très Bien";
+    } else {
+        return "Redouble";
+    }
+}
+
+    public StringProperty resultatProperty() {
+    return new SimpleStringProperty(getResultat());
+}
+
+
+ public Etudiant(int idUtilisateur, String nom, String prenom) {
+        super(idUtilisateur, nom, prenom);
+    }
+
+    public Etudiant(int idEtudiant) {
+        super();
+        this.setIdUtilisateur(idEtudiant);
+    }
 
     public Etudiant(int anneeInscrit, int nombreAbsences, List<Absence> absences, List<Note> notes, int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role) {
         super(idUtilisateur, nom, prenom, email, motDePasse, role);
@@ -24,21 +72,6 @@ public class Etudiant extends Utilisateur {
         this.absences = absences;
         this.notes = notes;
     }
-
-    public Etudiant(int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role) {
-        super(idUtilisateur, nom, prenom, email, motDePasse, role);
-    }
-    
-     public Etudiant() {
-    }
-
-    public Etudiant(int etudiantId) {
-        super();//To change body of generated methods, choose Tools | Templates.
-    }
- 
-    
-    
-  
 
     public int getAnneeInscrit() {
         return anneeInscrit;
@@ -71,6 +104,9 @@ public class Etudiant extends Utilisateur {
     public void setNotes(List<Note> notes) {
         this.notes = notes;
     }
-    
-    
-  }
+
+    @Override
+    public String toString() {
+        return getNom();
+    }
+}

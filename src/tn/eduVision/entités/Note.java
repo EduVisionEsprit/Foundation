@@ -1,28 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package tn.eduVision.entités;
 
-import java.math.BigDecimal;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-/**
- *
- * @author Sayf
- */
 public class Note {
     private int idNote;
     private Utilisateur utilisateur;
     private Matiere matiere;
     private float note;
-
-    public Note(int idNote, Utilisateur utilisateur, Matiere matiere, float note) {
-        this.idNote = idNote;
-        this.utilisateur = utilisateur;
-        this.matiere = matiere;
-        this.note = note;
-    }
-
 
     public Note() {
     }
@@ -59,5 +47,29 @@ public class Note {
         this.note = note;
     }
 
-    
+    public StringProperty getNomMatiereProperty() {
+        return new SimpleStringProperty(matiere.getNomMatiere());
+    }
+
+    public FloatProperty getNoteProperty() {
+        return new SimpleFloatProperty(note);
+    }
+
+    public Etudiant getEtudiant() {
+        return (Etudiant) utilisateur;
+    }
+
+    private StringProperty nomEtudiantProperty;
+
+    public Note(int idNote, Utilisateur utilisateur, Matiere matiere, float note) {
+        this.idNote = idNote;
+        this.utilisateur = utilisateur;
+        this.matiere = matiere;
+        this.note = note;
+        this.nomEtudiantProperty = new SimpleStringProperty(((Etudiant) utilisateur).getNom());
+    }
+
+    public StringProperty getNomEtudiantProperty() {
+        return nomEtudiantProperty;
+    }
 }

@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package tn.eduVision.entités;
 
-/**
- *
- * @author Sayf
- */
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Utilisateur {
     private int idUtilisateur;
@@ -16,8 +10,9 @@ public class Utilisateur {
     private String email;
     private String motDePasse;
     private Role role;
-    
-    public Utilisateur() {}
+
+    public Utilisateur() {
+    }
 
     public Utilisateur(int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role) {
         this.idUtilisateur = idUtilisateur;
@@ -27,9 +22,13 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
         this.role = role;
     }
-    
-    
-    
+      public Utilisateur(int idUtilisateur, String nom, String prenom) {
+        this.idUtilisateur = idUtilisateur;
+        this.nom = nom;
+        this.prenom = prenom;
+        
+    }
+
 
     public int getIdUtilisateur() {
         return idUtilisateur;
@@ -78,13 +77,18 @@ public class Utilisateur {
     public void setRole(Role role) {
         this.role = role;
     }
-      @Override
+
+    @Override
     public String toString() {
-        return getNom();
+        return nom;
     }
- 
+
+ public StringProperty getNomProperty() {
+    return new SimpleStringProperty(nom != null ? nom : "");
+}
+
+
+    
     
  
-
-   
 }

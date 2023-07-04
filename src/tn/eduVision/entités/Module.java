@@ -4,8 +4,10 @@
  */
 package tn.eduVision.entités;
 
+import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -14,6 +16,8 @@ import javafx.beans.property.StringProperty;
  *
  * @author Sayf
  */
+
+
 public class Module {
     private int idModule;
     private String nomModule;
@@ -82,13 +86,28 @@ this.programme=selectedProgramme;   }
         this.programme = programme;
     }
 
-    public List<Matiere> getMatieres() {
-        return matieres;
-    }
-
-    public void setMatieres(List<Matiere> matieres) {
+ public List<Matiere> getMatieres() {
+    return matieres;
+}
+ public List<Float> getCoefMatieres() {
+  List<Float> matiereNames = new ArrayList<>();
+    if (matieres != null) {
+        for (Matiere matiere : matieres) {
+            matiereNames.add(matiere.getCoef());
+        } }     return matiereNames;
+ }
+public void setMatieres(List<String> nomMatieres) {
+    if (nomMatieres != null) {
+        List<Matiere> matieres = new ArrayList<>();
+        for (String nomMatiere : nomMatieres) {
+            Matiere matiere = new Matiere(nomMatiere); // Créez un nouvel objet Matiere en utilisant le nom de matière
+            matieres.add(matiere);
+        }
         this.matieres = matieres;
+    } else {
+        this.matieres = null;
     }
+}
 
            public StringProperty nomModuleProperty() {
         return new SimpleStringProperty(nomModule);
@@ -100,6 +119,19 @@ this.programme=selectedProgramme;   }
 
 
 
+private SimpleDoubleProperty coefTotal;
+
+public SimpleDoubleProperty coefTotalProperty() {
+    return coefTotal;
+}
+
+public double getCoefTotal() {
+    return coefTotal.get();
+}
+
+public void setCoefTotal(double coefTotal) {
+    this.coefTotal.set(coefTotal);
+}
 
   
         public Object programmeProperty() {
@@ -112,6 +144,40 @@ public String toString() {
     return nomModule;
 }
 
-
+public String MatieresAsString() {
+    if (matieres == null || matieres.isEmpty()) {
+        return "";
+    }
     
+    List<String> matiereNames = new ArrayList<>();
+    for (Matiere matiere : matieres) {
+        matiereNames.add(matiere.getNomMatiere()); // Assuming 'getNomMatiere()' returns the name of the Matiere object
+    }
+    return String.join(", ", matiereNames);
+}
+public String getMatieresAsString() {
+    if (matieres == null || matieres.isEmpty()) {
+        return "";
+    }
+
+    List<String> matiereNames = new ArrayList<>();
+    for (Matiere matiere : matieres) {
+        matiereNames.add(matiere.getNomMatiere()); // Assuming 'getNomMatiere()' returns the name of the Matiere object
+    }
+    return String.join(", ", matiereNames);
+}
+
+    public String getCoefMatieresString() {
+    List<Float> matiereNames = new ArrayList<>();
+    if (matieres != null) {
+        for (Matiere matiere : matieres) {
+            matiereNames.add(matiere.getCoef());
+        }
+    }
+    return matiereNames.toString();
+}
+
+     public Module getModule() {
+        return this;
+    }
 }

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="tn.eduVision.GUI.GestionMatieresController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="899.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.GestionMatieresController">
     <stylesheets>
         <URL value="@gestionmatieres.css" />
     </stylesheets>
@@ -19,13 +19,15 @@
         <Label layoutX="7.0" prefHeight="40.0" prefWidth="622.0" style="-fx-underline: 2;" styleClass="label-title" text="Matieres:" textFill="#876a14">
    
         </Label>
-        <TableView fx:id="MatieresTable" layoutX="311.0" layoutY="55.0" prefHeight="206.0" prefWidth="389.0">
-            <columns>
-                <TableColumn fx:id="nom_col" prefWidth="161.5999755859375" text="Nom" />
-                <TableColumn fx:id="Module_col" prefWidth="227.20000610351565" text="Module" />
-            </columns>
-        </TableView>
-        <Pane layoutX="14.0" layoutY="66.0" prefHeight="134.0" prefWidth="248.0" styleClass="pane-description">
+       <TableView fx:id="MatieresTable" layoutX="311.0" layoutY="55.0" prefHeight="206.0" prefWidth="492.0">
+    <columns>
+        <TableColumn fx:id="nom_col" prefWidth="112.7999267578125" text="Nom" />
+        <TableColumn fx:id="module_col" prefWidth="263.9999694824219" text="Module" />
+        <TableColumn fx:id="coef_col" prefWidth="115.199951171875" text="Coef" />
+    </columns>
+</TableView>
+
+        <Pane layoutX="14.0" layoutY="66.0" prefHeight="139.0" prefWidth="248.0" styleClass="pane-description">
             <children>
                 <Label layoutX="15.0" layoutY="6.0" prefHeight="17.0" prefWidth="219.0" styleClass="label-description" text="Nom du Matiere">
                 
@@ -35,6 +37,10 @@
                
                 </Label>
                 <ComboBox fx:id="modulesComboBox" layoutX="112.0" layoutY="79.0" prefWidth="120.0" styleClass="combo-box-description" />
+                <Label layoutX="15.0" layoutY="105.0" prefHeight="17.0" prefWidth="219.0" styleClass="label-description" text="Coef: ">
+               
+                </Label>
+                <TextField fx:id="txt_coef" layoutX="112.0" layoutY="108.0" prefHeight="25.0" prefWidth="120.0" styleClass="text-field-description" />
             </children>
         </Pane>
         <Button fx:id="btn_add" layoutX="34.0" layoutY="221.0" mnemonicParsing="false" onAction="#add" styleClass="button-action" text="Ajouter" />

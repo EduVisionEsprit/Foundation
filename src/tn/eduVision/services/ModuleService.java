@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tn.eduVision.entités.Groupe;
+import tn.eduVision.entités.Matiere;
 import tn.eduVision.entités.Module;
 import tn.eduVision.entités.ProgrammeEtude;
 import tn.eduVision.exceptions.NoDataFoundException;
@@ -22,6 +24,52 @@ public class ModuleService implements Iservices<Module> {
     public ModuleService() {
         _connection = SqlConnectionManager.getInstance().getConnection();
     }
+public List<Module> getModulesByProgramme(ProgrammeEtude programme) {
+    List<Module> moduleList = new ArrayList<>();
+
+    try {
+        String selectModulesByProgramme = "SELECT * FROM modules WHERE id_programme = ?;";
+        PreparedStatement statement = _connection.prepareStatement(selectModulesByProgramme);
+        statement.setInt(1, programme.getId());
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int moduleId = resultSet.getInt("id_module");
+            String moduleNom = resultSet.getString("nom_module");
+
+            Module module = new Module(moduleId, moduleNom);
+            moduleList.add(module);
+        }
+    } catch (SQLException ex) {
+        _logger.log(Level.SEVERE, ex.getMessage());
+    }
+
+    return moduleList;
+}
+
+public List<Module> getModulesByGroupe(Groupe groupe) {
+    List<Module> moduleList = new ArrayList<>();
+
+    try {
+        String selectModulesByGroupe = "SELECT modules.* FROM modules JOIN matieres ON modules.id_module = matieres.id_module WHERE matieres.id_groupe = ?;";
+        PreparedStatement statement = _connection.prepareStatement(selectModulesByGroupe);
+        statement.setInt(1, groupe.getIdGroupe());
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int moduleId = resultSet.getInt("id_module");
+            String moduleNom = resultSet.getString("nom_module");
+
+            Module module = new Module(moduleId, moduleNom);
+            moduleList.add(module);
+        }
+    } catch (SQLException ex) {
+        _logger.log(Level.SEVERE, ex.getMessage());
+    }
+
+    return moduleList;
+}
+
 
     @Override
     public void add(Module module) {
@@ -174,5 +222,100 @@ public class ModuleService implements Iservices<Module> {
             _logger.log(Level.SEVERE, ex.getMessage());
         }
     }
-    
+    public List<Matiere> getMatieresByModule(Module module) {
+    List<Matiere> matiereList = new ArrayList<>();
+
+    String selectMatieresByModule = "SELECT * FROM `matieres` WHERE `id_module` = ?;";
+
+    try (PreparedStatement stmt = _connection.prepareStatement(selectMatieresByModule)) {
+        stmt.setInt(1, module.getIdModule());
+        ResultSet resultSet = stmt.executeQuery();
+
+        while (resultSet.next()) {
+            int matiereId = resultSet.getInt("id_matiere");
+            String matiereNom = resultSet.getString("nom_matiere");
+            float coef = resultSet.getFloat("coef");
+
+            Matiere matiere = new Matiere(matiereId, matiereNom, module, coef);
+            matiereList.add(matiere);
+        }
+    } catch (SQLException ex) {
+        _logger.log(Level.SEVERE, ex.getMessage());
+    }
+
+    return matiereList;
+}
+public List<Matiere> getAllMatieres() {
+    List<Matiere> matiereList = new ArrayList<>();
+
+    // Retrieve all modules
+    List<Module> moduleList = getAll();
+
+    // Retrieve matieres for each module
+    for (Module module : moduleList) {
+        List<Matiere> matieresByModule = getMatieresByModule(module);
+        matiereList.addAll(matieresByModule);
+    }
+
+    return matiereList;
+}public List<Module> getAllModules() {
+    List<Module> moduleList = new ArrayList<>();
+
+    // Your database query to retrieve all modules
+    String selectAllModules = "SELECT * FROM modules";
+
+    try (PreparedStatement stmt = _connection.prepareStatement(selectAllModules)) {
+        ResultSet resultSet = stmt.executeQuery();
+
+        while (resultSet.next()) {
+            int moduleId = resultSet.getInt("id_module");
+            String moduleNom = resultSet.getString("nom_module");
+            // Retrieve other module properties from the result set if needed
+
+            Module module = new Module(moduleId, moduleNom);
+            moduleList.add(module);
+        }
+    } catch (SQLException ex) {
+        _logger.log(Level.SEVERE, ex.getMessage());
+    }
+
+    return moduleList;
+}
+public List<String> getNomMatiere(Module module) {
+    List<String> nomMatieres = new ArrayList<>();
+
+    try {
+        String selectNomMatieres = "SELECT nom_matiere FROM matieres WHERE id_module = ?;";
+        PreparedStatement statement = _connection.prepareStatement(selectNomMatieres);
+        statement.setInt(1, module.getIdModule());
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            String nomMatiere = resultSet.getString("nom_matiere");
+            nomMatieres.add(nomMatiere);
+        }
+    } catch (SQLException ex) {
+        _logger.log(Level.SEVERE, ex.getMessage());
+    }
+
+    return nomMatieres;
+}
+public double getCoefMatiere(String nomMatiere) {
+    String selectCoefQuery = "SELECT coef FROM matieres WHERE nom_matiere = ?;";
+    double coefficient = 0.0;
+
+    try (PreparedStatement stmt = _connection.prepareStatement(selectCoefQuery)) {
+        stmt.setString(1, nomMatiere);
+        ResultSet resultSet = stmt.executeQuery();
+
+        if (resultSet.next()) {
+            coefficient = resultSet.getDouble("coef");
+        }
+    } catch (SQLException ex) {
+        _logger.log(Level.SEVERE, ex.getMessage());
+    }
+
+    return coefficient;
+}
+
 }
