@@ -64,7 +64,7 @@ public class MatiereService implements Iservices<Matiere> {
             if (module != null) {
                 statement.setInt(2, module.getIdModule());
             } else {
-                // Handle the case when the module is null
+                 
                 statement.setNull(2, java.sql.Types.INTEGER);
             }
 
@@ -166,7 +166,7 @@ public class MatiereService implements Iservices<Matiere> {
 
     public List<String> getModuleNames() {
         List<String> moduleNames = new ArrayList<>();
-        ModuleService moduleService = new ModuleService(); // Assuming you have a ModuleService class to retrieve module names
+        ModuleService moduleService = new ModuleService();  
         List<Module> modules = moduleService.getAll();
         for (Module module : modules) {
             moduleNames.add(module.getNomModule());

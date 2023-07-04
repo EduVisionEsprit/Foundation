@@ -50,10 +50,10 @@ public class GestionProgrammeEtudesController {
       id_col.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
 desc_col.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
 
-        // Charger les données dans la table
+         
 programmesTable.setItems(FXCollections.observableArrayList(programmeEtudeService.getAll()));
 
-        // Gérer la sélection d'un programme d'études dans la table
+         
         programmesTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 txt_description.setText(newValue.getDescription());

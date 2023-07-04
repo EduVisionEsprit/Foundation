@@ -91,7 +91,7 @@ public List<Module> getModulesByGroupe(Groupe groupe) {
         try (PreparedStatement stmt = _connection.prepareStatement(updateModule)) {
             stmt.setString(1, module.getNomModule());
 
-            // Ensure that the programme property is not null
+             
             if (module.getProgramme() != null) {
                 stmt.setInt(2, module.getProgramme().getId());
             } else {
@@ -144,7 +144,7 @@ public List<Module> getModulesByGroupe(Groupe groupe) {
                 String moduleNom = resultSet.getString("nom_module");
                 int programmeId = resultSet.getInt("id_programme");
 
-                // Retrieve the associated ProgrammeEtude object
+                 
                 ProgrammeEtude programme = getProgrammeById(programmeId);
 
                 return new Module(moduleId, moduleNom, programme);
@@ -173,7 +173,7 @@ public List<Module> getModulesByGroupe(Groupe groupe) {
                 String moduleNom = resultSet.getString("nom_module");
                 int programmeId = resultSet.getInt("id_programme");
 
-                // Retrieve the associated ProgrammeEtude object
+                 
                 ProgrammeEtude programme = getProgrammeById(programmeId);
 
                 Module module = new Module(moduleId, moduleNom, programme);
@@ -248,10 +248,10 @@ public List<Module> getModulesByGroupe(Groupe groupe) {
 public List<Matiere> getAllMatieres() {
     List<Matiere> matiereList = new ArrayList<>();
 
-    // Retrieve all modules
+     
     List<Module> moduleList = getAll();
 
-    // Retrieve matieres for each module
+     
     for (Module module : moduleList) {
         List<Matiere> matieresByModule = getMatieresByModule(module);
         matiereList.addAll(matieresByModule);
@@ -261,7 +261,7 @@ public List<Matiere> getAllMatieres() {
 }public List<Module> getAllModules() {
     List<Module> moduleList = new ArrayList<>();
 
-    // Your database query to retrieve all modules
+     
     String selectAllModules = "SELECT * FROM modules";
 
     try (PreparedStatement stmt = _connection.prepareStatement(selectAllModules)) {
@@ -270,7 +270,7 @@ public List<Matiere> getAllMatieres() {
         while (resultSet.next()) {
             int moduleId = resultSet.getInt("id_module");
             String moduleNom = resultSet.getString("nom_module");
-            // Retrieve other module properties from the result set if needed
+             
 
             Module module = new Module(moduleId, moduleNom);
             moduleList.add(module);

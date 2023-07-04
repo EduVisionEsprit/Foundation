@@ -34,7 +34,7 @@ public class NoteManagementService implements SaisiNotesService {
             }
         }
 
-        return false; // Note does not exist for the given Etudiant and Matiere
+        return false;  
     }
 
     public List<Note> getAllNotes() {
@@ -199,11 +199,11 @@ public class NoteManagementService implements SaisiNotesService {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     int id = resultSet.getInt("id_utilisateur");
-                    // Récupérer les autres informations de l'étudiant à partir de la base de données
-                    // et les assigner à l'objet Etudiant
+                     
+                     
                     String nom = resultSet.getString("nom");
                     String prenom = resultSet.getString("prenom");
-                    // ...
+                     
 
                     etudiant = new Etudiant(id,nom,prenom);
                 }
@@ -214,7 +214,7 @@ public class NoteManagementService implements SaisiNotesService {
         return etudiant;
     }
 
-    // ...
+     
 
     public void closeConnection() {
         try {

@@ -100,7 +100,7 @@ public void setMatieres(List<String> nomMatieres) {
     if (nomMatieres != null) {
         List<Matiere> matieres = new ArrayList<>();
         for (String nomMatiere : nomMatieres) {
-            Matiere matiere = new Matiere(nomMatiere); // Créez un nouvel objet Matiere en utilisant le nom de matière
+            Matiere matiere = new Matiere(nomMatiere);  
             matieres.add(matiere);
         }
         this.matieres = matieres;
@@ -151,7 +151,7 @@ public String MatieresAsString() {
     
     List<String> matiereNames = new ArrayList<>();
     for (Matiere matiere : matieres) {
-        matiereNames.add(matiere.getNomMatiere()); // Assuming 'getNomMatiere()' returns the name of the Matiere object
+        matiereNames.add(matiere.getNomMatiere());  
     }
     return String.join(", ", matiereNames);
 }
@@ -162,7 +162,7 @@ public String getMatieresAsString() {
 
     List<String> matiereNames = new ArrayList<>();
     for (Matiere matiere : matieres) {
-        matiereNames.add(matiere.getNomMatiere()); // Assuming 'getNomMatiere()' returns the name of the Matiere object
+        matiereNames.add(matiere.getNomMatiere());  
     }
     return String.join(", ", matiereNames);
 }

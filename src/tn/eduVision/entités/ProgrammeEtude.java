@@ -21,7 +21,7 @@ public class ProgrammeEtude {
         private List<Module> modules;
 
   public String toString() {
-        return getDescription(); // Replace getDescription() with the appropriate method to retrieve the description of the ProgrammeEtude
+        return getDescription();  
     }
     public ProgrammeEtude(int id, String description, List<Module> modules) {
         this.id = id;
@@ -34,9 +34,9 @@ public class ProgrammeEtude {
     }
 
   public ProgrammeEtude() {
-    this.id = 0; // Set a default value for the id property
-    this.description = ""; // Set a default value for the description property
-    this.modules = null;// Initialize the modules property with an empty list
+    this.id = 0;  
+    this.description = "";  
+    this.modules = null; 
 }
 
     public int getId() {

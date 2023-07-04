@@ -79,7 +79,7 @@ public class Matiere {
         if (this.nomMatiere.equals(nomMatiere)) {
             return coef;
         }
-        return 0.0; // Return 0 if the matiere name doesn't match
+        return 0.0;  
     }
     public float getCoef() {
         return coef;

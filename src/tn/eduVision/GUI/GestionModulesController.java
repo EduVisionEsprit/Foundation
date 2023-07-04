@@ -55,7 +55,7 @@ public class GestionModulesController {
     }
 
     public void initialize() {
-        // Set up the table columns
+         
         nom_col.setCellValueFactory(cellData -> cellData.getValue().nomModuleProperty());
         idProg_col.setCellValueFactory(cellData -> {
             ProgrammeEtude programme = cellData.getValue().getProgramme();
@@ -63,15 +63,15 @@ public class GestionModulesController {
             return new SimpleStringProperty(description);
         });
 
-        // Load the modules data into the table
+         
         moduleList = FXCollections.observableArrayList(moduleService.getAll());
         modulesTable.setItems(moduleList);
 
-        // Load the programme data into the combo box
+         
         ObservableList<ProgrammeEtude> programmeList = FXCollections.observableArrayList(programmeService.getAll());
         programmeComboBox.setItems(programmeList);
 
-        // Set the cell factory and converter for the combo box
+         
         programmeComboBox.setCellFactory(param -> new ListCell<ProgrammeEtude>() {
             @Override
             protected void updateItem(ProgrammeEtude programme, boolean empty) {
@@ -96,12 +96,12 @@ public class GestionModulesController {
 
             @Override
             public ProgrammeEtude fromString(String string) {
-                // Not needed for this scenario
+                 
                 return null;
             }
         });
 
-        // Add a listener to the table selection model
+         
         modulesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 txt_nomModule.setText(newSelection.getNomModule());
@@ -119,7 +119,7 @@ public class GestionModulesController {
         ProgrammeEtude selectedProgramme = programmeComboBox.getValue();
 
         if (nomModule.isEmpty() || selectedProgramme == null) {
-            // Display an error message for invalid input
+             
             showAlert(AlertType.ERROR, "Invalid Input", "Please enter a module name and select a programme.");
             return;
         }
@@ -129,11 +129,11 @@ public class GestionModulesController {
 
         moduleList.add(newModule);
 
-        // Clear the input fields
+         
         txt_nomModule.clear();
         programmeComboBox.getSelectionModel().clearSelection();
 
-        // Display success message in a popup
+         
         showAlert(AlertType.INFORMATION, "Module Added", "Module has been added successfully!");
     }
 
@@ -142,7 +142,7 @@ public void update() {
     Module selectedModule = modulesTable.getSelectionModel().getSelectedItem();
 
     if (selectedModule == null) {
-        // Display an error message or handle no selection
+         
         return;
     }
 
@@ -150,7 +150,7 @@ public void update() {
     ProgrammeEtude newProgramme = programmeComboBox.getValue();
 
     if (newNomModule.isEmpty() || newProgramme == null) {
-        // Display an error message or handle invalid input
+         
         return;
     }
 
@@ -159,10 +159,10 @@ public void update() {
 
     moduleService.update(selectedModule);
 
-    // Refresh the table data
+     
     moduleList.setAll(moduleService.getAll());
 
-    // Clear the input fields
+     
     txt_nomModule.clear();
     programmeComboBox.getSelectionModel().clearSelection();
 }
@@ -171,7 +171,7 @@ public void update() {
         Module selectedModule = modulesTable.getSelectionModel().getSelectedItem();
 
         if (selectedModule == null) {
-            // Display an error message or handle no selection
+             
             return;
         }
 

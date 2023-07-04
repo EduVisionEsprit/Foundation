@@ -13,16 +13,16 @@ public class Etudiant extends Utilisateur {
     private List<Absence> absences;
     private List<Note> notes;
 
-    // Constructor
+     
     public Etudiant() {
-        notes = new ArrayList<>(); // Initialize the notes list
+        notes = new ArrayList<>();  
     }
   
    public double getMoyenne() {
-    // Calculate the moyenne for the student
+     
     double total = 0;
     int count = 0;
-        NoteManagementService noteManagementService = new NoteManagementService(); // Create an instance of NoteManagementService
+        NoteManagementService noteManagementService = new NoteManagementService();  
 
     List<Note> fetchedNotes = noteManagementService.obtenirNotesParEtudiant(this);
     
@@ -34,7 +34,7 @@ public class Etudiant extends Utilisateur {
     if (count != 0) {
         return total / count;
     } else {
-        return 0.0; // Handle the case when no notes are available
+        return 0.0;  
     }
 }
 public String getResultat() {
