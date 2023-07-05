@@ -1,7 +1,45 @@
-/*
- * Empty Stylesheet file.
- */
 
 .mainFxmlClass {
+    -fx-background-color: #f2f2f2;
+}
 
+.label-title {
+    -fx-font-family: "Arial";
+    -fx-font-size: 24px;
+}
+
+.label-description {
+    -fx-font-family: "Arial";
+    -fx-font-size: 12px;
+}
+
+.pane-description {
+    -fx-background-color: #eaeaea;
+    -fx-padding: 10px;
+}
+
+.text-field-description {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #c0c0c0;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.combo-box-description {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #c0c0c0;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.button-action {
+    -fx-background-color: #4d94ff;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-pref-width: 80px;
+}
+
+.button-action:hover {
+    -fx-background-color: #1a75ff;
 }

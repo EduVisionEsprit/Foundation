@@ -7,14 +7,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ListCell;
-import javafx.util.StringConverter;
+import tn.eduVision.entités.Admin;
 import tn.eduVision.entités.Module;
 import tn.eduVision.entités.ProgrammeEtude;
+import tn.eduVision.entités.Role;
+import tn.eduVision.entités.Utilisateur;
 import tn.eduVision.exceptions.NoDataFoundException;
 import tn.eduVision.services.ModuleService;
 import tn.eduVision.services.ProgrammeEtudeService;
@@ -55,7 +57,11 @@ public class GestionModulesController {
     }
 
     public void initialize() {
-         
+         Utilisateur  currentUser = getCurrentUser(); 
+    if (!moduleService.isAdmin(currentUser)) {
+        showAccessDeniedAlert();
+        return;
+    }
         nom_col.setCellValueFactory(cellData -> cellData.getValue().nomModuleProperty());
         idProg_col.setCellValueFactory(cellData -> {
             ProgrammeEtude programme = cellData.getValue().getProgramme();
@@ -63,45 +69,12 @@ public class GestionModulesController {
             return new SimpleStringProperty(description);
         });
 
-         
         moduleList = FXCollections.observableArrayList(moduleService.getAll());
         modulesTable.setItems(moduleList);
 
-         
         ObservableList<ProgrammeEtude> programmeList = FXCollections.observableArrayList(programmeService.getAll());
         programmeComboBox.setItems(programmeList);
 
-         
-        programmeComboBox.setCellFactory(param -> new ListCell<ProgrammeEtude>() {
-            @Override
-            protected void updateItem(ProgrammeEtude programme, boolean empty) {
-                super.updateItem(programme, empty);
-                if (empty || programme == null) {
-                    setText(null);
-                } else {
-                    setText(programme.getDescription());
-                }
-            }
-        });
-
-        programmeComboBox.setConverter(new StringConverter<ProgrammeEtude>() {
-            @Override
-            public String toString(ProgrammeEtude programme) {
-                if (programme == null) {
-                    return "";
-                } else {
-                    return programme.getDescription();
-                }
-            }
-
-            @Override
-            public ProgrammeEtude fromString(String string) {
-                 
-                return null;
-            }
-        });
-
-         
         modulesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 txt_nomModule.setText(newSelection.getNomModule());
@@ -112,6 +85,24 @@ public class GestionModulesController {
             }
         });
     }
+    //private Utilisateur getCurrentUser() {
+    // Implement after Integration
+  //  return AuthenticationService.getCurrentUser();
+//}
+   private Utilisateur getCurrentUser() {
+    // Create a dummy user for testing purposes
+    Utilisateur dummyUser = new Admin(); 
+    dummyUser.setRole(Role.admin); 
+
+    return dummyUser;
+}
+private void showAccessDeniedAlert() {
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Accès refusé");
+    alert.setHeaderText(null);
+    alert.setContentText("Accès refusé. Vous devez être un administrateur pour accéder à cette fonctionnalité.");
+    alert.showAndWait();
+}
 
     @FXML
     public void add() {
@@ -119,8 +110,7 @@ public class GestionModulesController {
         ProgrammeEtude selectedProgramme = programmeComboBox.getValue();
 
         if (nomModule.isEmpty() || selectedProgramme == null) {
-             
-            showAlert(AlertType.ERROR, "Invalid Input", "Please enter a module name and select a programme.");
+            showAlert(AlertType.ERROR, "Erreur de saisie", "Veuillez entrer un nom de module et sélectionner un programme.");
             return;
         }
 
@@ -129,62 +119,78 @@ public class GestionModulesController {
 
         moduleList.add(newModule);
 
-         
         txt_nomModule.clear();
         programmeComboBox.getSelectionModel().clearSelection();
 
-         
-        showAlert(AlertType.INFORMATION, "Module Added", "Module has been added successfully!");
+        showAlert(AlertType.INFORMATION, "Module ajouté", "Le module a été ajouté avec succès !");
     }
 
     @FXML
-public void update() {
-    Module selectedModule = modulesTable.getSelectionModel().getSelectedItem();
+    public void update() {
+        Module selectedModule = modulesTable.getSelectionModel().getSelectedItem();
 
-    if (selectedModule == null) {
-         
-        return;
+        if (selectedModule == null) {
+            return;
+        }
+
+        String newNomModule = txt_nomModule.getText();
+        ProgrammeEtude newProgramme = programmeComboBox.getValue();
+
+        if (newNomModule.isEmpty() || newProgramme == null) {
+            return;
+        }
+
+        selectedModule.setNomModule(newNomModule);
+        selectedModule.setProgramme(newProgramme);
+
+        moduleService.update(selectedModule);
+
+        moduleList.setAll(moduleService.getAll());
+
+        txt_nomModule.clear();
+        programmeComboBox.getSelectionModel().clearSelection();
+
+        showAlert(AlertType.INFORMATION, "Module mis à jour", "Le module a été mis à jour avec succès !");
     }
 
-    String newNomModule = txt_nomModule.getText();
-    ProgrammeEtude newProgramme = programmeComboBox.getValue();
-
-    if (newNomModule.isEmpty() || newProgramme == null) {
-         
-        return;
-    }
-
-    selectedModule.setNomModule(newNomModule);
-    selectedModule.setProgramme(newProgramme);
-
-    moduleService.update(selectedModule);
-
-     
-    moduleList.setAll(moduleService.getAll());
-
-     
-    txt_nomModule.clear();
-    programmeComboBox.getSelectionModel().clearSelection();
-}
     @FXML
     public void delete() {
         Module selectedModule = modulesTable.getSelectionModel().getSelectedItem();
 
         if (selectedModule == null) {
-             
             return;
         }
 
-        moduleService.delete(selectedModule);
+        boolean confirmDelete = showConfirmationAlert("Confirmation de suppression", "Êtes-vous sûr de vouloir supprimer le module sélectionné ?");
 
-        moduleList.remove(selectedModule);
+        if (confirmDelete) {
+            try {
+                moduleList.remove(selectedModule);
+
+                txt_nomModule.clear();
+                programmeComboBox.getSelectionModel().clearSelection();
+
+                showAlert(AlertType.INFORMATION, "Module supprimé", "Le module a été supprimé avec succès !");
+            } catch (NoDataFoundException e) {
+                showAlert(AlertType.ERROR, "Échec de la suppression", "Impossible de supprimer le module.");
+            }
+        }
     }
 
-    private void showAlert(AlertType alertType, String title, String content) {
+    private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
-        alert.setContentText(content);
+        alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private boolean showConfirmationAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        return alert.showAndWait().filter(response -> response == ButtonType.OK).isPresent();
     }
 }

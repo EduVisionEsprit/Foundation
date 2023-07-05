@@ -1,44 +1,70 @@
-/* Styles for gestionmodules.fxml */
+.mainFxmlClass {
+    -fx-background-color: #f0f5ff;
+}
 
 .label-title {
-    -fx-font-size: 24px;
-    -fx-font-family: Arial;
-    -fx-underline: true;
-    -fx-text-fill: #876a14;
+    -fx-alignment: CENTER;
 }
 
 .label-description {
-    -fx-font-size: 12px;
-    -fx-font-family: Arial;
+    -fx-font-weight: bold;
 }
 
 .text-field-description {
-    -fx-pref-height: 48px;
-    -fx-pref-width: 227px;
+    -fx-background-color: #ffffff;
+    -fx-font-size: 14px;
 }
 
 .pane-description {
-    -fx-background-color: #f2f2f2;
+    -fx-background-color: #cfe3ff;
     -fx-padding: 10px;
 }
 
 .button-action {
-    -fx-pref-width: 80px;
-    -fx-pref-height: 30px;
-    -fx-font-family: Arial;
+    -fx-background-color: #1e90ff;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-pref-width: 100px;
+}
+
+.button-action:hover {
+    -fx-background-color: #007bff;
 }
 
 .table-view {
-    -fx-pref-width: 389px;
-    -fx-pref-height: 206px;
+    -fx-background-color: #ffffff;
 }
 
-.table-column {
-    -fx-pref-width: 160px;
+.table-view .column-header {
+    -fx-background-color: #cfe3ff;
 }
 
-.mainFxmlClass {
+.table-row-cell:odd {
     -fx-background-color: #f8f8f8;
 }
 
+.table-row-cell:selected {
+    -fx-background-color: #d4d4d4;
+}
 
+.alert {
+    -fx-font-size: 14px;
+}
+
+.alert .dialog-pane {
+    -fx-background-color: #ffffff;
+}
+
+.alert .dialog-pane .content-label {
+    -fx-font-weight: bold;
+}
+
+.alert .dialog-pane .button-bar .button {
+    -fx-background-color: #1e90ff;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+}
+
+.alert .dialog-pane .button-bar .button:hover {
+    -fx-background-color: #007bff;
+}

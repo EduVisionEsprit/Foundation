@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tn.eduVision.entités.Admin;
 import tn.eduVision.entités.Groupe;
 import tn.eduVision.entités.Matiere;
 import tn.eduVision.entités.Module;
 import tn.eduVision.entités.ProgrammeEtude;
+import tn.eduVision.entités.Utilisateur;
 import tn.eduVision.exceptions.NoDataFoundException;
 import tn.eduVision.tools.CustomLogger;
 import tn.eduVision.tools.SqlConnectionManager;
@@ -20,7 +22,9 @@ public class ModuleService implements Iservices<Module> {
     private Connection _connection;
     private static final Logger _logger = CustomLogger.getInstance().getLogger();
     private PreparedStatement statement = null;
-
+   public boolean isAdmin(Utilisateur user) {
+    return user instanceof Admin;
+}
     public ModuleService() {
         _connection = SqlConnectionManager.getInstance().getConnection();
     }
