@@ -17,8 +17,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import tn.eduVision.entités.Admin;
 import tn.eduVision.entités.Matiere;
 import tn.eduVision.entités.Module;
+import tn.eduVision.entités.Role;
+import tn.eduVision.entités.Utilisateur;
 import tn.eduVision.exceptions.NoDataFoundException;
 import tn.eduVision.services.MatiereService;
 import tn.eduVision.services.ModuleService;
@@ -59,6 +62,24 @@ public class GestionMatieresController {
 
     private MatiereService matiereService = new MatiereService();
     private ModuleService moduleService = new ModuleService();
+ //private Utilisateur getCurrentUser() {
+    // Implement after Integration
+  //  return AuthenticationService.getCurrentUser();
+//}
+   private Utilisateur getCurrentUser() {
+    // Create a dummy user for testing purposes
+    Utilisateur dummyUser = new Admin(); 
+    dummyUser.setRole(Role.admin); 
+
+    return dummyUser;
+}
+private void showAccessDeniedAlert() {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Accès refusé");
+    alert.setHeaderText(null);
+    alert.setContentText("Accès refusé. Vous devez être un administrateur pour accéder à cette fonctionnalité.");
+    alert.showAndWait();
+}
 
     public void initialize() {
 
