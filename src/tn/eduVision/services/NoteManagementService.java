@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import tn.eduVision.entités.Admin;
+import tn.eduVision.entités.Enseignant;
 
 import tn.eduVision.entités.Etudiant;
 import tn.eduVision.entités.Matiere;
 import tn.eduVision.entités.Note;
+import tn.eduVision.entités.Utilisateur;
 import tn.eduVision.exceptions.NoDataFoundException;
 import tn.eduVision.services.SaisiNotesService;
 import tn.eduVision.tools.CustomLogger;
@@ -24,7 +27,9 @@ public class NoteManagementService implements SaisiNotesService {
     public NoteManagementService() {
         _connection = SqlConnectionManager.getInstance().getConnection();
     }
-
+   public boolean isEnseignant(Utilisateur user) {
+    return user instanceof Enseignant;
+}
     public boolean isNoteExists(Etudiant etudiant, Matiere matiere) {
         List<Note> notes = getAllNotes();
 

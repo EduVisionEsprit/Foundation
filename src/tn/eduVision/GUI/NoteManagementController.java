@@ -7,9 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import tn.eduVision.entités.Admin;
+import tn.eduVision.entités.Enseignant;
 import tn.eduVision.entités.Etudiant;
 import tn.eduVision.entités.Matiere;
 import tn.eduVision.entités.Note;
+import tn.eduVision.entités.Role;
+import tn.eduVision.entités.Utilisateur;
 import tn.eduVision.services.MatiereService;
 import tn.eduVision.services.NoteManagementService;
 import tn.eduVision.services.UserServices;
@@ -62,26 +66,26 @@ public class NoteManagementController {
 
     @FXML
     private void initialize() {
-        colNomEtudiant.setCellValueFactory(cellData -> {
-            String nom = cellData.getValue().getUtilisateur().getNom();
-            return new SimpleStringProperty(nom);
-        });
+         Utilisateur  currentUser = getCurrentUser(); 
+    if (!noteManagementService.isEnseignant(currentUser)) {
+        showAccessDeniedAlert();
+        return;
+    }
+ 
+        colNomEtudiant.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getUtilisateur().getNom()));
         colMatiere.setCellValueFactory(cellData -> cellData.getValue().getMatiere().getNomProperty());
         colNote.setCellValueFactory(new PropertyValueFactory<>("note"));
 
-        // Initialize the lists for ComboBoxes
         etudiantList = FXCollections.observableArrayList(userServices.getEtudiants());
         matiereList = FXCollections.observableArrayList(matiereService.getAll());
 
-        // Set the ComboBox items
         cmbEtudiants.setItems(etudiantList);
         cmbMatieres.setItems(matiereList);
 
-        // Set the table items
         noteList = FXCollections.observableArrayList(noteManagementService.getAllNotes());
         tblNotes.setItems(noteList);
 
-        // Update the ComboBox selection when a table row is clicked
         tblNotes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 cmbEtudiants.getSelectionModel().select(newSelection.getEtudiant());
@@ -90,11 +94,28 @@ public class NoteManagementController {
             }
         });
 
-        // Set the first value in cmbEtudiants
         if (!etudiantList.isEmpty()) {
             cmbEtudiants.getSelectionModel().selectFirst();
         }
     }
+    //private Utilisateur getCurrentUser() {
+    // Implement after Integration
+  //  return AuthenticationService.getCurrentUser();
+//}
+   private Utilisateur getCurrentUser() {
+    // Create a dummy user for testing purposes
+    Utilisateur dummyUser = new Enseignant(); 
+    dummyUser.setRole(Role.admin); 
+
+    return dummyUser;
+}
+private void showAccessDeniedAlert() {
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Accès refusé");
+    alert.setHeaderText(null);
+    alert.setContentText("Accès refusé. Vous devez être un administrateur pour accéder à cette fonctionnalité.");
+    alert.showAndWait();
+}
 
     @FXML
     private void saisirNote() {
@@ -103,7 +124,6 @@ public class NoteManagementController {
         float note = Float.parseFloat(txtNote.getText());
 
         if (validateNoteRange(note)) {
-            // Check if the note already exists for the selected matière
             if (!noteManagementService.isNoteExists(etudiant, matiere)) {
                 noteManagementService.saisirNote(etudiant, matiere, note);
                 showInfoAlert("Note Saisie", "La note a été saisie avec succès.");
@@ -113,7 +133,7 @@ public class NoteManagementController {
                 showErrorAlert("Erreur de Saisie", "La note existe déjà pour cette matière.");
             }
         } else {
-            showErrorAlert("Erreur de Saisie", "La note doit être comprise entre 1 et 20.");
+            showErrorAlert("Erreur de Saisie", "La note doit être comprise entre 1 et20.");
         }
     }
 
@@ -149,7 +169,6 @@ public class NoteManagementController {
         noteList.clear();
         noteList.addAll(noteManagementService.getAllNotes());
 
-        // Clear the current selection
         tblNotes.getSelectionModel().clearSelection();
     }
 
