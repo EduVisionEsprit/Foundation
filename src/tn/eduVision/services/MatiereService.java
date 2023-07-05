@@ -14,7 +14,7 @@ import tn.eduVision.exceptions.NoDataFoundException;
 import tn.eduVision.tools.CustomLogger;
 import tn.eduVision.tools.SqlConnectionManager;
 
-public class MatiereService implements Iservices<Matiere> {
+public class MatiereService  {
 
     private Connection _connection;
     private static final Logger _logger = CustomLogger.getInstance().getLogger();
@@ -23,69 +23,53 @@ public class MatiereService implements Iservices<Matiere> {
     public MatiereService() {
         _connection = SqlConnectionManager.getInstance().getConnection();
     }
+ public void add(Matiere matiere) {
+    String insertMatiereQuery = "INSERT INTO `matieres` (`nom_matiere`, `id_module`, `coef`) VALUES (?, ?, ?);";
+    try (PreparedStatement stmt = _connection.prepareStatement(insertMatiereQuery)) {
+        stmt.setString(1, matiere.getNomMatiere());
+        stmt.setInt(2, matiere.getModule().getIdModule());
+        stmt.setFloat(3, matiere.getCoef());
 
-    @Override
-    public void add(Matiere matiere) {
-        try {
-            String insertMatiere = "INSERT INTO `matieres` (`nom_matiere`, `id_module`) VALUES (?, ?);";
-            statement = _connection.prepareStatement(insertMatiere);
-            statement.setString(1, matiere.getNomMatiere());
-
-            Module module = matiere.getModule();
-            if (module != null) {
-                statement.setInt(2, module.getIdModule());
-            } else {
-                statement.setNull(2, java.sql.Types.INTEGER);
-            }
-
-            int rowsAffected = statement.executeUpdate();
-
-            if (rowsAffected == 0) {
-                _logger.log(Level.WARNING, "No data has been inserted!");
-                throw new UnsupportedOperationException();
-            }
-
-            _logger.log(Level.INFO, "Insertion done");
-        } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, ex.getMessage());
-        } finally {
-            closeStatement(statement);
-        }
+        stmt.executeUpdate();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
     }
+}
 
-    @Override
-    public void update(Matiere matiere) {
-        try {
-            String updateMatiere = "UPDATE `matieres` SET `nom_matiere` = ?, `id_module` = ? WHERE `id_matiere` = ?;";
-            statement = _connection.prepareStatement(updateMatiere);
-            statement.setString(1, matiere.getNomMatiere());
+public void updateMatiere(Matiere matiere) {
+    String updateMatiereQuery = "UPDATE `matieres` SET `nom_matiere` = ?, `id_module` = ?, `coef` = ? WHERE `id_matiere` = ?;";
+    try (PreparedStatement stmt = _connection.prepareStatement(updateMatiereQuery)) {
+        stmt.setString(1, matiere.getNomMatiere());
+        stmt.setInt(2, matiere.getModule().getIdModule());
+        stmt.setFloat(3, matiere.getCoef());
+        stmt.setInt(4, matiere.getIdMatiere());
 
-            Module module = matiere.getModule();
-            if (module != null) {
-                statement.setInt(2, module.getIdModule());
-            } else {
-                 
-                statement.setNull(2, java.sql.Types.INTEGER);
-            }
+        int rowsAffected = stmt.executeUpdate();
 
-            statement.setInt(3, matiere.getIdMatiere());
-
-            int rowsAffected = statement.executeUpdate();
-
-            if (rowsAffected == 0) {
-                _logger.log(Level.WARNING, "No data has been updated!");
-                throw new UnsupportedOperationException();
-            }
-
-            _logger.log(Level.INFO, "Update done");
-        } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, ex.getMessage());
-        } finally {
-            closeStatement(statement);
+        if (rowsAffected == 0) {
+            System.out.println("No data has been updated!");
+        } else {
+            System.out.println("Update successful!");
         }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
     }
+}
+public float getCoefMatiere(String nomMatiere) {
+    String query = "SELECT coef FROM matieres WHERE nom_matiere = ?";
+    try (PreparedStatement stmt = _connection.prepareStatement(query)) {
+        stmt.setString(1, nomMatiere);
+        ResultSet resultSet = stmt.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getFloat("coef");
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return 0.17f; // Default value if the matiere is not found or there is an error
+}
 
-    @Override
+
     public void delete(Matiere matiere) {
         try {
             String deleteMatiere = "DELETE FROM `matieres` WHERE `id_matiere` = ?;";
@@ -107,7 +91,6 @@ public class MatiereService implements Iservices<Matiere> {
         }
     }
 
-    @Override
     public Matiere getById(int id) throws NoDataFoundException {
         String selectMatiereById = "SELECT * FROM `matieres` WHERE `id_matiere` = ?;";
 
@@ -132,7 +115,6 @@ public class MatiereService implements Iservices<Matiere> {
         }
     }
 
-    @Override
     public List<Matiere> getAll() {
         List<Matiere> matiereList = new ArrayList<>();
 
@@ -173,23 +155,7 @@ public class MatiereService implements Iservices<Matiere> {
         }
         return moduleNames;
     }
-public double getCoefMatiere(String nomMatiere) {
-    String selectCoefQuery = "SELECT coef FROM matieres WHERE nom_matiere = ?;";
-    double coefficient = 0.0;
 
-    try (PreparedStatement stmt = _connection.prepareStatement(selectCoefQuery)) {
-        stmt.setString(1, nomMatiere);
-        ResultSet resultSet = stmt.executeQuery();
-
-        if (resultSet.next()) {
-            coefficient = resultSet.getDouble("coef");
-        }
-    } catch (SQLException ex) {
-        _logger.log(Level.SEVERE, ex.getMessage());
-    }
-
-    return coefficient;
-}
 
     private Module getModuleById(int moduleId) {
         String selectModuleById = "SELECT * FROM `modules` WHERE `id_module` = ?;";

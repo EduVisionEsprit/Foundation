@@ -1,6 +1,6 @@
 package tn.eduVision.GUI;
 
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -35,7 +35,7 @@ public class GestionMatieresController {
     private TableColumn<Matiere, Module> module_col;
 
     @FXML
-    private TableColumn<Matiere, Double> coef_col;
+    private TableColumn<Matiere, Float> coef_col;
 
     @FXML
     private TextField txt_nomMatiere;
@@ -61,26 +61,31 @@ public class GestionMatieresController {
     private ModuleService moduleService = new ModuleService();
 
     public void initialize() {
-         
+
         nom_col.setCellValueFactory(new PropertyValueFactory<>("nomMatiere"));
         module_col.setCellValueFactory(new PropertyValueFactory<>("module"));
-        coef_col.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getCoef()).asObject());
+        coef_col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Matiere, Float>, ObservableValue<Float>>() {
+            @Override
+            public ObservableValue<Float> call(TableColumn.CellDataFeatures<Matiere, Float> param) {
+                Matiere matiere = param.getValue();
+                String nomMatiere = matiere.getNomMatiere();
+                float coef = matiereService.getCoefMatiere(nomMatiere);
+                return new SimpleFloatProperty(coef).asObject();
+            }
+        });
 
-         
         loadMatieresData();
-
-         
         loadModuleNames();
 
-         
         MatieresTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                 
                 txt_nomMatiere.setText(newSelection.getNomMatiere());
-                txt_coef.setText(Double.toString(newSelection.getCoef()));
-                modulesComboBox.getSelectionModel().select(newSelection.getModule());
+                        String nomMatiere = newSelection.getNomMatiere();
+
+ float coef = (float) matiereService.getCoefMatiere(nomMatiere);
+        txt_coef.setText(Float.toString(coef));
+        modulesComboBox.getSelectionModel().select(newSelection.getModule());
             } else {
-                 
                 txt_nomMatiere.clear();
                 txt_coef.clear();
                 modulesComboBox.getSelectionModel().clearSelection();
@@ -93,7 +98,6 @@ public class GestionMatieresController {
             ObservableList<Module> moduleList = FXCollections.observableArrayList(moduleService.getAll());
             modulesComboBox.setItems(moduleList);
 
-             
             modulesComboBox.setCellFactory(param -> new ListCell<Module>() {
                 @Override
                 protected void updateItem(Module module, boolean empty) {
@@ -110,7 +114,7 @@ public class GestionMatieresController {
                 @Override
                 public String toString(Module module) {
                     if (module == null) {
-                        return "";
+return "";
                     } else {
                         return module.getNomModule();
                     }
@@ -118,7 +122,6 @@ public class GestionMatieresController {
 
                 @Override
                 public Module fromString(String string) {
-                     
                     return null;
                 }
             });
@@ -130,86 +133,88 @@ public class GestionMatieresController {
     private void loadMatieresData() {
         try {
             matiereData = FXCollections.observableArrayList(matiereService.getAll());
-
-             
-            for (Matiere matiere : matiereData) {
-                String name = matiere.getNomMatiere();
-                if (name != null) {
-                    matiere.setNomMatiere(name);
-                }
-            }
-
             MatieresTable.setItems(matiereData);
         } catch (NoDataFoundException e) {
             e.printStackTrace();
         }
     }
+@FXML
+private void add() {
+    String nomMatiere = txt_nomMatiere.getText();
+    String coefText = txt_coef.getText();
+    Module selectedModule = modulesComboBox.getValue();
 
-    @FXML
-    private void add() {
-        String nomMatiere = txt_nomMatiere.getText();
-        String coefText = txt_coef.getText();
-        Module selectedModule = modulesComboBox.getValue();
+    if (!nomMatiere.isEmpty() && !coefText.isEmpty() && selectedModule != null) {
+        try {
+            float coef = Float.parseFloat(coefText);
 
-        if (!nomMatiere.isEmpty() && !coefText.isEmpty() && selectedModule != null) {
-            try {
-                double coef = Double.parseDouble(coefText);
+            // Check if the matiere name already exists
+            if (isMatiereNameUnique(nomMatiere)) {
                 Matiere matiere = new Matiere();
                 matiere.setNomMatiere(nomMatiere);
-                matiere.setCoef((float) coef);
+                matiere.setCoef(coef);
                 matiere.setModule(selectedModule);
 
                 matiereService.add(matiere);
 
-                 
                 txt_nomMatiere.clear();
                 txt_coef.clear();
                 modulesComboBox.getSelectionModel().clearSelection();
 
-                 
                 loadMatieresData();
                 showPopup("Matière ajoutée avec succès!");
-            } catch (NumberFormatException e) {
-                showPopup("Le coefficient doit être un nombre valide!");
+            } else {
+                showPopup("Le nom de la matière existe déjà!");
             }
-        } else {
-             
-            showPopup("Veuillez remplir tous les champs!");
+        } catch (NumberFormatException e) {
+            showPopup("Le coefficient doit être un nombre valide!");
+        }
+    } else {
+        showPopup("Veuillez remplir tous les champs!");
+    }
+}
+
+private boolean isMatiereNameUnique(String nomMatiere) {
+    for (Matiere matiere : matiereData) {
+        if (matiere.getNomMatiere().equalsIgnoreCase(nomMatiere)) {
+            return false;
         }
     }
+    return true;
+}
 
     @FXML
     private void update() {
         Matiere selectedMatiere = MatieresTable.getSelectionModel().getSelectedItem();
-
         if (selectedMatiere != null) {
-            String newNomMatiere = txt_nomMatiere.getText();
-            String newCoefText = txt_coef.getText();
-            Module newModule = modulesComboBox.getValue();
+            String nomMatiere = txt_nomMatiere.getText();
+            Module selectedModule = modulesComboBox.getValue();
+            String coefText = txt_coef.getText();
 
-            if (!newNomMatiere.isEmpty() && !newCoefText.isEmpty() && newModule != null) {
+            if (!nomMatiere.isEmpty() && selectedModule != null && !coefText.isEmpty()) {
                 try {
-                    double newCoef = Double.parseDouble(newCoefText);
-                    selectedMatiere.setNomMatiere(newNomMatiere);
-                    selectedMatiere.setCoef((float) newCoef);
-                    selectedMatiere.setModule(newModule);
+                    float coef = Float.parseFloat(coefText);
 
-                    matiereService.update(selectedMatiere);
+                    selectedMatiere.setNomMatiere(nomMatiere);
+                    selectedMatiere.setModule(selectedModule);
+                    selectedMatiere.setCoef(coef);
 
-                     
+                    matiereService.updateMatiere(selectedMatiere);
+
                     txt_nomMatiere.clear();
                     txt_coef.clear();
                     modulesComboBox.getSelectionModel().clearSelection();
 
-                     
                     loadMatieresData();
+                    showPopup("Matière mise à jour avec succès!");
                 } catch (NumberFormatException e) {
                     showPopup("Le coefficient doit être un nombre valide!");
                 }
             } else {
-                 
                 showPopup("Veuillez remplir tous les champs!");
             }
+        } else {
+            showPopup("Veuillez sélectionner une matière à mettre à jour!");
         }
     }
 
@@ -220,12 +225,10 @@ public class GestionMatieresController {
         if (selectedMatiere != null) {
             matiereService.delete(selectedMatiere);
 
-             
             txt_nomMatiere.clear();
             txt_coef.clear();
             modulesComboBox.getSelectionModel().clearSelection();
 
-             
             loadMatieresData();
         }
     }
@@ -237,5 +240,4 @@ public class GestionMatieresController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }

@@ -11,7 +11,7 @@ public class Matiere {
     private int idMatiere;
     private String nomMatiere;
     private Module module;
-    private float coef;
+private float coef = 0.9f; // or any other default value
 
     public Matiere(int idMatiere, String nomMatiere, Module module, float coef) {
         this.idMatiere = idMatiere;
@@ -26,6 +26,7 @@ public class Matiere {
             return "";
         }
     }
+     
 
     
      public Matiere( String nomMatiere) {
@@ -75,20 +76,14 @@ public class Matiere {
     }
 
 
-    public double getMatiereCoef(String nomMatiere) {
-        if (this.nomMatiere.equals(nomMatiere)) {
-            return coef;
-        }
-        return 0.0;  
-    }
+ 
     public float getCoef() {
         return coef;
     }
 
-    public void setCoef(float coef) {
+ public void setCoef(float coef) {
         this.coef = coef;
     }
-
     public StringProperty nomMatiereProperty() {
         return new SimpleStringProperty(nomMatiere);
     }
@@ -128,4 +123,6 @@ public class Matiere {
         }
         return moduleNames;
     }
+   
+
 }
