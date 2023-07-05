@@ -31,6 +31,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import tn.eduVision.entités.Admin;
+import tn.eduVision.entités.Role;
+import tn.eduVision.entités.Utilisateur;
 
 public class NoteEtudiantController implements Initializable {
 
@@ -197,7 +200,6 @@ private void saveTranscriptAsHtml(String transcript) {
             writer.println("<th>Note</th>");
             writer.println("<th>Coefficient</th>");
             writer.println("<th>Moyenne</th>");
-            writer.println("<th>Mention</th>");
             writer.println("</tr>");
 
             double totalCoefficient = 0.0;
@@ -241,5 +243,25 @@ private void saveTranscriptAsHtml(String transcript) {
         }
     }
 }
+
+ //private Utilisateur getCurrentUser() {
+    // Implement after Integration
+  //  return AuthenticationService.getCurrentUser();
+//}
+   private Utilisateur getCurrentUser() {
+    // Create a dummy user for testing purposes
+    Utilisateur dummyUser = new Etudiant(); 
+    dummyUser.setRole(Role.etudiant); 
+
+    return dummyUser;
+}
+private void showAccessDeniedAlert() {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Accès refusé");
+    alert.setHeaderText(null);
+    alert.setContentText("Accès refusé. Vous devez être un administrateur pour accéder à cette fonctionnalité.");
+    alert.showAndWait();
+}
+
 
 }
