@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tn.eduVision.entités.Admin;
 import tn.eduVision.entités.ProgrammeEtude;
+import tn.eduVision.entités.Utilisateur;
 import tn.eduVision.exceptions.NoDataFoundException;
 import tn.eduVision.tools.CustomLogger;
 import tn.eduVision.tools.SqlConnectionManager;
@@ -22,6 +24,10 @@ public class ProgrammeEtudeService implements Iservices<ProgrammeEtude> {
     public ProgrammeEtudeService() {
         _connection = SqlConnectionManager.getInstance().getConnection();
     }
+    public boolean isAdmin(Utilisateur user) {
+    return user instanceof Admin;
+}
+
 public int getProgrammeIdByDescription(String description) {
     int programId = 0;
 
