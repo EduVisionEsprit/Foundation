@@ -39,6 +39,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
@@ -84,6 +85,44 @@ public class CalanderController implements Initializable {
         calendar.getChildren().clear();
         drawCalendar();
     }
+   private void showReservationPopup(List<Reservation> reservations) {
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Reservation Details");
+    alert.setHeaderText(null);
+
+    VBox container = new VBox();
+    container.setSpacing(10);
+    container.setPadding(new Insets(10));
+
+    for (Reservation reservation : reservations) {
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        gridPane.addRow(0, createLabel("Date Reservation"), createValue(reservation.getDateReservation().toString()));
+        gridPane.addRow(1, createLabel("Heure Début"), createValue(reservation.getHeureDebut().toString()));
+        gridPane.addRow(2, createLabel("Heure Fin"), createValue(reservation.getHeureFin().toString()));
+        gridPane.addRow(3, createLabel("Etat"), createValue(reservation.getEtat().name()));
+        container.getChildren().add(gridPane);
+    }
+
+    ScrollPane scrollPane = new ScrollPane(container);
+    scrollPane.setFitToWidth(true);
+    scrollPane.setFitToHeight(true);
+    scrollPane.setPrefWidth(600);  // Set preferred width
+    scrollPane.setPrefHeight(400); // Set preferred height
+    alert.getDialogPane().setContent(scrollPane);
+    alert.getDialogPane().setPrefWidth(650);
+    alert.getDialogPane().setPrefHeight(450);
+    
+    
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.isPresent() && result.get() == ButtonType.OK) {
+        
+    }
+}
+
+
 
    private void handleRectangleClick(ZonedDateTime clickedDate) {
     Dialog<Void> dialog = new Dialog<>();
@@ -150,7 +189,7 @@ public class CalanderController implements Initializable {
                 alert.showAndWait();
                 return null;
             }
-            System.out.println(selectedItem.getIdRessource());
+
             ZonedDateTime selectedDateTime = ZonedDateTime.of(selectedDate, LocalTime.of(startHour, startMinute), clickedDate.getZone());
             //TODOOOOOOOO chnage once i can get the actual connected user :) 
             Utilisateur dummyUser =  new Utilisateur(1, "jobrane", "ben salah", "test@gmail.com", null, Role.ADMIN);
@@ -170,9 +209,6 @@ public class CalanderController implements Initializable {
                 alert.setContentText(ex.getMessage());
                 alert.showAndWait();
             }
-            System.out.println("Selected Date: " + selectedDateTime);
-            System.out.println("Start Time: " + startHour + ":" + startMinute);
-            System.out.println("End Time: " + endHour + ":" + endMinute);
         }
         return null;
     });
@@ -257,7 +293,7 @@ private Spinner<Integer> createMinuteSpinner(int initialValue) {
                 ZonedDateTime clickedDate = dateFocus.withDayOfMonth(dayOfMonth);
                 ZoneId systemTimeZone = ZoneId.systemDefault();
                 LocalDate currentDate = ZonedDateTime.now().toLocalDate();
-                if(clickedDate.toLocalDate().isEqual(currentDate) || clickedDate.toLocalDate().isAfter(currentDate)){
+                if(clickedDate.toLocalDate().isAfter(currentDate)){
                     handleRectangleClick(clickedDate);
                 }
             });
@@ -293,6 +329,7 @@ private Spinner<Integer> createMinuteSpinner(int initialValue) {
     private void createCalendarActivity(List<CalendarActivity> calendarActivities, double rectangleHeight, double rectangleWidth, StackPane stackPane) {
         VBox calendarActivityBox = new VBox();
         for (int k = 0; k < calendarActivities.size(); k++) {
+            final int index = k;
             if(k >= 3) {
                 Text moreActivities = new Text("...");
                 calendarActivityBox.getChildren().add(moreActivities);
@@ -301,12 +338,31 @@ private Spinner<Integer> createMinuteSpinner(int initialValue) {
                 });
                 break;
             }
+            Etat etat = calendarActivities.get(k).getEtat();
+            CalendarActivity activity = calendarActivities.get(k);
             Text text = new Text(calendarActivities.get(k).getClientName() + ", " + calendarActivities.get(k).getDate().toLocalTime());
+            if(null != etat)switch (etat) {
+                case refuse:
+                    text.setFill(Color.RED);
+                    break;
+                case attente:
+                    text.setFill(Color.ORANGE);
+                    break;
+                case confirme:
+                    text.setFill(Color.GREEN);
+                    break;
+                default:
+                    break;
+            }
             calendarActivityBox.getChildren().add(text);
             text.setOnMouseClicked(mouseEvent -> {
-                
-                System.out.println(text.getText());
-            });
+            handleActivityClick(activity);
+        });
+           calendarActivityBox.setOnMouseClicked(event -> {
+           List<Reservation> selectedReservation = _reservationInstance.getResrvationByDate(calendarActivities.get(index).getDate().plusMonths(1));
+
+          showReservationPopup(selectedReservation);
+});
         }
         calendarActivityBox.setTranslateY((rectangleHeight / 2) * 0.20);
         calendarActivityBox.setMaxWidth(rectangleWidth * 0.8);
@@ -314,6 +370,35 @@ private Spinner<Integer> createMinuteSpinner(int initialValue) {
         calendarActivityBox.setStyle("-fx-background-color:WHITE");
         stackPane.getChildren().add(calendarActivityBox);
     }
+    
+    private void handleActivityClick(CalendarActivity activity) {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Reservation Details");
+        dialog.setHeaderText("Reservation Information");
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(20, 20, 20, 20));
+
+        gridPane.add(new Label("Etat:"), 0, 0);
+        gridPane.add(new Label(String.valueOf(activity.getEtat())), 1, 0);
+
+        gridPane.add(new Label("Client Name:"), 0, 1);
+        gridPane.add(new Label(activity.getClientName()), 1, 1);
+
+        gridPane.add(new Label("Reservation Date:"), 0, 2);
+        gridPane.add(new Label(activity.getDate().toLocalDate().toString()), 1, 2);
+
+        dialog.getDialogPane().setContent(gridPane);
+
+        ButtonType okButton = new ButtonType("OK");
+        dialog.getDialogPane().getButtonTypes().add(okButton);
+
+        dialog.showAndWait();
+}
+    
+    
 
     private Map<Integer, List<CalendarActivity>> createCalendarMap(List<CalendarActivity> calendarActivities) {
     Map<Integer, List<CalendarActivity>> calendarActivityMap = new HashMap<>();
@@ -336,25 +421,28 @@ private Spinner<Integer> createMinuteSpinner(int initialValue) {
     private Map<Integer, List<CalendarActivity>> getCalendarActivitiesMonth(ZonedDateTime dateFocus) {
         List<Reservation> listReservations = new ArrayList<>();
         List<CalendarActivity> calendarActivities = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
         try{
         listReservations.addAll(_reservationInstance.getAll(false));
+        listReservations.addAll(_reservationInstance.getResrvationByUserId(1)); //TODO one i get the id returned from the logged in user it should be updated so it detects the user concerned
         }
         catch(NoDataFoundException ex){
             return createCalendarMap(calendarActivities);
         }
         
         listReservations.forEach((reservation) -> {
+            calendar.setTime(reservation.getDateReservation());
             if(reservation.getDateReservation().getMonth() + 1  == dateFocus.getMonthValue()){
                 String nomMat = _generalDetailsInstance.getNomRessource(reservation.getRessource().getIdRessource());
-                int year = reservation.getDateReservation().getYear();
+                int year = calendar.get(Calendar.YEAR);
                 int month = reservation.getDateReservation().getMonth();
                 java.sql.Date sqlDate = (java.sql.Date) reservation.getDateReservation();
                 LocalDate localDate = sqlDate.toLocalDate();
                 int day = localDate.getDayOfMonth();
                 int hour = reservation.getHeureDebut().getHour();
-                int minute = reservation.getHeureDebut().getMinute();
+                int minute = reservation.getHeureDebut().getMinute(); 
                 ZonedDateTime time = ZonedDateTime.of(year, month, day,hour, minute, 0, 0, dateFocus.getZone());
-                calendarActivities.add(new CalendarActivity(time, nomMat, reservation.getIdReservation()));
+                calendarActivities.add(new CalendarActivity(time, nomMat, reservation.getIdReservation(),reservation.getEtat()));
             }
         });
         
@@ -365,6 +453,28 @@ private Spinner<Integer> createMinuteSpinner(int initialValue) {
         return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
     
+    private javafx.scene.control.Label createValue(String text) {
+        return new javafx.scene.control.Label(text);
+    }
+    
+    private javafx.scene.control.Label createLabel(String text) {
+        javafx.scene.control.Label label = new javafx.scene.control.Label(text);
+        label.setStyle("-fx-font-weight: bold");
+        if(null != text)switch (text) {
+                case "refuse":
+                    label.setStyle("-fx-text-fill: red;");
+                    break;
+                case "attente":
+                    label.setStyle("-fx-text-fill: orange;");
+                    break;
+                case "confirme":
+                    label.setStyle("-fx-text-fill: green;");
+                    break;
+                default:
+                    break;
+            }
+        return label;
+    }
 
 
 }
