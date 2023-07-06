@@ -12,21 +12,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import tn.eduVision.entités.Etat;
 import tn.eduVision.entités.Reservation;
 import tn.eduVision.entités.Ressource;
@@ -101,10 +96,13 @@ public class ResvationMaterielService{
             statement.setTime(5, convertToSqlTime(endTime));
             statement.setDate(6, sqlDateConverter(startDate));
             statement.setInt(7, id);
-            System.out.println(statement);
+             System.out.println(statement);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
-                Reservation reservation =  new Reservation(resultSet.getInt("id_reservation")); 
+                
+               System.out.println(resultSet.getInt("id_reservation"));
+                Reservation reservation =  new Reservation(resultSet.getInt("id_reservation"));
+                //System.out.println(reservation); 
                return Optional.of(reservation);
             }
         } catch (SQLException e) {
@@ -122,10 +120,11 @@ public class ResvationMaterielService{
         try{
         String selectAll = "";
         if(getUnvalidated){
-            selectAll = "select * from `reservations` where etat <> '" + Etat.confirme.name() + "' ;";
+            selectAll = "select * from `reservations` where etat = '" + Etat.attente.name() + "' ;";
         }
         else {
             selectAll = "select * from `reservations` where etat = '" + Etat.confirme.name() + "' ;";
+            System.out.println(selectAll);
         }
         
         statement = _connection.prepareStatement(selectAll);
@@ -146,6 +145,7 @@ public class ResvationMaterielService{
                 materiel = materielServiceInstance.getById(resultSet.getInt("id_ressource"));
             }
             if(salle != null){
+                System.out.println(resultSet.getTime("heure_debut"));
             reservation = new Reservation(
                     resultSet.getInt("id_reservation"),
                     new Utilisateur(resultSet.getInt("id_utilisateur"), "jobrane", "ben salah", "test@gmail.com", null, Role.ADMIN),
@@ -240,76 +240,12 @@ public class ResvationMaterielService{
             if(rowsAffected == 0){
                 throw new Exception("nothing got updated");
             }
-            if(etat == Etat.confirme){
-                getReservationsToReject(reservaation);
-            }
+            
             
         } catch (SQLException e) {
             _logger.log(Level.SEVERE, e.getMessage());
         }
     }
-    
-    public void getReservationsToReject(Reservation reservation) {
-         try {
-             
-            String sql = "SELECT * FROM reservations "
-                + "WHERE ((heure_debut >= TIME(?) AND heure_debut <= TIME(?) and DATE(`date_reservation`) = ?) "
-                + "OR (heure_fin >= TIME(?) AND heure_fin <= TIME(?) and DATE(`date_reservation`) = ?) and id_ressource = ?) and etat = 'attente' and id_reservation <> ?;";
-            
-            statement = _connection.prepareStatement(sql);
-            
-            statement.setTime(1, convertToSqlTime(reservation.getHeureDebut()));
-            statement.setTime(2, convertToSqlTime(reservation.getHeureFin()));
-            statement.setDate(3, sqlDateConverter(reservation.getDateReservation()));
-            statement.setTime(4, convertToSqlTime(reservation.getHeureDebut()));
-            statement.setTime(5, convertToSqlTime(reservation.getHeureFin()));
-            statement.setDate(6, sqlDateConverter(reservation.getDateReservation()));
-            statement.setInt(7, reservation.getIdReservation());
-            statement.setInt(8, reservation.getIdReservation());
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){                
-                Reservation reservationToReject =  new Reservation(resultSet.getInt("id_reservation"));
-                makeReservationVlidations(Etat.refuse, reservationToReject);
-                _logger.info("reservation " + reservationToReject.getIdReservation() + " has been automaticlly rejected due to presence in time interval of the validated reservation");
-            }
-        } catch (SQLException e) {
-        }
-         catch(Exception ex){ 
-        }
-      
-    }
-    
-    public List<Reservation> getResrvationByUserId(int userId){
-        
-        return getAll(true).stream().filter(r -> r.getUtilisateur().getIdUtilisateur() == userId ).collect(Collectors.toList());
-    }
-    
-    public List<Reservation> getResrvationByDate(ZonedDateTime date){
-
-        List<Reservation> listOfReservation = new ArrayList<>();
-        try{
-            
-            LocalDate localDate = date.toLocalDate();
-            Date x = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            String sql = "select * from reservations where date_reservation = ? ;";
-            statement = _connection.prepareStatement(sql);
-            statement.setTimestamp(1, new Timestamp(x.getTime()));
-            System.out.println(statement);      
-           ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
-                Utilisateur DummyUser = new Utilisateur(1, "dummy", "dummy", "dummy", "dummy", Role.ADMIN);
-                Ressource reservationRessource = GenraaldetailsServiceInstance.getRessourceById(resultSet.getInt("id_ressource"));
-                Reservation reservation = new Reservation(resultSet.getInt("id_reservation"),DummyUser , resultSet.getDate("date_reservation"), convertToLocaleTime(resultSet.getTime("heure_debut")), convertToLocaleTime(resultSet.getTime("heure_fin")), Etat.valueOf(resultSet.getString("etat")), reservationRessource);
-                listOfReservation.add(reservation);
-            }
-            _logger.log(Level.INFO, listOfReservation.toString());
-        }
-        catch(SQLException ex){
-            
-        }
-        return listOfReservation;
-}
     
     private void CloseStatment(PreparedStatement statment){
         try{

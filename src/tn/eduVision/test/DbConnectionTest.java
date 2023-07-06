@@ -6,20 +6,14 @@
 package tn.eduVision.test;
 
 import java.sql.Connection;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Date;
-import tn.eduVision.entités.Etat;
 import java.util.List;
 import tn.eduVision.entités.Materiel;
-import tn.eduVision.entités.Reservation;
 import tn.eduVision.entités.Salle;
 import tn.eduVision.entités.TypeRessource;
 import tn.eduVision.entités.TypeSalle;
 import tn.eduVision.tools.SqlConnectionManager;
 import tn.eduVision.entités.TypeRessource;
-import tn.eduVision.services.*;
+import tn.eduVision.services.MaterielService;
 
 /**
  *
@@ -41,30 +35,9 @@ public class DbConnectionTest {
         //ss.delete(s);
         
         
-        //ResvationMaterielService x = new ResvationMaterielService();
-        //List<Reservation> l = x.getAll(true);
-        //System.out.println(l.get(1));
-        //x.getReservationsToReject(l.get(1));
-        //System.out.println(x.getAll(true));
+        System.out.println(ss.getAll());
         
-        // Assuming you have a ZonedDateTime object and a Date object
-        ZonedDateTime zonedDateTime = ZonedDateTime.now();
-        Date date = new Date();
-
-        // Convert Date to ZonedDateTime
-        ZonedDateTime dateAsZonedDateTime = date.toInstant().atZone(ZoneId.systemDefault());
-
-        // Compare the two ZonedDateTime objects
-        int comparisonResult = zonedDateTime.compareTo(dateAsZonedDateTime);
-
-        // Perform actions based on the comparison result
-        if (comparisonResult < 0) {
-            System.out.println("The ZonedDateTime is before the Date.");
-        } else if (comparisonResult > 0) {
-            System.out.println("The ZonedDateTime is after the Date.");
-        } else {
-            System.out.println("The ZonedDateTime is the same as the Date.");
-        }
+        
         
     }
 }
