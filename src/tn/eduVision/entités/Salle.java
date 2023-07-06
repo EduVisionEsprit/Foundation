@@ -28,7 +28,7 @@ public class Salle extends Ressource{
 
     @Override
     public String toString() {
-        return "Salle{" + "nomSalle=" + nomSalle + ", capacite=" + capacite + ", equipements=" + equipements + ", disponibilite=" + disponibilite + ", typeSalle=" + typeSalle + '}';
+       return  nomSalle;
     }
 
     public String getNomSalle() {
