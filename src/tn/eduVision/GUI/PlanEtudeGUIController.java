@@ -72,70 +72,70 @@ public class PlanEtudeGUIController {
 
     private ProgrammeEtudeService programmeEtudeService;
     private ModuleService moduleService;
-//private Utilisateur getCurrentUser() {
-    // Implement after Integration
-  //  return AuthenticationService.getCurrentUser();
-//}
-   private Utilisateur getCurrentUser() {
-    // Create a dummy user for testing purposes
-    Utilisateur dummyUser = new Admin(); 
-    dummyUser.setRole(Role.admin); 
 
-    return dummyUser;
-}
-private void showAccessDeniedAlert() {
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Accès refusé");
-    alert.setHeaderText(null);
-    alert.setContentText("Accès refusé. Vous devez être un administrateur pour accéder à cette fonctionnalité.");
-    alert.showAndWait();
-}
+    private Utilisateur getCurrentUser() {
+        // Create a dummy user for testing purposes
+        Utilisateur dummyUser = new Admin();
+        dummyUser.setRole(Role.admin);
+        return dummyUser;
+    }
+
+    private void showAccessDeniedAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Accès refusé");
+        alert.setHeaderText(null);
+        alert.setContentText("Accès refusé. Vous devez être un administrateur pour accéder à cette fonctionnalité.");
+        alert.showAndWait();
+    }
+
+   
     public void initialize() {
-            Utilisateur  currentUser = getCurrentUser(); 
-    if (!programmeEtudeService.isAdmin(currentUser)) {
+    Utilisateur currentUser = getCurrentUser();
+   
+
+    programmeEtudeService = new ProgrammeEtudeService();
+    moduleService = new ModuleService();
+ if (!programmeEtudeService.isAdmin(currentUser)) {
         showAccessDeniedAlert();
         return;
     }
- 
-        moduleService = new ModuleService();
+    List<ProgrammeEtude> programmeEtudeList = programmeEtudeService.getAll();
+    List<String> programmeDescriptions = programmeEtudeList.stream()
+            .map(ProgrammeEtude::getDescription)
+            .collect(Collectors.toList());
+    ObservableList<String> programmeEtudeOptions = FXCollections.observableArrayList(programmeDescriptions);
+    programmeEtudeComboBox.setItems(programmeEtudeOptions);
 
-        programmeEtudeService = new ProgrammeEtudeService();
-        List<ProgrammeEtude> programmeEtudeList = programmeEtudeService.getAll();
-        List<String> programmeDescriptions = programmeEtudeList.stream()
-                .map(ProgrammeEtude::getDescription)
-                .collect(Collectors.toList());
-        ObservableList<String> programmeEtudeOptions = FXCollections.observableArrayList(programmeDescriptions);
-        programmeEtudeComboBox.setItems(programmeEtudeOptions);
+    moduleColumn.setCellValueFactory(new PropertyValueFactory<>("nomModule"));
 
-        moduleColumn.setCellValueFactory(new PropertyValueFactory<>("nomModule"));
-
-        matieresColumn.setCellValueFactory(data -> {
-            Module module = data.getValue();
-            if (module != null) {
-                List<String> nomMatieres = moduleService.getNomMatiere(module);
-                if (nomMatieres != null) {
-                    String matieresString = nomMatieres.stream()
-                            .collect(Collectors.joining("\n | "));
-                    return new SimpleStringProperty(matieresString);
-                }
+    matieresColumn.setCellValueFactory(data -> {
+        Module module = data.getValue();
+        if (module != null) {
+            List<String> nomMatieres = moduleService.getNomMatiere(module);
+            if (nomMatieres != null) {
+                String matieresString = nomMatieres.stream()
+                        .collect(Collectors.joining("\n | "));
+                return new SimpleStringProperty(matieresString);
             }
-            return new SimpleStringProperty("N/A");
-        });
+        }
+        return new SimpleStringProperty("N/A");
+    });
 
-        coefColumn.setCellValueFactory(data -> {
-            Module module = data.getValue();
-            if (module != null) {
-                List<String> nomMatieres = moduleService.getNomMatiere(module);
-                if (nomMatieres != null) {
-                    double coefficient = nomMatieres.stream()
-                            .mapToDouble(moduleService::getCoefMatiere)
-                            .sum();
-                    return new SimpleDoubleProperty(coefficient).asObject();
-                }
+    coefColumn.setCellValueFactory(data -> {
+        Module module = data.getValue();
+        if (module != null) {
+            List<String> nomMatieres = moduleService.getNomMatiere(module);
+            if (nomMatieres != null) {
+                double coefficient = nomMatieres.stream()
+                        .mapToDouble(moduleService::getCoefMatiere)
+                        .sum();
+                return new SimpleDoubleProperty(coefficient).asObject();
             }
-            return new SimpleDoubleProperty(0.0).asObject();
-        });
-    }
+        }
+        return new SimpleDoubleProperty(0.0).asObject();
+    });
+}
+
 
     @FXML
     private void handleProgrammeEtudeSelection() {
@@ -147,17 +147,7 @@ private void showAccessDeniedAlert() {
             List<Module> modules = moduleService.getModulesByProgramme(programmeEtude);
 
             if (modules != null) {
-                for (Module module : modules) {
-                    List<Matiere> matieres = module.getMatieres();
-                    List<String> nomMatieres = new ArrayList<>();
-                    if (matieres != null) {
-                        nomMatieres = matieres.stream()
-                                .map(Matiere::getNomMatiere)
-                                .collect(Collectors.toList());
-                    }
-                    module.setMatieres(nomMatieres);
-                }
-                modulesTableView.setItems(FXCollections.observableArrayList(modules));
+                modulesTableView.getItems().setAll(modules);
                 return;
             }
         }
@@ -181,97 +171,87 @@ private void showAccessDeniedAlert() {
 
     private String emailRecipient = "";
 
- @FXML
-private void handleEnvoiButtonClicked() throws AddressException, MessagingException {
-    emailRecipient = email.getText();
-    String[] recipients = emailRecipient.split(";");
-    String selectedProgrammeDescription = programmeEtudeComboBox.getValue();
-    ProgrammeEtude programmeEtude = retrieveProgrammeByDescription(selectedProgrammeDescription);
+    @FXML
+    private void handleEnvoiButtonClicked() throws AddressException, MessagingException {
+        emailRecipient = email.getText();
+        String[] recipients = emailRecipient.split(";");
+        String selectedProgrammeDescription = programmeEtudeComboBox.getValue();
+        ProgrammeEtude programmeEtude = retrieveProgrammeByDescription(selectedProgrammeDescription);
 
-    if (programmeEtude != null) {
-        String vboxContent = getContentAsHTML();
-        departementLabel.setText(programmeEtude.getDescription());
-        programmeEtudeLabel.setText(programmeEtude.getDescription());
-        groupeLabel.setText("");
-        String senderEmail = "sana.benhammouda@esprit.tn";
-        String senderPassword = "Linedata09896815.";
-        String smtpHost = "smtp.gmail.com";
-        int smtpPort = 587;
+        if (programmeEtude != null) {
+            String vboxContent = getContentAsHTML();
+          
+            String senderEmail = "sana.benhammouda@esprit.tn";
+            String senderPassword = "Linedata09896815.";
+            String smtpHost = "smtp.gmail.com";
+            int smtpPort = 587;
 
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", smtpHost);
-        props.put("mail.smtp.port", smtpPort);
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", smtpHost);
+            props.put("mail.smtp.port", smtpPort);
 
-        Session session = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(senderEmail, senderPassword);
+            Session session = Session.getInstance(props, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(senderEmail, senderPassword);
+                }
+            });
+
+            for (String recipient : recipients) {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(senderEmail));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient.trim()));
+                message.setSubject("Plan d'étude");
+
+                message.setContent(vboxContent, "text/html");
+                Transport.send(message);
+                System.out.println("Email envoyé à: " + recipient);
             }
-        });
-
-        for (String recipient : recipients) {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(senderEmail));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient.trim()));
-            message.setSubject("Plan d'étude");
-
-            message.setContent(vboxContent, "text/html");
-            Transport.send(message);
-            System.out.println("Email envoyé à: " + recipient);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Envoi terminé");
+            alert.setHeaderText(null);
+            alert.setContentText("Plan d'étude distribué");
+            alert.showAndWait();
         }
-          Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Envoi terminé");
-    alert.setHeaderText(null);
-    alert.setContentText("Plan d'étude distribué");
-    alert.showAndWait();
-        
-    }
-}
-
-    
- private String getContentAsHTML() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("<html><head>");
-    sb.append("<style>");
-    sb.append("body { font-family: Arial, sans-serif; }");
-    sb.append("h2 { color: #333333; }");
-    sb.append("table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }");
-    sb.append("table th, table td { border: 1px solid #dddddd; padding: 8px; }");
-    sb.append("table th { background-color: #f2f2f2; font-weight: bold; }");
-    sb.append("</style>");
-    sb.append("</head><body>");
-
-    String selectedProgramme = programmeEtudeComboBox.getValue();
-    if (selectedProgramme != null) {
-        sb.append("<h2>Plan d'étude pour : ").append(selectedProgramme).append("</h2>");
     }
 
-    sb.append("<p>Cher étudiant,</p>");
-    sb.append("<p>Voici le plan d'étude pour le programme sélectionné :</p>");
+    private String getContentAsHTML() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html><head>");
+        sb.append("<style>");
+        sb.append("body { font-family: Arial, sans-serif; }");
+        sb.append("h2 { color: #333333; }");
+        sb.append("table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }");
+        sb.append("table th, table td { border: 1px solid #dddddd; padding: 8px; }");
+        sb.append("table th { background-color: #f2f2f2; font-weight: bold; }");
+        sb.append("</style>");
+        sb.append("</head><body>");
 
-    if (modulesTableView != null && modulesTableView.getItems() != null) {
-    ObservableList<Module> modules = modulesTableView.getItems();
-    sb.append("<table>");
-    sb.append("<tr><th>Module</th><th>Matières</th><th>Coefficient</th></tr>");
-    for (Module module : modules) {
-        sb.append("<tr>");
-        sb.append("<td>").append(module.getNomModule()).append("</td>");
-        sb.append("<td>").append(matieresColumn.getCellData(module)).append("</td>");
-        sb.append("<td>").append(coefColumn.getCellData(module)).append("</td>");
-        sb.append("</tr>");
+        String selectedProgramme = programmeEtudeComboBox.getValue();
+        if (selectedProgramme != null) {
+            sb.append("<h2>Plan d'étude pour : ").append(selectedProgramme).append("</h2>");
+        }
+
+        sb.append("<p>Cher étudiant,</p>");
+        sb.append("<p>Voici le plan d'étude pour le programme sélectionné :</p>");
+
+        if (modulesTableView != null && modulesTableView.getItems() != null) {
+            ObservableList<Module> modules = modulesTableView.getItems();
+            sb.append("<table>");
+            sb.append("<tr><th>Module</th><th>Matières</th><th>Coefficient</th></tr>");
+            for (Module module : modules) {
+                sb.append("<tr>");
+                sb.append("<td>").append(module.getNomModule()).append("</td>");
+                sb.append("<td>").append(matieresColumn.getCellData(module)).append("</td>");
+                sb.append("<td>").append(coefColumn.getCellData(module)).append("</td>");
+                sb.append("</tr>");
+            }
+            sb.append("</table>");
+        }
+
+        sb.append("</body></html>");
+        return sb.toString();
     }
-    sb.append("</table>");
-}
-
-    sb.append("<p>Si vous avez des questions ou avez besoin de plus d'informations, n'hésitez pas à nous contacter.</p>");
-    sb.append("<p>Cordialement,</p>");
-    sb.append("<p>Votre université</p>");
-
-    sb.append("</body></html>");
-    return sb.toString();
-}
-
-
 }

@@ -30,14 +30,16 @@
                         </columns>
                     </TableView>
 
-                    <Label fx:id="departementLabel" />
-                    <Label fx:id="programmeEtudeLabel" />
-                    <Label fx:id="groupeLabel" />
+              
                 </VBox>
             </content>
         </ScrollPane>
         <Button fx:id="Ditribuer" layoutX="772.0" layoutY="540.0" mnemonicParsing="false" onAction="#handleEnvoiButtonClicked" text="Envoi" />
         <Label layoutX="83.0" layoutY="544.0" text="Email: " />
         <TextField fx:id="email" layoutX="121.0" layoutY="540.0" prefHeight="26.0" prefWidth="266.0" style="-fx-border-color: grey; -fx-border-image-width: 0.025;" />
+    <Label fx:id="departementLabel" />
+<Label fx:id="programmeEtudeLabel" />
+<Label fx:id="groupeLabel" />
+
     </children>
 </AnchorPane>
