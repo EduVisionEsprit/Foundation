@@ -21,12 +21,6 @@
     -fx-background-color: #ffffff;
 }
 
-/* TableColumn */
-#moduleColumn,
-#matieresColumn,
-#coefColumn {
-    -fx-background-color: #cfe3ff;
-}
 
 /* Button */
 #Ditribuer {

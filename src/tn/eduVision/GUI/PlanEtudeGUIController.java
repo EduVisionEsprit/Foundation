@@ -23,6 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -34,12 +35,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import tn.eduVision.entités.Admin;
 import tn.eduVision.entités.Groupe;
 import tn.eduVision.entités.Module;
 import tn.eduVision.entités.ProgrammeEtude;
 import tn.eduVision.services.ModuleService;
 import tn.eduVision.services.ProgrammeEtudeService;
 import tn.eduVision.entités.Matiere;
+import tn.eduVision.entités.Role;
+import tn.eduVision.entités.Utilisateur;
 
 public class PlanEtudeGUIController {
 
@@ -68,8 +72,31 @@ public class PlanEtudeGUIController {
 
     private ProgrammeEtudeService programmeEtudeService;
     private ModuleService moduleService;
+//private Utilisateur getCurrentUser() {
+    // Implement after Integration
+  //  return AuthenticationService.getCurrentUser();
+//}
+   private Utilisateur getCurrentUser() {
+    // Create a dummy user for testing purposes
+    Utilisateur dummyUser = new Admin(); 
+    dummyUser.setRole(Role.admin); 
 
+    return dummyUser;
+}
+private void showAccessDeniedAlert() {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Accès refusé");
+    alert.setHeaderText(null);
+    alert.setContentText("Accès refusé. Vous devez être un administrateur pour accéder à cette fonctionnalité.");
+    alert.showAndWait();
+}
     public void initialize() {
+            Utilisateur  currentUser = getCurrentUser(); 
+    if (!programmeEtudeService.isAdmin(currentUser)) {
+        showAccessDeniedAlert();
+        return;
+    }
+ 
         moduleService = new ModuleService();
 
         programmeEtudeService = new ProgrammeEtudeService();
@@ -194,6 +221,11 @@ private void handleEnvoiButtonClicked() throws AddressException, MessagingExcept
             Transport.send(message);
             System.out.println("Email envoyé à: " + recipient);
         }
+          Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Envoi terminé");
+    alert.setHeaderText(null);
+    alert.setContentText("Plan d'étude distribué");
+    alert.showAndWait();
         
     }
 }
