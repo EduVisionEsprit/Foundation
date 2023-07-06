@@ -51,6 +51,22 @@ public class GenralRessourcesDetails {
          return null;
 }
      
+     public Ressource getRessourceById(int id){
+         
+         List<Ressource> ressList = getAllResourcesPoly();
+         if(ressList == null){
+             return null;
+         }
+         Optional<Ressource> RessourceOptional = ressList.stream()
+        .filter(ressource -> ressource.getIdRessource() == id)
+        .findFirst();
+         
+         if(RessourceOptional.isPresent()){
+             return RessourceOptional.get();
+         }
+         return null;
+}
+     
      public String getNomRessource(int id) {
     List<Ressource> ressList = getAllResourcesPoly();
     if (ressList == null) {
