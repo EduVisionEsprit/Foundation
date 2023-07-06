@@ -254,6 +254,13 @@ private void displayEliteStudents() {
     popupStage.show();
 }
 
+private void showPopup(String message) {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Information");
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
+}
 
 @FXML
 private void sendEmailToEliteStudent(Etudiant selectedItem) {
@@ -269,6 +276,10 @@ private void sendEmailToEliteStudent(Etudiant selectedItem) {
         alert.showAndWait();
         return;
     }
+    else
+    showPopup("Email  Envoyé");
+   
+    
 
      
     String subject = "Félicitations, vous faites partie des élites !";
