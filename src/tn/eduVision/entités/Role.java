@@ -9,7 +9,7 @@ package tn.eduVision.entités;
  * @author Sayf
  */
 public enum Role {
-    ENSEIGNANT,
-    ADMIN,
-    ETUDIANT
+    enseignant,
+    admin,
+    etudiant
 }
