@@ -9,7 +9,6 @@ import java.util.List;
 import tn.eduVision.entités.Etudiant;
 import tn.eduVision.entités.Matiere;
 import tn.eduVision.entités.Note;
-import tn.eduVision.entités.SessionExamen;
 
 /**
  *
