@@ -10,17 +10,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="621.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.PlanEtudeGUIController">    <children>
-        <ScrollPane fitToWidth="true" layoutX="14.0" layoutY="48.0" prefHeight="434.0" prefWidth="946.0">
+<AnchorPane id="AnchorPane" prefHeight="621.0" prefWidth="917.0" stylesheets="@./planetude.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.PlanEtudeGUIController">
+    <children>
+        <ScrollPane fitToWidth="true" layoutX="14.0" layoutY="48.0" prefHeight="434.0" prefWidth="937.0">
             <content>
-                <VBox prefHeight="542.0" prefWidth="790.0" spacing="10.0">
+                <VBox prefHeight="542.0" prefWidth="790.0" spacing="10.0" style="-fx-background-color: #f3ffff;">
                     <Label style="-fx-font-weight: bold;" text="Plan Etude : " />
 
                     <Label style="-fx-font-weight: bold;" text="Programme Etude :" />
-                    <ComboBox fx:id="programmeEtudeComboBox" onAction="#handleProgrammeEtudeSelection" prefHeight="26.0" prefWidth="159.0" />
+                    <ComboBox fx:id="programmeEtudeComboBox" onAction="#handleProgrammeEtudeSelection" prefHeight="31.0" prefWidth="128.0" style="-fx-border-color: grey;" />
 
 
-                    <TableView fx:id="modulesTableView" prefHeight="345.0" prefWidth="839.0">
+                    <TableView fx:id="modulesTableView" prefHeight="346.0" prefWidth="948.0">
                         <columns>
                             <TableColumn fx:id="moduleColumn" prefWidth="345.6000307202339" text="Module" />
                             <TableColumn fx:id="matieresColumn" prefWidth="320.79998779296875" text="Matieres du Module" />
@@ -35,8 +36,8 @@
                 </VBox>
             </content>
         </ScrollPane>
-<Button fx:id="Ditribuer" layoutX="772.0" layoutY="540.0" mnemonicParsing="false" onAction="#handleEnvoiButtonClicked" text="Envoi" />
-      <Label layoutX="83.0" layoutY="544.0" text="Email : " />
-      <TextField fx:id="email" layoutX="121.0" layoutY="540.0" prefHeight="26.0" prefWidth="266.0" />
+        <Button fx:id="Ditribuer" layoutX="772.0" layoutY="540.0" mnemonicParsing="false" onAction="#handleEnvoiButtonClicked" text="Envoi" />
+        <Label layoutX="83.0" layoutY="544.0" text="Email: " />
+        <TextField fx:id="email" layoutX="121.0" layoutY="540.0" prefHeight="26.0" prefWidth="266.0" style="-fx-border-color: grey; -fx-border-image-width: 0.025;" />
     </children>
 </AnchorPane>
