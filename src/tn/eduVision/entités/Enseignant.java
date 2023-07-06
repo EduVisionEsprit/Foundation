@@ -22,9 +22,6 @@ public class Enseignant extends Utilisateur {
         this.bureauEns = bureauEns;
     }
 
-    public Enseignant() {
-super();    }
-
     public String getSpecialiteEns() {
         return specialiteEns;
     }

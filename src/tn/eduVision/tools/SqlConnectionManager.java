@@ -49,7 +49,7 @@ public class SqlConnectionManager {
         return instance;
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return connection;
     }
 
@@ -73,7 +73,5 @@ public class SqlConnectionManager {
     }
     return properties;
 }
-    
-
     
 }
