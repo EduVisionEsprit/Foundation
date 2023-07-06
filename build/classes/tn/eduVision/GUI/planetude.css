@@ -1,0 +1,41 @@
+/* planetude.css */
+
+/* AnchorPane */
+#AnchorPane {
+    -fx-background-color: #f0f5ff;
+}
+
+/* Label */
+.label {
+    -fx-font-weight: bold;
+}
+
+/* ComboBox */
+#programmeEtudeComboBox {
+    -fx-background-color: #ffffff;
+    -fx-font-size: 14px;
+}
+
+/* TableView */
+#modulesTableView {
+    -fx-background-color: #ffffff;
+}
+
+
+/* Button */
+#Ditribuer {
+    -fx-background-color: #1e90ff;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-pref-width: 100px;
+}
+
+#Ditribuer:hover {
+    -fx-background-color: #007bff;
+}
+
+/* TextField */
+#email {
+    -fx-background-color: #ffffff;
+    -fx-font-size: 14px;
+}
