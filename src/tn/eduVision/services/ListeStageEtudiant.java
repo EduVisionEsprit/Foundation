@@ -72,16 +72,16 @@ public class ListeStageEtudiant extends Application{
                 String nomEntreprise = resultSet.getString("nom_Entreprise");
                 String titreStage = resultSet.getString("titre_Stage");
                 String descriptionStage = resultSet.getString("description_Stage");
-                String decision = resultSet.getString("Decision");
+                String Status = resultSet.getString("Status");
                 
                 
-                StageEtudiant stage = new StageEtudiant(stageId, utilisateur, nomEntreprise, titreStage, descriptionStage, decision);
+                StageEtudiant stage = new StageEtudiant(stageId, utilisateur, nomEntreprise, titreStage, descriptionStage, Status);
                 stage.setStageId(stageId);
                 stage.setUtilisateur(utilisateur);
                 stage.setNomentreprise(nomEntreprise);
                 stage.setTitrestage(titreStage);
                 stage.setDescriptionstage(descriptionStage);
-                stage.setDecision(decision);
+                stage.setStatus(Status);
                  
                 
                  listeStages.add(stage);

@@ -61,8 +61,7 @@ private void gotostage(ActionEvent event) throws IOException {
     SessionManager sessionManager = SessionManager.getInstance();
 
      String role = sessionManager.getRole();
-    
-     System.out.println("Role: " + role);
+     
     
      
     if (role.equals("ENSEIGNANT")) {

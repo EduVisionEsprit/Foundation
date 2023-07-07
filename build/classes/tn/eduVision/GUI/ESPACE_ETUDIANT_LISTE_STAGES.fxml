@@ -14,11 +14,11 @@
    <children>
       <TableView fx:id="tableView" editable="true" layoutX="7.0" layoutY="26.0" prefHeight="463.0" prefWidth="782.0">
         <columns>
-          <TableColumn fx:id="nom_entreprise" prefWidth="139.999966442585" text="Nom Entreprise" editable="true"/>
+          <TableColumn fx:id="nom_entreprise" editable="true" prefWidth="139.999966442585" text="Nom Entreprise" />
           <TableColumn fx:id="titre_stage" prefWidth="172.7999267578125" text="Titre de Stage" />
             <TableColumn fx:id="description_stage" prefWidth="158.4000244140625" text="Description de Stage" />
             <TableColumn fx:id="id_user" prefWidth="80.79995727539062" text="ID utilisateur" />
-            <TableColumn fx:id="decision" prefWidth="224.0" text="Décision" />
+            <TableColumn fx:id="Status" prefWidth="224.0" text="Status" />
         </columns>
          <effect>
             <Glow />
@@ -28,5 +28,6 @@
       <Button fx:id="Editer" layoutX="648.0" layoutY="678.0" mnemonicParsing="false" onAction="#editButtonClicked" text="Editer" />
       <Button fx:id="Enregistrer" layoutX="715.0" layoutY="678.0" mnemonicParsing="false" onAction="#saveButtonClicked" text="Enregistrer" />
       <Button fx:id="Supprimer" layoutX="551.0" layoutY="678.0" mnemonicParsing="false" onAction="#eraseButtonClicked" text="Supprimer" />
+      <Button fx:id="stagehome" layoutX="66.0" layoutY="518.0" mnemonicParsing="false" onAction="#stagehome" text="Stage Home" />
    </children>
 </AnchorPane>

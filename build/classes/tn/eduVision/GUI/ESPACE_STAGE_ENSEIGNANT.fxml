@@ -14,8 +14,7 @@
          <children>
             <Line endX="100.0" layoutX="129.0" layoutY="223.0" startX="-100.0" />
             <Label layoutX="101.0" layoutY="254.0" text="Welcome" />
-            <Button layoutX="59.0" layoutY="304.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Home" />
-            <Button layoutX="14.0" layoutY="493.0" mnemonicParsing="false" text="Sign Out" />
+           
             <ImageView fitHeight="185.0" fitWidth="211.0" layoutX="35.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@ss.png" />

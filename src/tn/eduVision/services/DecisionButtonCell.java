@@ -64,6 +64,33 @@ public class DecisionButtonCell extends TableCell<List<String>, Void> {
     }
     
     
+    public String PasswordFromUserTable(int userId) {
+    String password = null;
+
+    try {
+        DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
+
+        String query = "SELECT mot_de_passe FROM utilisateurs WHERE id_utilisateur = ?";
+
+        PreparedStatement statement = dbManager.getConnection().prepareStatement(query);
+        statement.setInt(1, userId);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            password = resultSet.getString("mot_de_passe");
+        }
+
+        System.out.println("Password: " + password);
+
+        dbManager.closeConnection();
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+
+    return password;
+}
+
+    
     
     
     //update decesion column
@@ -71,13 +98,27 @@ public class DecisionButtonCell extends TableCell<List<String>, Void> {
     public void updatedecesionaccept(int stageId,int UserId) {
         
         
+        SessionManager sessionManager = SessionManager.getInstance();
+
+         int userid = sessionManager.getUserId();
+         System.out.println(userid);
+    
+        
+        
     try {
         DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
         // Update the decision column in the stages table
-        String updateQuery = "UPDATE stages SET Decision = 'accepté' WHERE id_stage = ?";
+        String updateQuery = "UPDATE stages SET Status = 'accepté' WHERE id_stage = ?";
         PreparedStatement updateStatement = dbManager.getConnection().prepareStatement(updateQuery);
         updateStatement.setInt(1, stageId);
         updateStatement.executeUpdate();
+        
+        // Update the decision column in the stages table
+        String updateQuery2 = "UPDATE stages SET id_enseignant = ? WHERE id_stage = ?";
+PreparedStatement updateStatement2 = dbManager.getConnection().prepareStatement(updateQuery2);
+updateStatement2.setInt(1, userid);
+updateStatement2.setInt(2, stageId);
+updateStatement2.executeUpdate();
         
         // Insert the userId and stageId into the suiviestage table
         String insertQuery = "INSERT INTO suivistage (id_utilisateur, id_stage) VALUES (?, ?)";
@@ -85,6 +126,9 @@ public class DecisionButtonCell extends TableCell<List<String>, Void> {
         insertStatement.setInt(1, UserId);
         insertStatement.setInt(2, stageId);
         insertStatement.executeUpdate();
+        
+        
+        
         
         updateStatement.close();
         insertStatement.close();
@@ -108,9 +152,10 @@ public class DecisionButtonCell extends TableCell<List<String>, Void> {
     
     
     
-    public void sendNotificationEmail(String userEmail, String message) {
+    public void sendNotificationEmail(String userEmail1,String motdepasse,String userEmail2, String message) {
         
-        
+        System.out.println("kkkkkkkkkkkkkkkkkk"+userEmail1);
+        System.out.println("kkkkkkkkkkkkkkkkkk"+motdepasse);
     // Paramètres de configuration pour la connexion SMTP
     Properties properties = new Properties();
     properties.put("mail.smtp.host", "smtp.gmail.com"); // Remplacez par le serveur SMTP que vous utilisez
@@ -119,8 +164,8 @@ public class DecisionButtonCell extends TableCell<List<String>, Void> {
     properties.put("mail.smtp.starttls.enable", "true"); // Active le chiffrement TLS
 
     // Informations d'authentification pour l'envoi de l'e-mail
-    String username = "ferjani.meher@esprit.tn"; // Remplacez par votre adresse e-mail
-    String password = "nwzjabqqtkjcrcig"; // Remplacez par votre mot de passe
+    String username = userEmail1; // Remplacez par votre adresse e-mail
+    String password = motdepasse; // Remplacez par votre mot de passe
 
     // Créer une session avec les paramètres de configuration et les informations d'authentification
     Session session = Session.getInstance(properties, new Authenticator() {
@@ -138,7 +183,7 @@ public class DecisionButtonCell extends TableCell<List<String>, Void> {
         mimeMessage.setFrom(new InternetAddress(username));
 
         // Définir le destinataire de l'e-mail
-        mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
+        mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail2));
 
         // Définir le sujet de l'e-mail
         mimeMessage.setSubject("Notification de stage");
@@ -149,7 +194,7 @@ public class DecisionButtonCell extends TableCell<List<String>, Void> {
         // Envoyer l'e-mail
         Transport.send(mimeMessage);
 
-        System.out.println("L'e-mail de notification a été envoyé avec succès à " + userEmail);
+        System.out.println("L'e-mail de notification a été envoyé avec succès à " + userEmail2);
     } catch (MessagingException e) {
         System.out.println("Une erreur s'est produite lors de l'envoi de l'e-mail de notification : " + e.getMessage());
     }
@@ -174,6 +219,33 @@ public class DecisionButtonCell extends TableCell<List<String>, Void> {
         }
         
         System.out.println(filepath);
+    
+        dbManager.closeConnection();
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+
+        return filepath;
+}
+
+    
+    
+    public String getFilePathFromsuivistage(int stageId) {
+        String filepath = null;
+        // Ajoutez le code ici pour insérer les données dans la base de données
+      try {
+    DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
+    
+    
+     String query = " select rapport_stage from suivistage where id_stage= "+stageId ;
+    
+    ResultSet resultSet = dbManager.executeQuery(query);
+    
+    if (resultSet.next()) {
+            filepath = resultSet.getString("rapport_stage");
+        }
+        
+        
     
         dbManager.closeConnection();
     } catch (SQLException e) {
@@ -261,7 +333,13 @@ public void downloadFile(String filePath) {
     alert.showAndWait();
 }
     
-    
+  
+   
+   
+   
+   
+   
+   
     
     
 }

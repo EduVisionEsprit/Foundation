@@ -11,11 +11,10 @@
       <Label layoutX="304.0" layoutY="182.0" text="Nom de L'Entreprise" />
       <Label layoutX="308.0" layoutY="221.0" text="Titre de  Stage" />
       <Label layoutX="303.0" layoutY="266.0" text="Description de  Stage" />
-      <Label layoutX="343.0" layoutY="323.0" text="User ID" />
       <TextField fx:id="nom_entreprise" layoutX="456.0" layoutY="178.0" prefHeight="26.0" prefWidth="202.0" />
       <TextField fx:id="titre_stage" layoutX="456.0" layoutY="216.0" prefHeight="26.0" prefWidth="202.0" />
       <TextField fx:id="description_stage" layoutX="456.0" layoutY="261.0" prefHeight="26.0" prefWidth="202.0" />
-      <TextField fx:id="user_id" layoutX="456.0" layoutY="318.0" prefHeight="26.0" prefWidth="202.0" />
+     
       <Button fx:id="Ajouter" layoutX="718.0" layoutY="529.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Ajouter" />
       <TitledPane animated="false" prefHeight="27.0" prefWidth="948.0" text="ESPACE ETUDIANT :  AJOUT DU STAGE">
         <content>
@@ -24,5 +23,6 @@
       </TitledPane>
       <Button fx:id="choisir_fichier" layoutX="292.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleFileButtonAction" text="Choisir un Fichier" />
       <TextField fx:id="path" layoutX="456.0" layoutY="388.0" prefHeight="26.0" prefWidth="202.0" />
+      <Button fx:id="stagehome" layoutX="96.0" layoutY="617.0" mnemonicParsing="false" onAction="#stagehome" text="Stage Home" />
    </children>
 </AnchorPane>

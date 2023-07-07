@@ -54,8 +54,8 @@ public class ESPACE_STAGE_ETUDIANTController implements Initializable {
     
     @FXML
     private void suiviestage(ActionEvent event) throws IOException {
-        ListeStageEtudiant listestageetudiant = new ListeStageEtudiant();
-        listestageetudiant.start(new Stage());
+        SuivieStageEtudiant suiviestageetudiant = new SuivieStageEtudiant();
+        suiviestageetudiant.start(new Stage());
 
         // Fermer la fenêtre actuelle
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

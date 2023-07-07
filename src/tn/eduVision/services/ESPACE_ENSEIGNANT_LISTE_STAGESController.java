@@ -25,7 +25,9 @@ import tn.eduVision.entités.StageEtudiant;
 
 public class ESPACE_ENSEIGNANT_LISTE_STAGESController implements Initializable {
     
-    
+    SessionManager sessionManager = SessionManager.getInstance();
+
+         int connecteduserid = sessionManager.getUserId();
     DecisionButtonCell decisionButton = new DecisionButtonCell();
 
     @FXML
@@ -39,7 +41,7 @@ public class ESPACE_ENSEIGNANT_LISTE_STAGESController implements Initializable {
     @FXML
     private TableColumn<StageEtudiant, Integer> id_user;
     @FXML
-    private TableColumn<StageEtudiant, StageEtudiant> decision;
+    private TableColumn<StageEtudiant, StageEtudiant> Status;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -49,7 +51,7 @@ public class ESPACE_ENSEIGNANT_LISTE_STAGESController implements Initializable {
         id_user.setCellValueFactory(new PropertyValueFactory<>("utilisateur"));
         id_user.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUtilisateur().getIdUtilisateur()).asObject());
 
-        decision.setCellFactory(createDecisionCellFactory());
+        Status.setCellFactory(createDecisionCellFactory());
         description_stage.setCellFactory(createDownloadCellFactory());
 
         ListeStageEnseignant list = new ListeStageEnseignant();
@@ -71,14 +73,18 @@ public class ESPACE_ENSEIGNANT_LISTE_STAGESController implements Initializable {
 
                             acceptButton.setOnAction((ActionEvent event) -> {
                                 // Gérer l'action d'acceptation ici
+                        
                                 StageEtudiant selectedStage = getTableView().getItems().get(getIndex());
+                                System.out.println(selectedStage);
                                 int userId = selectedStage.getUtilisateur().getIdUtilisateur();
                                 int stageId = selectedStage.getIdStage();
                                 
                                 DecisionButtonCell decisionButton = new DecisionButtonCell();
-                                String userEmail = decisionButton.EmailFromUserTable(userId);
+                                String userEmail1 = decisionButton.EmailFromUserTable(connecteduserid);
+                                String userEmail2 = decisionButton.EmailFromUserTable(userId);
+                                String motdepasse = decisionButton.PasswordFromUserTable(connecteduserid);
                                 
-                                decisionButton.sendNotificationEmail(userEmail, "Votre stage a été accepté");
+                                decisionButton.sendNotificationEmail(userEmail1,motdepasse,userEmail2, "Votre stage a été accepté");
                                 decisionButton.updatedecesionaccept(stageId,userId);
                             });
 
@@ -88,9 +94,11 @@ public class ESPACE_ENSEIGNANT_LISTE_STAGESController implements Initializable {
                                 int userId = selectedStage.getUtilisateur().getIdUtilisateur();
                                 int stageId = selectedStage.getIdStage();
                                 DecisionButtonCell decisionButton = new DecisionButtonCell();
-                                String userEmail = decisionButton.EmailFromUserTable(userId);
-                                System.out.println(userEmail);
-                                decisionButton.sendNotificationEmail(userEmail, "Votre stage a été refusé");
+                              String userEmail1 = decisionButton.EmailFromUserTable(connecteduserid);
+                                String userEmail2 = decisionButton.EmailFromUserTable(userId);
+                                String motdepasse = decisionButton.PasswordFromUserTable(connecteduserid);
+                           
+                                decisionButton.sendNotificationEmail(userEmail1,motdepasse,userEmail2, "Votre stage a été refusé");
                                 decisionButton.updatedecesionreject(stageId);
                             });
 

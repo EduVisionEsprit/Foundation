@@ -16,19 +16,19 @@ public class StageEtudiant {
     private String nomentreprise;
     private String titrestage;
      private String descriptionstage;
-     private String decision;
      private String path;
+     private String Status;
     
     private List<Candidature> candidatures;
     // Ajoutez ici les getters et les setters
 
-    public StageEtudiant(int idStage, Utilisateur utilisateur, String nomentreprise, String titrestage,String descriptionstage,String decision) {
+    public StageEtudiant(int idStage, Utilisateur utilisateur, String nomentreprise, String titrestage,String descriptionstage,String Status) {
         this.idStage = idStage;
         this.utilisateur = utilisateur;
         this.nomentreprise = nomentreprise;
         this.titrestage = titrestage;
         this.descriptionstage = descriptionstage;
-        this.decision=decision;
+        this.Status = Status;
         
         
     }
@@ -78,12 +78,12 @@ public class StageEtudiant {
 
     
     
-    public String getDecision() {
-        return decision;
+    public String getStatus() {
+        return Status;
     }
 
-    public void setDecision(String decesion) {
-        this.decision = decision;
+    public void setStatus(String status) {
+        this.Status = Status;
     }
     public List<Candidature> getCandidatures() {
         return candidatures;
@@ -102,7 +102,7 @@ public String toString() {
            "\nNom Entreprise: " + nomentreprise + 
            "\nTitre de Stage: " + titrestage +
            "\nDescription de Stage: " + descriptionstage +
-           "\nDecision: " + decision;
+           "\nDecision: " + Status;
 }
 
     

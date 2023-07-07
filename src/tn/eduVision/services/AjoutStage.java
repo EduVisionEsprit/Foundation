@@ -61,28 +61,43 @@ public class AjoutStage extends Application {
 }
     
     
-    public void ajouterStage(Utilisateur user,String nomentreprise,String titrestage,String descstage,String decision,String path) {
-        
-        System.out.print(user);
-        System.out.println(path);
-    
-       
+    public void ajouterStage(int userid,String nomentreprise,String titrestage,String descriptionStage,String status,String path) {
         
        
-       
-    try {
+     try {
         DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
-        String query = "INSERT INTO stages ( id_utilisateur,nom_Entreprise, Titre_Stage,Description_Stage,path) " +
-                       "VALUES (?,?,?,?,?)";
-        
-        PreparedStatement statement = dbManager.getConnection().prepareStatement(query);
-        statement.setInt(1, user.getIdUtilisateur());
-        statement.setString(2, nomentreprise);
-        statement.setString(3, titrestage);
-        statement.setString(4, descstage);
-        statement.setString(5, path);
-        statement.executeUpdate();
-        dbManager.closeConnection();
+
+        // Check if the user already has a stage
+        String stageExistsQuery = "SELECT COUNT(*) FROM stages WHERE id_utilisateur = ?";
+        PreparedStatement existsStatement = dbManager.getConnection().prepareStatement(stageExistsQuery);
+        existsStatement.setInt(1, userid);
+        ResultSet existsResultSet = existsStatement.executeQuery();
+        existsResultSet.next();
+        int count = existsResultSet.getInt(1);
+
+        if (count > 0) {
+            // User already has a stage, show error message
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Vous avez déjà ajouté un stage.");
+            alert.showAndWait();
+        } else {
+            // User doesn't have a stage, add it to the database
+            String insertQuery = "INSERT INTO stages (id_utilisateur, nom_Entreprise, Titre_Stage, Description_Stage, Status, path) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement insertStatement = dbManager.getConnection().prepareStatement(insertQuery);
+            insertStatement.setInt(1, userid);
+            insertStatement.setString(2, nomentreprise);
+            insertStatement.setString(3, titrestage);
+            insertStatement.setString(4, descriptionStage);
+            insertStatement.setString(5, status);
+            insertStatement.setString(6, path);
+            insertStatement.executeUpdate();
+            
+            // Close the connection
+            dbManager.closeConnection();
+        }
     } catch (SQLException e) {
         System.out.println(e);
     }
@@ -106,7 +121,8 @@ public class AjoutStage extends Application {
 
             // Move the file to the destination folder
             Path destinationPath = destinationFolderFile.toPath().resolve(sourceFile.getName());
-            Files.move(sourceFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(sourceFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            
 
             
           

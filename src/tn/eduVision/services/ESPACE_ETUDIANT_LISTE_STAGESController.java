@@ -1,5 +1,6 @@
 package tn.eduVision.services;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,6 +11,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -17,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import tn.eduVision.entités.StageEtudiant;
 
@@ -33,7 +36,7 @@ public class ESPACE_ETUDIANT_LISTE_STAGESController implements Initializable {
     @FXML
     private TableColumn<StageEtudiant, Integer> id_user;
     @FXML
-    private TableColumn<StageEtudiant, StageEtudiant> decision;
+    private TableColumn<StageEtudiant, StageEtudiant> Status;
 
     
 
@@ -52,7 +55,7 @@ public class ESPACE_ETUDIANT_LISTE_STAGESController implements Initializable {
         titre_stage.setCellValueFactory(new PropertyValueFactory<>("titrestage"));
         description_stage.setCellValueFactory(new PropertyValueFactory<>("descriptionstage"));
         id_user.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUtilisateur().getIdUtilisateur()).asObject());
-        decision.setCellValueFactory(new PropertyValueFactory<>("decision"));
+        Status.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         tableView.setEditable(false); // Disable editing for the TableView
 
@@ -144,5 +147,16 @@ titre_stage.setOnEditCommit(event -> {
     @FXML
     private void chooseFileButtonClicked(ActionEvent event) {
         // Handle the choose file button action
+    }
+    
+    
+    @FXML
+    private void stagehome(ActionEvent event) throws IOException {
+        ESPACE_STAGE_ETUDIANT espacestageenseignant = new ESPACE_STAGE_ETUDIANT();
+        espacestageenseignant.start(new Stage());
+
+        // Fermer la fenêtre actuelle
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
     }
 }
