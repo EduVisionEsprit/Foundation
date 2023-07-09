@@ -9,6 +9,6 @@ package tn.eduVision.entités;
  * @author Sayf
  */
 public enum TypeTest {
-    CERTIFICATIF,
-    CONCOURS_ADMISSIONS
+    certificatif,
+    Concours_admissions,
 }
