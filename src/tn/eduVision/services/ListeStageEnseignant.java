@@ -1,6 +1,7 @@
 package tn.eduVision.services;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,9 @@ import tn.eduVision.entités.Utilisateur;
 
 public class ListeStageEnseignant extends Application{
     
+    SessionManager sessionManager = SessionManager.getInstance();
     
+    String typeens = sessionManager.getTypeenseignant();
     
     public static void main(String[] args) {
         launch(args);
@@ -37,48 +40,40 @@ public class ListeStageEnseignant extends Application{
     List<StageEtudiant> listeStages = new ArrayList<>();
     try {
         DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
-        String query = "SELECT * FROM stages where Status='Pending'";
-        String query2 = "SELECT * FROM Utilisateurs";
-        ResultSet resultSet = dbManager.executeQuery(query);
-        ResultSet resultSet2 = dbManager.executeQuery(query2);
+        SessionManager sessionManager = SessionManager.getInstance();
+        
+
+        String query = "SELECT s.*, u.* FROM stages s, utilisateurs u WHERE s.Status = 'Pending' AND s.TypeStage = u.specialite_ens AND u.specialite_ens = ?";
+
+        PreparedStatement statement = dbManager.getConnection().prepareStatement(query);
+        statement.setString(1, typeens); // Définir la spécialité récupérée en tant que paramètre
+
+        ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
+           
             int stageId = resultSet.getInt("id_stage");
             int utilisateurId = resultSet.getInt("id_utilisateur");
+            String nomEntreprise = resultSet.getString("nom_Entreprise");
+            String titreStage = resultSet.getString("titre_Stage");
+            String descriptionStage = resultSet.getString("description_Stage");
+            String typeStage = resultSet.getString("typestage");
+            String status = resultSet.getString("Status");
 
-            // Find the corresponding user in the resultSet2
-            while (resultSet2.next()) {
-                int id = resultSet2.getInt("id_utilisateur");
-                if (utilisateurId == id) {
-                    String nom = resultSet2.getString("nom");
-                    String prenom = resultSet2.getString("prenom");
-                    String email = resultSet2.getString("email");
-                    String motDePasse = resultSet2.getString("mot_de_passe");
-                    String roleStr = resultSet2.getString("Role");
-                    Role role = Role.valueOf(roleStr.toUpperCase());
-                    Utilisateur utilisateur = new Utilisateur(id, nom, prenom, email, motDePasse, role);
-
-                    String nomEntreprise = resultSet.getString("nom_Entreprise");
-                    String titreStage = resultSet.getString("titre_Stage");
-                    String descriptionStage = resultSet.getString("description_Stage");
-                    String Status = resultSet.getString("Status");
-
-                    StageEtudiant stage = new StageEtudiant(stageId, utilisateur, nomEntreprise, titreStage, descriptionStage, Status);
-                    stage.setStageId(stageId);
-                    stage.setUtilisateur(utilisateur);
-                    stage.setNomentreprise(nomEntreprise);
-                    stage.setTitrestage(titreStage);
-                    stage.setDescriptionstage(descriptionStage);
-                    stage.setStatus(Status);
-
-                    System.out.println("id-utilisateur: " + utilisateur.getIdUtilisateur());
-
-                    listeStages.add(stage);
-
-                    break; // Stop iterating over resultSet2 once the user is found
-                }
-            }
-            resultSet2.beforeFirst(); // Reset the resultSet2 cursor
+            
+            String nom = resultSet.getString("nom");
+            String prenom = resultSet.getString("prenom");
+            String email = resultSet.getString("email");
+            String motDePasse = resultSet.getString("mot_de_passe");
+            String specialite_ens = resultSet.getString("specialite_ens");
+            String roleStr = resultSet.getString("Role");
+            Role role = Role.valueOf(roleStr.toUpperCase());
+            Utilisateur utilisateur = new Utilisateur(utilisateurId, nom, prenom, email, motDePasse, role, specialite_ens);
+            String nomenseiignant=null;
+            String prenomenseignant=null;
+          
+            StageEtudiant stage = new StageEtudiant(stageId, utilisateur, typeStage, nomEntreprise, titreStage, descriptionStage, status,nomenseiignant,prenomenseignant);
+            listeStages.add(stage);
         }
 
         dbManager.closeConnection();

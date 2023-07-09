@@ -1,9 +1,7 @@
 package tn.eduVision.services;
 
 import java.io.IOException;
-import tn.eduVision.services.DecisionButtonCell;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -22,12 +20,21 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import tn.eduVision.entités.StageEtudiant;
+import tn.eduVision.entités.Utilisateur;
 
 public class ESPACE_ENSEIGNANT_LISTE_STAGESController implements Initializable {
+    
+    
+    String nom;
+    String prenom;
+    String nomstage;
+    String nomentreprise;
     
     SessionManager sessionManager = SessionManager.getInstance();
 
          int connecteduserid = sessionManager.getUserId();
+         String nomprof = sessionManager.getNom();
+         String prenomprof = sessionManager.getPrenom();
     DecisionButtonCell decisionButton = new DecisionButtonCell();
 
     @FXML
@@ -57,6 +64,17 @@ public class ESPACE_ENSEIGNANT_LISTE_STAGESController implements Initializable {
         ListeStageEnseignant list = new ListeStageEnseignant();
         List<StageEtudiant> stages = list.getListeStagesFromDatabase();
         tableView.getItems().addAll(stages);
+         
+        
+        
+        for (StageEtudiant stage : stages) {
+        Utilisateur utilisateur = stage.getUtilisateur();
+         nom = utilisateur.getNom();
+        prenom = utilisateur.getPrenom();
+        nomstage = stage.getTitrestage();
+        nomentreprise = stage.getNomentreprise();
+       
+    }
     }
 
     private Callback<TableColumn<StageEtudiant, StageEtudiant>, TableCell<StageEtudiant, StageEtudiant>> createDecisionCellFactory() {
@@ -72,7 +90,7 @@ public class ESPACE_ENSEIGNANT_LISTE_STAGESController implements Initializable {
                             Button rejectButton = new Button("Refuser");
 
                             acceptButton.setOnAction((ActionEvent event) -> {
-                                // Gérer l'action d'acceptation ici
+                               
                         
                                 StageEtudiant selectedStage = getTableView().getItems().get(getIndex());
                                 System.out.println(selectedStage);
@@ -84,12 +102,12 @@ public class ESPACE_ENSEIGNANT_LISTE_STAGESController implements Initializable {
                                 String userEmail2 = decisionButton.EmailFromUserTable(userId);
                                 String motdepasse = decisionButton.PasswordFromUserTable(connecteduserid);
                                 
-                                decisionButton.sendNotificationEmail(userEmail1,motdepasse,userEmail2, "Votre stage a été accepté");
+                                decisionButton.sendNotificationEmail(userEmail1,motdepasse,userEmail2, "Mr "+nom+"  "+prenom+" Votre stage intitulé "+nomstage+" dans l'entreprise "+nomentreprise+" a été accepté. Veuillez contactez votre encadrant Mr "+nomprof+" "+prenomprof );
                                 decisionButton.updatedecesionaccept(stageId,userId);
                             });
 
                             rejectButton.setOnAction((ActionEvent event) -> {
-                                // Gérer l'action de refus ici
+                                
                                 StageEtudiant selectedStage = getTableView().getItems().get(getIndex());
                                 int userId = selectedStage.getUtilisateur().getIdUtilisateur();
                                 int stageId = selectedStage.getIdStage();
@@ -124,14 +142,14 @@ public class ESPACE_ENSEIGNANT_LISTE_STAGESController implements Initializable {
                             Button downloadButton = new Button("Télécharger");
  DecisionButtonCell decisionButton = new DecisionButtonCell();
                             downloadButton.setOnAction(event -> {
-                               // Récupérer l'ID du stage de la ligne correspondante
+                               
                                 StageEtudiant selectedStage = getTableView().getItems().get(getIndex());
                                 int stageId = selectedStage.getIdStage();
                                   
-                                // Récupérer le chemin du fichier à partir de la base de données
+                                
                                 String filePath = decisionButton.getFilePathFromDatabase(stageId);
                                 if (filePath != null) {
-                                    // Télécharger le fichier
+                                   
                                     decisionButton.downloadFile(filePath);
                                 }
                                 
@@ -162,7 +180,7 @@ public class ESPACE_ENSEIGNANT_LISTE_STAGESController implements Initializable {
         ESPACE_STAGE_ENSEIGNANT espacestageenseignant = new ESPACE_STAGE_ENSEIGNANT();
         espacestageenseignant.start(new Stage());
 
-        // Fermer la fenêtre actuelle
+       
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }

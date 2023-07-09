@@ -1,40 +1,48 @@
-#tableView {
-    
-    -fx-background-color : gainsboro;
-}
-#nom_entreprise {
+.button{
     
     -fx-background-color : goldenrod;
+       
 }
 
 
 
-#nom_entreprise
+.button:hover
+{
+    
+    -fx-background-color : #07f7f7;
+    -fx-background-radius : 30 0 0 30;
+}
+
+#nom_entreprise:hover
 {
 -fx-background-color : deepskyblue;
 
 }
 
-#titre_stage
+#titre_stage:hover
 {
 -fx-background-color : deepskyblue;
 
 }
 
-#description_stage
+#description_stage:hover
 {
 -fx-background-color : deepskyblue;
 
 }
 
-#id_user
+
+#path:hover
 {
 -fx-background-color : deepskyblue;
 
 }
 
-#Status
+
+#typestage:hover
 {
 -fx-background-color : deepskyblue;
 
 }
+
+

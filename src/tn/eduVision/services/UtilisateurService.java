@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package tn.eduVision.services;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import tn.eduVision.entités.Utilisateur;
@@ -34,11 +33,12 @@ public class UtilisateurService {
         String prenom = resultSet.getString("prenom");
         String email = resultSet.getString("email");
         String motDePasse = resultSet.getString("mot_de_passe");
+        String specialite_ens = resultSet.getString("specialite_ens");
         String roleString = resultSet.getString("role");
         
         Role role = Role.valueOf(roleString.toUpperCase());
         
-        Utilisateur utilisateur = new Utilisateur(id, nom, prenom, email, motDePasse, role);
+        Utilisateur utilisateur = new Utilisateur(id, nom, prenom, email, motDePasse, role,specialite_ens);
         return utilisateur;
     }
         

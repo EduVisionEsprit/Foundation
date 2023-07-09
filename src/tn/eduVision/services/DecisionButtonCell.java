@@ -10,18 +10,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
-import javafx.scene.layout.HBox;
 import java.util.Properties;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javafx.stage.DirectoryChooser;
@@ -30,7 +23,7 @@ import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import tn.eduVision.entités.StageEtudiant;
+
 
 public class DecisionButtonCell extends TableCell<List<String>, Void> {
     
@@ -40,7 +33,7 @@ public class DecisionButtonCell extends TableCell<List<String>, Void> {
     public String EmailFromUserTable(int userId) {
        
     String email = null;
-        // Ajoutez le code ici pour insérer les données dans la base de données
+        
       try {
     DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
     
@@ -93,7 +86,7 @@ public class DecisionButtonCell extends TableCell<List<String>, Void> {
     
     
     
-    //update decesion column
+    
     
     public void updatedecesionaccept(int stageId,int UserId) {
         
@@ -107,20 +100,20 @@ public class DecisionButtonCell extends TableCell<List<String>, Void> {
         
     try {
         DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
-        // Update the decision column in the stages table
+        
         String updateQuery = "UPDATE stages SET Status = 'accepté' WHERE id_stage = ?";
         PreparedStatement updateStatement = dbManager.getConnection().prepareStatement(updateQuery);
         updateStatement.setInt(1, stageId);
         updateStatement.executeUpdate();
         
-        // Update the decision column in the stages table
+        
         String updateQuery2 = "UPDATE stages SET id_enseignant = ? WHERE id_stage = ?";
 PreparedStatement updateStatement2 = dbManager.getConnection().prepareStatement(updateQuery2);
 updateStatement2.setInt(1, userid);
 updateStatement2.setInt(2, stageId);
 updateStatement2.executeUpdate();
         
-        // Insert the userId and stageId into the suiviestage table
+        
         String insertQuery = "INSERT INTO suivistage (id_utilisateur, id_stage) VALUES (?, ?)";
         PreparedStatement insertStatement = dbManager.getConnection().prepareStatement(insertQuery);
         insertStatement.setInt(1, UserId);
@@ -154,20 +147,18 @@ updateStatement2.executeUpdate();
     
     public void sendNotificationEmail(String userEmail1,String motdepasse,String userEmail2, String message) {
         
-        System.out.println("kkkkkkkkkkkkkkkkkk"+userEmail1);
-        System.out.println("kkkkkkkkkkkkkkkkkk"+motdepasse);
-    // Paramètres de configuration pour la connexion SMTP
+       
     Properties properties = new Properties();
-    properties.put("mail.smtp.host", "smtp.gmail.com"); // Remplacez par le serveur SMTP que vous utilisez
-    properties.put("mail.smtp.port", "587"); // Remplacez par le port SMTP approprié
-    properties.put("mail.smtp.auth", "true"); // Indique que l'authentification est requise
-    properties.put("mail.smtp.starttls.enable", "true"); // Active le chiffrement TLS
+    properties.put("mail.smtp.host", "smtp.gmail.com"); 
+    properties.put("mail.smtp.port", "587"); 
+    properties.put("mail.smtp.auth", "true"); 
+    properties.put("mail.smtp.starttls.enable", "true");
 
-    // Informations d'authentification pour l'envoi de l'e-mail
-    String username = userEmail1; // Remplacez par votre adresse e-mail
-    String password = motdepasse; // Remplacez par votre mot de passe
+   
+    String username = userEmail1; 
+    String password = motdepasse; 
 
-    // Créer une session avec les paramètres de configuration et les informations d'authentification
+   
     Session session = Session.getInstance(properties, new Authenticator() {
         @Override
         protected PasswordAuthentication getPasswordAuthentication() {
@@ -176,22 +167,22 @@ updateStatement2.executeUpdate();
     });
     
     try {
-        // Créer un objet MimeMessage
+       
         Message mimeMessage = new MimeMessage(session);
 
-        // Définir l'expéditeur de l'e-mail
+       
         mimeMessage.setFrom(new InternetAddress(username));
 
-        // Définir le destinataire de l'e-mail
+        
         mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail2));
 
-        // Définir le sujet de l'e-mail
+       
         mimeMessage.setSubject("Notification de stage");
 
-        // Définir le contenu de l'e-mail
+        
         mimeMessage.setText(message);
 
-        // Envoyer l'e-mail
+        
         Transport.send(mimeMessage);
 
         System.out.println("L'e-mail de notification a été envoyé avec succès à " + userEmail2);
@@ -205,7 +196,7 @@ updateStatement2.executeUpdate();
     
     public String getFilePathFromDatabase(int stageId) {
         String filepath = null;
-        // Ajoutez le code ici pour insérer les données dans la base de données
+       
       try {
     DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
     
@@ -232,7 +223,7 @@ updateStatement2.executeUpdate();
     
     public String getFilePathFromsuivistage(int stageId) {
         String filepath = null;
-        // Ajoutez le code ici pour insérer les données dans la base de données
+        
       try {
     DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
     

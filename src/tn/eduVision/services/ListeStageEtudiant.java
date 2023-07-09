@@ -51,10 +51,11 @@ public class ListeStageEtudiant extends Application{
                     String prenom = resultSet2.getString("prenom");
                     String email = resultSet2.getString("email");
                     String motDePasse = resultSet2.getString("mot_de_passe");
-                    String roleStr = resultSet2.getString("Role"); // Assuming role is stored as a string in the database
-                    Role role = Role.valueOf(roleStr.toUpperCase()); // Convert the string to the Role enum
+                    String specialite_ens = resultSet2.getString("specialite_ens");
+                    String roleStr = resultSet2.getString("Role"); 
+                    Role role = Role.valueOf(roleStr.toUpperCase()); 
                     
-                    Utilisateur utilisateur = new Utilisateur(id, nom, prenom, email, motDePasse, role);
+                    Utilisateur utilisateur = new Utilisateur(id, nom, prenom, email, motDePasse, role,specialite_ens);
                     
                     utilisateur.setIdUtilisateur(id);
                     utilisateur.setNom(nom);
@@ -72,10 +73,12 @@ public class ListeStageEtudiant extends Application{
                 String nomEntreprise = resultSet.getString("nom_Entreprise");
                 String titreStage = resultSet.getString("titre_Stage");
                 String descriptionStage = resultSet.getString("description_Stage");
+                 String typestage = resultSet.getString("typestage");
                 String Status = resultSet.getString("Status");
                 
-                
-                StageEtudiant stage = new StageEtudiant(stageId, utilisateur, nomEntreprise, titreStage, descriptionStage, Status);
+                String nomenseiignant=null;
+            String prenomenseignant=null;
+                StageEtudiant stage = new StageEtudiant(stageId, utilisateur, nomEntreprise, titreStage, descriptionStage,typestage, Status,nomenseiignant,prenomenseignant);
                 stage.setStageId(stageId);
                 stage.setUtilisateur(utilisateur);
                 stage.setNomentreprise(nomEntreprise);
@@ -125,7 +128,6 @@ dbManager.closeConnection();
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

@@ -59,10 +59,13 @@ public class Liste_Stage_Enseignant_Accepte extends Application {
 
         DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
 
-        String query = "SELECT s.id_stage, s.id_utilisateur, s.nom_Entreprise, s.titre_Stage, s.description_Stage, s.Status, u.id_utilisateur, u.nom, u.prenom, u.email, u.mot_de_passe, u.Role " +
+        String query = "SELECT s.id_stage, s.id_utilisateur,s.TypeStage, s.nom_Entreprise, s.titre_Stage, s.description_Stage, s.Status, " +
+                       "u.id_utilisateur, u.nom, u.prenom, u.email, u.mot_de_passe, u.Role,u.specialite_ens, " +
+                       "e.nom AS enseignant_nom, e.prenom AS enseignant_prenom " +
                        "FROM stages s " +
                        "INNER JOIN Utilisateurs u ON s.id_utilisateur = u.id_utilisateur " +
-                       "WHERE s.id_enseignant = ?";
+                       "INNER JOIN Utilisateurs e ON s.id_enseignant = e.id_utilisateur " +
+                       "WHERE s.id_utilisateur = ?";
                        
         PreparedStatement statement = dbManager.getConnection().prepareStatement(query);
         statement.setInt(1, userid);
@@ -74,17 +77,21 @@ public class Liste_Stage_Enseignant_Accepte extends Application {
             String nomEntreprise = resultSet.getString("s.nom_Entreprise");
             String titreStage = resultSet.getString("s.titre_Stage");
             String descriptionStage = resultSet.getString("s.description_Stage");
+            String typestage = resultSet.getString("typestage");
             String status = resultSet.getString("s.Status");
             int id = resultSet.getInt("u.id_utilisateur");
             String nom = resultSet.getString("u.nom");
             String prenom = resultSet.getString("u.prenom");
             String email = resultSet.getString("u.email");
+            String specialite_ens = resultSet.getString("u.specialite_ens");
             String motDePasse = resultSet.getString("u.mot_de_passe");
             String roleStr = resultSet.getString("u.Role");
             Role role = Role.valueOf(roleStr.toUpperCase());
+            String enseignantNom = resultSet.getString("enseignant_nom");
+            String enseignantPrenom = resultSet.getString("enseignant_prenom");
 
-            Utilisateur utilisateur = new Utilisateur(id, nom, prenom, email, motDePasse, role);
-            StageEtudiant stage = new StageEtudiant(stageId, utilisateur, nomEntreprise, titreStage, descriptionStage, status);
+            Utilisateur utilisateur = new Utilisateur(id, nom, prenom, email, motDePasse, role,specialite_ens);
+            StageEtudiant stage = new StageEtudiant(stageId, utilisateur, nomEntreprise, titreStage, descriptionStage,typestage, status,enseignantNom,enseignantPrenom);
 
             listeStages.add(stage);
             
@@ -116,7 +123,7 @@ public class Liste_Stage_Enseignant_Accepte extends Application {
         if (rowsAffected > 0) {
             System.out.println("Data inserted successfully into evaluationstage table.");
 
-            // Update the validation_rapport column in the suivistage table based on the note value
+            
             String validationMessage = (note >= 10) ? "Votre stage est validé" : "Votre stage n'est pas validé";
             PreparedStatement updateStmt = conn.prepareStatement("UPDATE suivistage SET validation_rapport = ? WHERE id_stage = ?");
             updateStmt.setString(1, validationMessage);
@@ -131,7 +138,6 @@ public class Liste_Stage_Enseignant_Accepte extends Application {
             System.out.println("Failed to insert data into evaluationstage table.");
         }
     } catch (SQLException e) {
-        e.printStackTrace();
     }
 }
 

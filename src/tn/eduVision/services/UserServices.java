@@ -58,7 +58,8 @@ public class UserServices {
         res.getString("prenom"),
         res.getString("email"),
         res.getString("mot_de_passe"),
-        Role.valueOf(res.getString("Role"))
+        Role.valueOf(res.getString("Role")),
+        res.getString("specialite_ens")
     );
     userlist.add(user);
 }
@@ -83,7 +84,8 @@ public class UserServices {
         res.getString("prenom"),
         res.getString("email"),
         res.getString("mot_de_passe"),
-        Role.valueOf(res.getString("Role"))
+        Role.valueOf(res.getString("Role")),
+        res.getString("specialite_ens")
     );
 }
         res.close();
@@ -111,7 +113,8 @@ public class UserServices {
         res.getString("prenom"),
         res.getString("email"),
         res.getString("mot_de_passe"),
-        Role.valueOf(res.getString("Role"))
+        Role.valueOf(res.getString("Role")),
+            res.getString("specialite_ens")
     );
     userList.add(user);
 }
@@ -131,7 +134,7 @@ public class UserServices {
 
     try {
         PreparedStatement preparedStatement = _connection.prepareStatement(request);
-        preparedStatement.setString(1, Role.etudiant.name());
+        
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (res.next()) {
@@ -141,7 +144,8 @@ public class UserServices {
         res.getString("prenom"),
         res.getString("email"),
         res.getString("mot_de_passe"),
-        Role.valueOf(res.getString("Role"))
+        Role.valueOf(res.getString("Role")),
+        res.getString("specialite_ens")
     );
     etudiantList.add((Etudiant) user);
         }

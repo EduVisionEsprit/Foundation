@@ -1,7 +1,40 @@
-/*
- * Empty Stylesheet file.
- */
+#tableView {
+    
+    -fx-background-color : gainsboro;
+}
+#nom_entreprise {
+    
+    -fx-background-color : goldenrod;
+}
 
-.mainFxmlClass {
+
+
+#nom_entreprise
+{
+-fx-background-color : deepskyblue;
+
+}
+
+#titre_stage
+{
+-fx-background-color : deepskyblue;
+
+}
+
+#description_stage
+{
+-fx-background-color : deepskyblue;
+
+}
+
+#id_user
+{
+-fx-background-color : deepskyblue;
+
+}
+
+#Status
+{
+-fx-background-color : deepskyblue;
 
 }

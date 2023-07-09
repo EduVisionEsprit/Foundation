@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import static javafx.application.Application.launch;
-import static javafx.application.ConditionalFeature.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,12 +19,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import tn.eduVision.services.AjoutStage;
-import tn.eduVision.entités.Utilisateur;
+
 
 
 /**
@@ -41,6 +40,9 @@ import tn.eduVision.entités.Utilisateur;
 
 
 public class FXMLAjoutStageController implements Initializable {
+    
+    
+    private String typeStageSelectionne;
     
     
     public static void main(String[] args) {
@@ -69,9 +71,15 @@ public class FXMLAjoutStageController implements Initializable {
 
 @FXML
     private Button choisir_fichier;
+  
+
+@FXML private ChoiceBox<String> typestage;
+private String[] typestg={"Informatique","Mecanique","Electronique"};
+
+    
+    
+    
     @FXML
-    
-    
     private void handleButtonAction(ActionEvent event) {
         
         SessionManager sessionManager = SessionManager.getInstance();
@@ -87,37 +95,37 @@ public class FXMLAjoutStageController implements Initializable {
         
         System.out.println(choisirfichier);
         
-        // Vérifier que tous les champs sont saisis
+        
     if (((nomentreprise.isEmpty() || titrestage.isEmpty()) || descstage.isEmpty()) || choisirfichier.isEmpty()) {
-        // Afficher un message d'erreur si des champs sont vides
+        
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Erreur");
         alert.setHeaderText(null);
         alert.setContentText("Veuillez remplir tous les champs.");
         alert.showAndWait();
-        return; // Arrêter l'exécution de la méthode si des champs sont vides
+        return; 
     } 
         
                    String choisirFichier = path.getText();
                    Path source = Paths.get(choisirFichier);
                    String fileName = source.getFileName().toString();
                    String status = "Pending";
-                   String destinationPath = "C:\\Users\\Meher\\Documents\\esprit\\upload";
+                   String destinationPath = "C:\\xampp\\htdocs\\upload";
                     Path destination = Paths.get(destinationPath, fileName);
                     AjoutStage ajst = new AjoutStage();
-                         ajst.ajouterStage(userid, nomentreprise, titrestage, descstage, status, destination.toString());
+                         ajst.ajouterStage(userid,nomentreprise, titrestage, descstage, status, destination.toString(),typeStageSelectionne);
 
         
         
-        // Get the selected file path
+        
         String filePath = path.getText();
         if (filePath != null && !filePath.isEmpty()) {
-            // Upload the file to the specified folder
+            
             
             ajst.uploadFile(filePath, destinationPath);
             
             
-            // Show success message after uploading the file
+           
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText(null);
@@ -127,7 +135,7 @@ public class FXMLAjoutStageController implements Initializable {
         
         else {
             
-            // Show error message if no file is chosen
+            
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Erreur");
         alert.setHeaderText(null);
@@ -154,7 +162,11 @@ public class FXMLAjoutStageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       typestage.getItems().addAll(typestg);
+       
+       typestage.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        typeStageSelectionne = newValue;
+    });
     }    
     
     
@@ -165,7 +177,7 @@ public class FXMLAjoutStageController implements Initializable {
         ESPACE_STAGE_ETUDIANT espacestageenseignant = new ESPACE_STAGE_ETUDIANT();
         espacestageenseignant.start(new Stage());
 
-        // Fermer la fenêtre actuelle
+        
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }

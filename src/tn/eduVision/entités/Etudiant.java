@@ -17,8 +17,8 @@ public class Etudiant extends Utilisateur {
     private List<Absence> absences;
     private List<Note> notes;
 
-    public Etudiant(int anneeInscrit, int nombreAbsences, List<Absence> absences, List<Note> notes, int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role) {
-        super(idUtilisateur, nom, prenom, email, motDePasse, role);
+    public Etudiant(int anneeInscrit, int nombreAbsences, List<Absence> absences, List<Note> notes, int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role,String specialite_ens) {
+        super(idUtilisateur, nom, prenom, email, motDePasse, role,specialite_ens);
         this.anneeInscrit = anneeInscrit;
         this.nombreAbsences = nombreAbsences;
         this.absences = absences;

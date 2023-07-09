@@ -6,31 +6,13 @@
 package tn.eduVision.services;
 
 import java.io.IOException;
-import tn.eduVision.services.DecisionButtonCell;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import static javafx.application.Application.launch;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import tn.eduVision.entités.StageEtudiant;
 /**
  * FXML Controller class
  *
@@ -57,7 +39,7 @@ public class ESPACE_STAGE_ENSEIGNANTController implements Initializable {
         ListeStageEnseignant listeStageEnseignant = new ListeStageEnseignant();
         listeStageEnseignant.start(new Stage());
 
-        // Fermer la fenêtre actuelle
+        
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
@@ -68,7 +50,7 @@ public class ESPACE_STAGE_ENSEIGNANTController implements Initializable {
         Liste_Stage_Enseignant_Accepte listeStageAccepte = new Liste_Stage_Enseignant_Accepte();
         listeStageAccepte.start(new Stage());
 
-        // Fermer la fenêtre actuelle
+        
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }

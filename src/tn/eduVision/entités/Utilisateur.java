@@ -6,15 +6,17 @@ public class Utilisateur {
     private String prenom;
     private String email;
     private String motDePasse;
+    private String specialite_ens;
     private Role role;
 
-    public Utilisateur(int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role) {
+    public Utilisateur(int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role,String specialite_ens) {
         this.idUtilisateur = idUtilisateur;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.motDePasse = motDePasse;
         this.role = role;
+        this.specialite_ens = specialite_ens;
     }
 
     
@@ -68,8 +70,16 @@ public class Utilisateur {
     }
     
     
+    public String getSpecialite_ens() {
+        return specialite_ens;
+    }
+
+    public void setSpecialite_ens(String specialite_ens) {
+        this.specialite_ens = specialite_ens;
+    }
+    
     @Override
 public String toString() {
-    return "Utilisateur [id=" + idUtilisateur + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", role=" + role + "]";
+    return "Utilisateur [id=" + idUtilisateur + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", role=" + role + ", specialite_ens"+specialite_ens+"]";
 }
 }

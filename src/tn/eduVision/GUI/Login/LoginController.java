@@ -88,14 +88,15 @@ public class LoginController implements Initializable {
                     String role = String.valueOf(user.getRole());
                     String nom = (user.getNom());
                     String prenom = (user.getPrenom());
+                    String typeenseignant = (user.getSpecialite_ens());
                     
-                    System.out.println("Role  : "+role);
-                    System.out.println("Role  : "+id);
+                   
                     
                     sessionManager.setUserId(id);
                     sessionManager.setRole(role);
                     sessionManager.setNom(nom);
                     sessionManager.setPrenom(prenom);
+                    sessionManager.setTypeenseignant(typeenseignant);
                             
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/tn/eduVision/GUI/Home/Home.fxml"));
                             Parent root = loader.load();

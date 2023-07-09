@@ -13,22 +13,30 @@ import java.util.List;
 public class StageEtudiant {
     private int idStage;
     private Utilisateur utilisateur;
+    private int id_enseignant;
+    private String typestage;
     private String nomentreprise;
     private String titrestage;
      private String descriptionstage;
      private String path;
      private String Status;
+     private String nomenseignant;
+     private String prenomenseignant;
     
     private List<Candidature> candidatures;
     // Ajoutez ici les getters et les setters
 
-    public StageEtudiant(int idStage, Utilisateur utilisateur, String nomentreprise, String titrestage,String descriptionstage,String Status) {
+    public StageEtudiant(int idStage, Utilisateur utilisateur,String typestage, String nomentreprise, String titrestage,String descriptionstage,String Status, String nomenseignant,String prenomenseignant) {
         this.idStage = idStage;
         this.utilisateur = utilisateur;
+        
+        this.typestage = typestage;
         this.nomentreprise = nomentreprise;
         this.titrestage = titrestage;
         this.descriptionstage = descriptionstage;
         this.Status = Status;
+        this.nomenseignant = nomenseignant;
+        this.prenomenseignant = prenomenseignant;
         
         
     }
@@ -50,7 +58,18 @@ public class StageEtudiant {
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
     }
+    
+    
+    
 
+    
+     public String getTyestage() {
+        return typestage;
+    }
+
+    public void setTyepstage(String typestage) {
+        this.typestage = typestage;
+    }
     public String getNomentreprise() {
         return nomentreprise;
     }
@@ -85,6 +104,28 @@ public class StageEtudiant {
     public void setStatus(String status) {
         this.Status = Status;
     }
+    
+    
+    
+    public String getNomenseignant() {
+        return nomenseignant;
+    }
+
+    public void setNomenseignant(String nomenseignant) {
+        this.nomenseignant = nomenseignant;
+    }
+    
+    
+    public String getPrenomenseignant() {
+        return prenomenseignant;
+    }
+
+    public void setPrenomenseignat(String prenomenseignant) {
+        this.prenomenseignant = prenomenseignant;
+    }
+    
+    
+    
     public List<Candidature> getCandidatures() {
         return candidatures;
     }
@@ -103,6 +144,8 @@ public String toString() {
            "\nTitre de Stage: " + titrestage +
            "\nDescription de Stage: " + descriptionstage +
            "\nDecision: " + Status;
+           
+    
 }
 
     

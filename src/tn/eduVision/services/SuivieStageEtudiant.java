@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package tn.eduVision.services;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.application.Application;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -62,8 +60,8 @@ public class SuivieStageEtudiant extends Application {
 
         DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
 
-        String query = "SELECT s.id_stage, s.id_utilisateur, s.nom_Entreprise, s.titre_Stage, s.description_Stage, s.Status, " +
-                       "u.id_utilisateur, u.nom, u.prenom, u.email, u.mot_de_passe, u.Role, " +
+        String query = "SELECT s.id_stage, s.id_utilisateur,s.TypeStage, s.nom_Entreprise, s.titre_Stage, s.description_Stage, s.Status, " +
+                       "u.id_utilisateur, u.nom, u.prenom, u.email, u.mot_de_passe, u.Role,u.specialite_ens, " +
                        "e.nom AS enseignant_nom, e.prenom AS enseignant_prenom " +
                        "FROM stages s " +
                        "INNER JOIN Utilisateurs u ON s.id_utilisateur = u.id_utilisateur " +
@@ -77,30 +75,32 @@ public class SuivieStageEtudiant extends Application {
         while (resultSet.next()) {
             int stageId = resultSet.getInt("s.id_stage");
             int utilisateurId = resultSet.getInt("u.id_utilisateur");
+            String typestage = resultSet.getString("s.TypeStage");
             String nomEntreprise = resultSet.getString("s.nom_Entreprise");
             String titreStage = resultSet.getString("s.titre_Stage");
             String descriptionStage = resultSet.getString("s.description_Stage");
+            
             String status = resultSet.getString("s.Status");
             int id = resultSet.getInt("u.id_utilisateur");
             String nom = resultSet.getString("u.nom");
             String prenom = resultSet.getString("u.prenom");
             String email = resultSet.getString("u.email");
+                String specialite_ens = resultSet.getString("u.specialite_ens");
             String motDePasse = resultSet.getString("u.mot_de_passe");
             String roleStr = resultSet.getString("u.Role");
             Role role = Role.valueOf(roleStr.toUpperCase());
-            String enseignantNom = resultSet.getString("enseignant_nom");
+             String enseignantNom = resultSet.getString("enseignant_nom");
             String enseignantPrenom = resultSet.getString("enseignant_prenom");
+            
+            
+            
 
-            Utilisateur utilisateur = new Utilisateur(id, nom, prenom, email, motDePasse, role);
-            utilisateur.setNom(enseignantNom);
-            utilisateur.setPrenom(enseignantPrenom);
+            Utilisateur utilisateur = new Utilisateur(id, nom, prenom, email, motDePasse, role,specialite_ens);
+            
+            StageEtudiant stage = new StageEtudiant(stageId, utilisateur, nomEntreprise, titreStage, descriptionStage,typestage, status,enseignantNom,enseignantPrenom);
 
-            StageEtudiant stage = new StageEtudiant(stageId, utilisateur, nomEntreprise, titreStage, descriptionStage, status);
-
-            // Set nom and prenom of connected user
-            stage.getUtilisateur().setNom(nom);
-            stage.getUtilisateur().setPrenom(prenom);
-
+            
+                 
             listeStages.add(stage);
         }
 
@@ -124,7 +124,7 @@ public class SuivieStageEtudiant extends Application {
      try {
         DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
 
-        // Update the rapport_stage column in suivistage table
+        
         String updateQuery = "UPDATE suivistage SET rapport_stage = ? WHERE id_utilisateur = ?";
                 
         PreparedStatement updateStatement = dbManager.getConnection().prepareStatement(updateQuery);
@@ -133,7 +133,7 @@ public class SuivieStageEtudiant extends Application {
             
         updateStatement.executeUpdate();
             
-            // Close the connection
+          
             dbManager.closeConnection();
         }
     catch (SQLException e) {
@@ -165,7 +165,7 @@ System.out.println("Connected User ID: " + connecteduser);
      try {
         DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
 
-        // Update the rapport_stage column in suivistage table
+      
         String updateQuery = "UPDATE suivistage SET validation_rapport = ? WHERE id_utilisateur = ? AND id_stage=?";
                 
         PreparedStatement updateStatement = dbManager.getConnection().prepareStatement(updateQuery);
@@ -175,7 +175,7 @@ System.out.println("Connected User ID: " + connecteduser);
             
         updateStatement.executeUpdate();
             
-            // Close the connection
+            
             dbManager.closeConnection();
         }
     catch (SQLException e) {
@@ -195,19 +195,19 @@ System.out.println("Connected User ID: " + connecteduser);
             File sourceFile = new File(filePath);
             File destinationFolderFile = new File(destinationFolder);
 
-            // Create the destination folder if it doesn't exist
+            
             if (!destinationFolderFile.exists()) {
                 destinationFolderFile.mkdirs();
             }
 
-            // Move the file to the destination folder
+            
             Path destinationPath = destinationFolderFile.toPath().resolve(sourceFile.getName());
             Files.copy(sourceFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
 
             
           
         } catch (IOException e) {
-            // Show an error message if the file upload fails
+           
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
@@ -226,7 +226,7 @@ System.out.println("Connected User ID: " + connecteduser);
     try {
         DatabaseManager dbManager = new DatabaseManager("jdbc:mysql://localhost:3306/pidevcs", "root", "");
 
-        // Retrieve the id_enseignant from the stages table
+        
         String enseignantQuery = "SELECT id_enseignant FROM stages WHERE id_stage = ?";
         PreparedStatement enseignantStatement = dbManager.getConnection().prepareStatement(enseignantQuery);
         enseignantStatement.setInt(1, stageId);
@@ -235,7 +235,7 @@ System.out.println("Connected User ID: " + connecteduser);
         if (enseignantResult.next()) {
             int idEnseignant = enseignantResult.getInt("id_enseignant");
 
-            // Retrieve the email from the utilisateurs table for the id_enseignant
+            
             String emailQuery = "SELECT email FROM utilisateurs WHERE id_utilisateur = ?";
             PreparedStatement emailStatement = dbManager.getConnection().prepareStatement(emailQuery);
             emailStatement.setInt(1, idEnseignant);
@@ -272,7 +272,7 @@ System.out.println("Connected User ID: " + connecteduser);
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    return ""; // Default value if the validation text cannot be retrieved
+    return ""; 
 }
 
 public Float getNoteValue(int stageId) {
@@ -292,7 +292,7 @@ public Float getNoteValue(int stageId) {
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    return 0.0f; // Default value if the note value cannot be retrieved
+    return 0.0f; 
     
     
 }

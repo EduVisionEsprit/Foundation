@@ -36,7 +36,7 @@ public class ESPACE_STAGE_ETUDIANTController implements Initializable {
         AjoutStage ajoutstage = new AjoutStage();
         ajoutstage.start(new Stage());
 
-        // Fermer la fenêtre actuelle
+        
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
@@ -47,7 +47,7 @@ public class ESPACE_STAGE_ETUDIANTController implements Initializable {
         ListeStageEtudiant listestageetudiant = new ListeStageEtudiant();
         listestageetudiant.start(new Stage());
 
-        // Fermer la fenêtre actuelle
+        
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
@@ -57,7 +57,7 @@ public class ESPACE_STAGE_ETUDIANTController implements Initializable {
         SuivieStageEtudiant suiviestageetudiant = new SuivieStageEtudiant();
         suiviestageetudiant.start(new Stage());
 
-        // Fermer la fenêtre actuelle
+       
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }

@@ -4,30 +4,47 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="727.0" prefWidth="1669.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.services.SUIVIE_STAGE_ETUDIANTController">
     <stylesheets>
         <URL value="@espace_etudiant_liste_stages.css" />
     </stylesheets>
    <children>
-      <TableView fx:id="tableView" editable="true" layoutX="7.0" layoutY="26.0" prefHeight="463.0" prefWidth="1458.0">
+      <TableView fx:id="tableView" editable="true" layoutX="-2.0" layoutY="37.0" prefHeight="600.0" prefWidth="1669.0" stylesheets="@suivie_stage_etudiant.css">
         <columns>
           <TableColumn fx:id="nom_entreprise" editable="true" prefWidth="139.999966442585" text="Nom Entreprise" />
           <TableColumn fx:id="titre_stage" prefWidth="172.7999267578125" text="Titre de Stage" />
             <TableColumn fx:id="description_stage" prefWidth="158.4000244140625" text="Description de Stage" />
-            <TableColumn fx:id="Etudiant" prefWidth="118.39996337890625" text="Etudiant" />
-            <TableColumn fx:id="Enseignant" prefWidth="193.5999755859375" text="Enseignant" />
-            <TableColumn fx:id="Rapport" prefWidth="176.79998779296875" text="Rapport" />
-            <TableColumn fx:id="Validation" prefWidth="200.79998779296875" text="Validation" />
-            <TableColumn fx:id="Note" prefWidth="328.7999267578125" text="Note" />
+            <TableColumn fx:id="Etudiant" prefWidth="196.79995727539062" text="Etudiant" />
+            <TableColumn fx:id="Enseignant" prefWidth="175.20001220703125" text="Enseignant" />
+            <TableColumn fx:id="Rapport" prefWidth="415.2000732421875" text="Rapport" />
+            <TableColumn fx:id="Validation" prefWidth="258.4000244140625" text="Validation" />
+            <TableColumn fx:id="Note" prefWidth="153.5999755859375" text="Note" />
         </columns>
          <effect>
             <Glow />
          </effect>
       </TableView>
-      <Button fx:id="stagehome" layoutX="67.0" layoutY="538.0" mnemonicParsing="false" onAction="#stagehome" text="Stage Home" />
+      <Button fx:id="stagehome" layoutX="57.0" layoutY="661.0" mnemonicParsing="false" onAction="#stagehome" text="Stage Home" textFill="#1f0cf4">
+         <stylesheets>
+            <URL value="@style.css" />
+            <URL value="@suivie_stage_etudiant.css" />
+         </stylesheets>
+         <font>
+            <Font name="Arial Black" size="14.0" />
+         </font></Button>
+      <TitledPane animated="false" prefHeight="38.0" prefWidth="1669.0" text="ESPACE ETUDIANT :  SUIVIE DE STAGE" textFill="#1f0cf4">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+         </content>
+         <font>
+            <Font name="Arial Black" size="16.0" />
+         </font>
+      </TitledPane>
       
       
    </children>

@@ -17,9 +17,10 @@ public class SessionManager {
     private String role;
     private String nom;
     private String prenom;
+    private String typeenseignant;
 
     private SessionManager() {
-        // Private constructor to enforce singleton pattern
+        
     }
 
     public static SessionManager getInstance() {
@@ -56,11 +57,19 @@ public class SessionManager {
     
     
     public String getPrenom() {
-        return nom;
+        return prenom;
     }
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+    
+    public String getTypeenseignant() {
+        return typeenseignant;
+    }
+
+    public void setTypeenseignant(String typeenseignant) {
+        this.typeenseignant = typeenseignant;
     }
     
 }

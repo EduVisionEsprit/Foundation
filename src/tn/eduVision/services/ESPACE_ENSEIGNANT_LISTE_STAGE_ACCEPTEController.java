@@ -5,24 +5,17 @@
  */
 package tn.eduVision.services;
 
-import static com.sun.xml.internal.ws.api.pipe.Fiber.current;
-import java.io.File;
 import java.io.IOException;
-import tn.eduVision.services.DecisionButtonCell;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import static java.util.concurrent.ThreadLocalRandom.current;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -31,7 +24,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import tn.eduVision.entités.StageEtudiant;
@@ -107,7 +99,7 @@ public class ESPACE_ENSEIGNANT_LISTE_STAGE_ACCEPTEController implements Initiali
         ESPACE_STAGE_ENSEIGNANT espacestageenseignant = new ESPACE_STAGE_ENSEIGNANT();
         espacestageenseignant.start(new Stage());
 
-        // Fermer la fenêtre actuelle
+       
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         
     }
@@ -231,8 +223,7 @@ protected void updateItem(Float note, boolean empty) {
                 @Override
                 public void commitEdit(Float newValue) {
                     super.commitEdit(newValue);
-                    // Perform any necessary actions when the value is committed
-                    // For example, update the value in the underlying data model
+                    
                 }
             };
         }

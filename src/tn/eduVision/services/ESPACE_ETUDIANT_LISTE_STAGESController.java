@@ -2,8 +2,6 @@ package tn.eduVision.services;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -13,14 +11,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import tn.eduVision.entités.StageEtudiant;
 
 public class ESPACE_ETUDIANT_LISTE_STAGESController implements Initializable {
@@ -57,7 +52,7 @@ public class ESPACE_ETUDIANT_LISTE_STAGESController implements Initializable {
         id_user.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUtilisateur().getIdUtilisateur()).asObject());
         Status.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        tableView.setEditable(false); // Disable editing for the TableView
+        tableView.setEditable(false); 
 
        nom_entreprise.setCellFactory(TextFieldTableCell.forTableColumn());
 nom_entreprise.setOnEditCommit(event -> {
@@ -104,7 +99,7 @@ titre_stage.setOnEditCommit(event -> {
         if (selectedStage != null) {
             
             tableView.setEditable(true);
-            tableView.edit(tableView.getSelectionModel().getSelectedIndex(), nom_entreprise); // Start editing the selected row in the "nom_entreprise" column
+            tableView.edit(tableView.getSelectionModel().getSelectedIndex(), nom_entreprise); 
             
         }
     }
@@ -146,7 +141,7 @@ titre_stage.setOnEditCommit(event -> {
 
     @FXML
     private void chooseFileButtonClicked(ActionEvent event) {
-        // Handle the choose file button action
+        
     }
     
     
@@ -155,7 +150,7 @@ titre_stage.setOnEditCommit(event -> {
         ESPACE_STAGE_ETUDIANT espacestageenseignant = new ESPACE_STAGE_ETUDIANT();
         espacestageenseignant.start(new Stage());
 
-        // Fermer la fenêtre actuelle
+        
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }

@@ -15,8 +15,8 @@ public class Enseignant extends Utilisateur {
       private float salaire;
       private String bureauEns;
 
-    public Enseignant(String specialiteEns, float salaire, String bureauEns, int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role) {
-        super(idUtilisateur, nom, prenom, email, motDePasse, role);
+    public Enseignant(String specialiteEns, float salaire, String bureauEns, int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role,String specialite_ens) {
+        super(idUtilisateur, nom, prenom, email, motDePasse, role,specialite_ens);
         this.specialiteEns = specialiteEns;
         this.salaire = salaire;
         this.bureauEns = bureauEns;

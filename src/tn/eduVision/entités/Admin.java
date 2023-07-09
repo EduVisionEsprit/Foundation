@@ -14,8 +14,8 @@ public class Admin extends Utilisateur{
     private float salaire;
     private String positionAdmin;
 
-    public Admin(float salaire, String positionAdmin, int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role) {
-        super(idUtilisateur, nom, prenom, email, motDePasse, role);
+    public Admin(float salaire, String positionAdmin, int idUtilisateur, String nom, String prenom, String email, String motDePasse, Role role,String specialite_ens) {
+        super(idUtilisateur, nom, prenom, email, motDePasse, role,specialite_ens);
         this.salaire = salaire;
         this.positionAdmin = positionAdmin;
     }

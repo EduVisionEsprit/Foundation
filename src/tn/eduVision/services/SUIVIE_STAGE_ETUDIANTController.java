@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,9 +34,15 @@ import tn.eduVision.entités.StageEtudiant;
  */
 public class SUIVIE_STAGE_ETUDIANTController implements Initializable {
     
+    
+    
+    
      SessionManager sessionManager = SessionManager.getInstance();
 
          int connecteduserid = sessionManager.getUserId();
+         String nom = sessionManager.getNom();
+         String prenom = sessionManager.getPrenom();
+         
 
     DecisionButtonCell decisionButton = new DecisionButtonCell();
 
@@ -75,10 +80,10 @@ nom_entreprise.setCellValueFactory(new PropertyValueFactory<>("nomentreprise"));
     titre_stage.setCellValueFactory(new PropertyValueFactory<>("titrestage"));
     description_stage.setCellValueFactory(new PropertyValueFactory<>("descriptionstage"));
     Etudiant.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUtilisateur().getNom() + " " + cellData.getValue().getUtilisateur().getPrenom()));
-    Enseignant.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUtilisateur().getNom() + " " + cellData.getValue().getUtilisateur().getPrenom()));
+    Enseignant.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getNomenseignant() + " " + cellData.getValue().getPrenomenseignant()));
 
-    Validation.setCellFactory(createValidationCellFactory()); // Set the custom cell factory for the Validation column
-    Note.setCellFactory(createNoteCellFactory()); // Set the custom cell factory for the Note column
+    Validation.setCellFactory(createValidationCellFactory()); 
+    Note.setCellFactory(createNoteCellFactory()); 
 
     Rapport.setCellFactory(createRapportCellFactory());
 
@@ -86,6 +91,12 @@ nom_entreprise.setCellValueFactory(new PropertyValueFactory<>("nomentreprise"));
     List<StageEtudiant> stages = list.getSuivieStageEtudiant();
 
     tableView.getItems().addAll(stages);
+    
+    
+    
+   
+    
+
     }
 
    
@@ -104,7 +115,7 @@ private Callback<TableColumn<StageEtudiant, StageEtudiant>, TableCell<StageEtudi
                             
 
                             chooseButton.setOnAction((ActionEvent event) -> {
-                                // Gérer l'action d'acceptation ici
+                                
                         
                                         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir un fichier");
@@ -118,14 +129,14 @@ private Callback<TableColumn<StageEtudiant, StageEtudiant>, TableCell<StageEtudi
                             });
 
                             uploadButton.setOnAction((ActionEvent event) -> {
-                                // Gérer l'action de refus ici
+                                
                                 SessionManager sessionManager = SessionManager.getInstance();
 
                                  int userid = sessionManager.getUserId();
                                  String filePath = path.getText();
                                  Path source = Paths.get(filePath);
                                  String fileName = source.getFileName().toString();
-                                 String destinationPath = "C:\\Users\\Meher\\Documents\\esprit\\upload\\rapport";
+                                 String destinationPath = "C:\\xampp\\htdocs\\upload";
                                  Path destination = Paths.get(destinationPath, fileName);
                                  System.out.println(filePath);
                                   SuivieStageEtudiant suivieupload = new SuivieStageEtudiant();
@@ -133,14 +144,14 @@ private Callback<TableColumn<StageEtudiant, StageEtudiant>, TableCell<StageEtudi
          
                                 
                                  
-                                 // Get the selected file path
+                                
         
         if (filePath != null && !filePath.isEmpty()) {
-            // Upload the file to the specified folder
-            suivieupload.uploadFile(filePath, "C:\\Users\\Meher\\Documents\\esprit\\upload\\rapport");
+            
+            suivieupload.uploadFile(filePath, "C:\\xampp\\htdocs\\upload");
             
             
-            // Show success message after uploading the file
+            
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText(null);
@@ -150,7 +161,7 @@ private Callback<TableColumn<StageEtudiant, StageEtudiant>, TableCell<StageEtudi
         
         else {
             
-            // Show error message if no file is chosen
+            
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erreur");
         alert.setHeaderText(null);
@@ -167,10 +178,10 @@ private Callback<TableColumn<StageEtudiant, StageEtudiant>, TableCell<StageEtudi
                                
                                 String userEmail1 = decisionButton.EmailFromUserTable(connecteduserid);
                                 String motdepasse = decisionButton.PasswordFromUserTable(connecteduserid);
-                                decisionButton.sendNotificationEmail(userEmail1,motdepasse,emailenseignant, "le rapport de "+connecteduserid+"a été uploadé");
+                                decisionButton.sendNotificationEmail(userEmail1,motdepasse,emailenseignant, "le rapport de "+nom +"  "+prenom+"a été uploadé");
                                 suivieupload.inserevalidation(stageId, connecteduserid);
 
-                            });Utilisateurs user = new 
+                            });
 
                             setGraphic(createButtonPane(chooseButton,path,uploadButton));
                         } else {
@@ -241,7 +252,7 @@ private Callback<TableColumn<StageEtudiant, StageEtudiant>, TableCell<StageEtudi
                         StageEtudiant stage = getTableView().getItems().get(getIndex());
                         int stageId = stage.getIdStage();
                         SuivieStageEtudiant suivistage = new SuivieStageEtudiant();
-                        Float noteValue = suivistage.getNoteValue(stageId); // Get the note value from the database
+                        Float noteValue = suivistage.getNoteValue(stageId); 
                         
                         setText(String.valueOf(noteValue));
                     } else {
@@ -262,7 +273,7 @@ private Callback<TableColumn<StageEtudiant, StageEtudiant>, TableCell<StageEtudi
         ESPACE_STAGE_ETUDIANT espacestageenseignant = new ESPACE_STAGE_ETUDIANT();
         espacestageenseignant.start(new Stage());
 
-        // Fermer la fenêtre actuelle
+        
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }
