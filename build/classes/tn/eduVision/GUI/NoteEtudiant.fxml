@@ -15,7 +15,9 @@
     
     <top>
         <VBox alignment="CENTER" prefHeight="497.0" prefWidth="687.0" spacing="10.0" BorderPane.alignment="CENTER">
-     <Text fx:id="titleLabel" styleClass="title-text" text="Vos Notes">
+     <Text fx:id="titleLabel" 
+            styleClass="title-text" text=" --- --- --- --- --- Mes Notes  --- --- --- --- ---" 
+>
     <font>
         <Font size="24.0" />
     </font>
