@@ -7,29 +7,34 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="899.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.GestionMatieresController">
+<AnchorPane id="AnchorPane" prefHeight="850.0" prefWidth="1500.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.GestionMatieresController">
+        <!-- Include the sidebar -->
     <stylesheets>
         <URL value="@gestionmatieres.css" />
     </stylesheets>
     
     <children>
-        <Label layoutX="7.0" prefHeight="40.0" prefWidth="888.0" style="-fx-underline: 2;" styleClass="label-title" text="Gestion Matieres:" textFill="#341485">
+                <fx:include source="Sidebar.fxml" />
+
+        <Label layoutX="156.0" prefHeight="35.0" prefWidth="1351.0" style="-fx-underline: 2;" styleClass="title-text" text=" -- -- -- -- Gestion Matieres -- -- -- --" textFill="#341485">
          <font>
             <Font size="25.0" />
          </font></Label>
-       <TableView fx:id="MatieresTable" layoutX="311.0" layoutY="55.0" prefHeight="231.0" prefWidth="506.0">
+       <TableView fx:id="MatieresTable" layoutX="576.0" layoutY="247.0" prefHeight="231.0" prefWidth="514.0">
     <columns>
         <TableColumn fx:id="nom_col" prefWidth="167.20001220703125" text="Nom" />
         <TableColumn fx:id="module_col" prefWidth="227.19998168945312" text="Module" />
-        <TableColumn fx:id="coef_col" prefWidth="108.0" text="Coef" />
+        <TableColumn fx:id="coef_col" prefWidth="115.99993896484375" text="Coef" />
     </columns>
 </TableView>
 
-        <Pane layoutX="14.0" layoutY="66.0" prefHeight="154.0" prefWidth="283.0" styleClass="pane-description">
+        <Pane layoutX="572.0" layoutY="74.0" prefHeight="154.0" prefWidth="514.0" styleClass="pane-description">
             <children>
                 <Label layoutX="15.0" layoutY="3.0" prefHeight="17.0" prefWidth="219.0" styleClass="label-description" text="Nom du Matiere :">
                 
@@ -45,8 +50,18 @@
                 <TextField fx:id="txt_coef" layoutX="112.0" layoutY="121.0" prefHeight="25.0" prefWidth="120.0" styleClass="text-field-description" />
             </children>
         </Pane>
-        <Button fx:id="btn_add" layoutX="34.0" layoutY="234.0" mnemonicParsing="false" onAction="#add" styleClass="button-action" text="Ajouter" />
-        <Button fx:id="btn_update" layoutX="167.0" layoutY="234.0" mnemonicParsing="false" onAction="#update" styleClass="button-action" text="Modifier" />
-        <Button fx:id="btn_delete" layoutX="104.0" layoutY="275.0" mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="111.0" styleClass="button-action" text="Supprimer" />
+        <Button fx:id="btn_add" layoutX="717.0" layoutY="498.0" mnemonicParsing="false" onAction="#add" styleClass="button-action" text="Ajouter" />
+        <Button fx:id="btn_update" layoutX="850.0" layoutY="498.0" mnemonicParsing="false" onAction="#update" styleClass="button-action" text="Modifier" />
+        <Button fx:id="btn_delete" layoutX="787.0" layoutY="539.0" mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="111.0" styleClass="button-action" text="Supprimer" />
+      <ImageView fitHeight="395.0" fitWidth="253.0" layoutX="1119.0" layoutY="68.0">
+         <image>
+            <Image url="@./matiere.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="395.0" fitWidth="253.0" layoutX="261.0" layoutY="68.0">
+         <image>
+            <Image url="@./matiere.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>
