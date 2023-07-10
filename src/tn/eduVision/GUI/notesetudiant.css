@@ -19,17 +19,6 @@
     -fx-background-color: #cfe3ff;
     -fx-padding: 10px;
 }
-.button-action {
-    -fx-background-color: #1e90ff;
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 14px;
-    -fx-pref-width: 100px;
-}
-
-.button-action:hover {
-    -fx-background-color: #007bff;
-}
-
 
 .button-action {
     -fx-background-color: #1e90ff;
@@ -40,6 +29,41 @@
 
 .button-action:hover {
     -fx-background-color: #007bff;
+}
+
+.transcript-text-area {
+    -fx-font-family: Arial, sans-serif;
+    -fx-border-color: #ddd;
+    -fx-padding: 8px;
+    -fx-pref-height: 200px;
+    -fx-pref-width: 200px;
+}
+
+.title-text {
+    -fx-fill: #1e90ff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-border-color: #1e90ff;
+    -fx-border-width: 2px;
+}
+
+
+.transcript-table caption {
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.transcript-table .module {
+    font-weight: bold;
+}
+
+.transcript-table .passable {
+    -fx-text-fill: green;
+}
+
+.transcript-table .redouble {
+    -fx-text-fill: red;
 }
 
 .table-view {
@@ -71,9 +95,18 @@
 }
 
 .alert .dialog-pane .button-bar .button {
-    -fx-background-color: #1e90ff;
+    -fx-background-color: #007bff;
     -fx-text-fill: #ffffff;
     -fx-font-size: 14px;
+}
+.button-generate {
+    -fx-background-color: #007bff;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+}
+
+.button-generate:hover {
+    -fx-background-color: #007bff;
 }
 
 .alert .dialog-pane .button-bar .button:hover {

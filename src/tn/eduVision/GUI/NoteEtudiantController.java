@@ -26,11 +26,15 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 import tn.eduVision.entités.Admin;
 import tn.eduVision.entités.Role;
 import tn.eduVision.entités.Utilisateur;
@@ -61,6 +65,7 @@ public class NoteEtudiantController implements Initializable {
         matiereService = new MatiereService();
     }
 
+
     @FXML
     private void afficherNotes() {
         Matiere selectedMatiere = cmbMatieres.getValue();
@@ -74,26 +79,15 @@ public class NoteEtudiantController implements Initializable {
     }
 @Override
 public void initialize(URL location, ResourceBundle resources) {
+  
     etudiant = (Etudiant) userServices.getEtudiantById(2);
     System.out.println(etudiant.getNom());
     List<Matiere> matieres = matiereService.getAll();
-    cmbMatieres.setItems(FXCollections.observableArrayList(matieres));
-    cmbMatieres.setConverter(new StringConverter<Matiere>() {
-        @Override
-        public String toString(Matiere matiere) {
-            return matiere != null ? matiere.getNomMatiere() : "";
-        }
-
-        @Override
-        public Matiere fromString(String string) {
-            return null;
-        }
-    });
-
+    
+     
     colModule.setCellValueFactory(cellData -> {
         Matiere matiere = cellData.getValue().getMatiere();
         Module module = matiereService.getModuleOfMatiere(matiere.getNomMatiere());
-
         String moduleName = module != null ? module.getNomModule() : "";
         return new SimpleStringProperty(moduleName);
     });
@@ -115,6 +109,8 @@ public void initialize(URL location, ResourceBundle resources) {
         noteList = FXCollections.observableArrayList(notes);
         tblNotes.setItems(noteList);
     }
+
+   
 }
 
 
@@ -262,6 +258,5 @@ private void showAccessDeniedAlert() {
     alert.setContentText("Accès refusé. Vous devez être un administrateur pour accéder à cette fonctionnalité.");
     alert.showAndWait();
 }
-
-
 }
+ 
