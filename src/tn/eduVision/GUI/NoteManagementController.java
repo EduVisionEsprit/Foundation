@@ -1,5 +1,7 @@
 package tn.eduVision.GUI;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -116,43 +118,57 @@ private void showAccessDeniedAlert() {
     alert.setContentText("Accès refusé. Vous devez être un administrateur pour accéder à cette fonctionnalité.");
     alert.showAndWait();
 }
+@FXML
+private void saisirNote() {
+    Etudiant etudiant = cmbEtudiants.getValue();
+    Matiere matiere = cmbMatieres.getValue();
+    float note = Float.parseFloat(txtNote.getText());
 
-    @FXML
-    private void saisirNote() {
-        Etudiant etudiant = cmbEtudiants.getValue();
-        Matiere matiere = cmbMatieres.getValue();
-        float note = Float.parseFloat(txtNote.getText());
-
-        if (validateNoteRange(note)) {
-            if (!noteManagementService.isNoteExists(etudiant, matiere)) {
-                noteManagementService.saisirNote(etudiant, matiere, note);
-                showInfoAlert("Note Saisie", "La note a été saisie avec succès.");
-                refreshTable();
-                clearFields();
-            } else {
-                showErrorAlert("Erreur de Saisie", "La note existe déjà pour cette matière.");
-            }
-        } else {
-            showErrorAlert("Erreur de Saisie", "La note doit être comprise entre 1 et20.");
+    if (validateNoteRange(note)) {
+        try {
+            noteManagementService.saisirNote(etudiant, matiere, note);
+            showInfoAlert("Note Saisie", "La note a été saisie avec succès.");
+            refreshTable();
+            clearFields();
+        } catch (IllegalArgumentException e) {
+            showErrorAlert("Erreur de Saisie", e.getMessage());
         }
+    } else {
+        showErrorAlert("Erreur de Saisie", "La note doit être comprise entre 1 et 20.");
     }
+}
 
-    @FXML
-    private void updateNote() {
-        Note selectedNote = tblNotes.getSelectionModel().getSelectedItem();
-        if (selectedNote != null) {
-            float newNote = Float.parseFloat(txtNote.getText());
 
-            if (validateNoteRange(newNote)) {
+@FXML
+private void updateNote() {
+    Note selectedNote = tblNotes.getSelectionModel().getSelectedItem();
+    if (selectedNote != null) {
+        float newNote = Float.parseFloat(txtNote.getText());
+
+        if (validateNoteRange(newNote)) {
+            if (!noteManagementService.isNoteExists(selectedNote.getEtudiant(), selectedNote.getMatiere())) {
                 noteManagementService.modifierNote(selectedNote.getIdNote(), newNote);
                 showInfoAlert("Note Modifiée", "La note a été modifiée avec succès.");
                 refreshTable();
                 clearFields();
             } else {
-                showErrorAlert("Erreur de Modification", "La note doit être comprise entre 1 et 20.");
+                showErrorAlert("Erreur de Modification", "La note existe déjà pour cette matière.");
             }
+        } else {
+            showErrorAlert("Erreur de Modification", "La note doit être comprise entre 1 et 20.");
         }
     }
+}
+
+
+private boolean isNoteExists(Etudiant etudiant, Matiere matiere) {
+    List<Note> notes = noteList.stream()
+            .filter(note -> note.getEtudiant().equals(etudiant) && note.getMatiere().equals(matiere))
+            .collect(Collectors.toList());
+
+    return !notes.isEmpty();
+}
+
 
     @FXML
     private void deleteNote() {
@@ -179,7 +195,7 @@ private void showAccessDeniedAlert() {
     }
 
     private boolean validateNoteRange(float note) {
-        return note >= 1 && note <= 20;
+        return note >= 0 && note <= 20;
     }
 
     private void showErrorAlert(String title, String message) {

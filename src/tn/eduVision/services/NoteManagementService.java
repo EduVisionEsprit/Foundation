@@ -66,9 +66,12 @@ public class NoteManagementService implements SaisiNotesService {
         }
         return notes;
     }
-
-    @Override
+@Override
     public void saisirNote(Etudiant etudiant, Matiere matiere, float note) {
+        if (!isNoteExists(etudiant, matiere)) {
+            throw new IllegalArgumentException("La note existe déjà pour cette matière.");
+        }
+
         String query = "INSERT INTO notes (id_utilisateur, id_matiere, note) VALUES (?, ?, ?)";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
@@ -79,8 +82,54 @@ public class NoteManagementService implements SaisiNotesService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }@Override
+public void modifierNote(int idNote, float nouvelleNote) {
+    Note existingNote = getNoteById(idNote);
+    if (existingNote == null) {
+        throw new IllegalArgumentException("La note spécifiée n'existe pas.");
+    }
+    
+    Etudiant etudiant = existingNote.getEtudiant();
+    Matiere matiere = existingNote.getMatiere();
+    
+    if (isNoteExists(etudiant, matiere) && existingNote.getNote() != nouvelleNote) {
+        throw new IllegalArgumentException("Une note existe déjà pour cette matière.");
     }
 
+    String query = "UPDATE notes SET note = ? WHERE id_note = ?";
+    try {
+        PreparedStatement statement = _connection.prepareStatement(query);
+        statement.setFloat(1, nouvelleNote);
+        statement.setInt(2, idNote);
+        statement.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+    private Note getNoteById(int idNote) {
+        String query = "SELECT * FROM notes WHERE id_note = ?";
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            statement.setInt(1, idNote);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int id = resultSet.getInt("id_note");
+                    float noteValue = resultSet.getFloat("note");
+                    int etudiantId = resultSet.getInt("id_utilisateur");
+                    int matiereId = resultSet.getInt("id_matiere");
+
+                    Etudiant etudiant = obtenirEtudiantParId(etudiantId);
+                    Matiere matiere = obtenirMatiereParId(matiereId);
+
+                    return new Note(id, etudiant, matiere, noteValue);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     @Override
     public List<Note> obtenirNotesParEtudiant(Etudiant etudiant) {
         List<Note> notes = new ArrayList<>();
@@ -150,18 +199,7 @@ public class NoteManagementService implements SaisiNotesService {
         return notes;
     }
 
-    @Override
-    public void modifierNote(int idNote, float nouvelleNote) {
-        String query = "UPDATE notes SET note = ? WHERE id_note = ?";
-        try {
-            PreparedStatement statement = _connection.prepareStatement(query);
-            statement.setFloat(1, nouvelleNote);
-            statement.setInt(2, idNote);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+   
 
     @Override
     public void supprimerNote(int idNote) {
