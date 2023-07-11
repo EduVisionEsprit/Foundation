@@ -58,6 +58,7 @@ private Button btnListeElites;
     public ResultatEtudiantsController() {
         userServices = new UserServices();
     }
+    private Popup chartPopup; // 
 
 
 @Override
@@ -77,15 +78,28 @@ private Button btnListeElites;
 
         tblEtudiants.getItems().addAll(etudiants);
 
-       btnShowChart.setOnAction(event -> {
-    showChartPopup((Stage) tblEtudiants.getScene().getWindow());
-});
+      btnShowChart.setOnAction(event -> {
+            if (chartPopup != null && chartPopup.isShowing()) {
+                chartPopup.hide(); // Close the existing chart if it's open
+                return;
+            }
+            showChartPopup((Stage) tblEtudiants.getScene().getWindow());
+        });
+
            btnListeElites.setOnAction(event -> displayEliteStudents());
 
 
     }
 private void showChartPopup(Stage primaryStage) {
-     
+       Button closeButton = new Button("X");
+    closeButton.setStyle("-fx-background-color: transparent; -fx-text-fill: red; -fx-font-size: 12px;");
+
+    closeButton.setOnAction(event -> {
+        if (chartPopup != null && chartPopup.isShowing()) {
+            chartPopup.hide();
+            primaryStage.close(); // Close the primary stage
+        }
+    });
     javafx.scene.chart.CategoryAxis xAxis = new javafx.scene.chart.CategoryAxis();
     javafx.scene.chart.NumberAxis yAxis = new javafx.scene.chart.NumberAxis();
     javafx.scene.chart.BarChart<String, Number> chart = new javafx.scene.chart.BarChart<>(xAxis, yAxis);
@@ -120,8 +134,6 @@ private void showChartPopup(Stage primaryStage) {
     chart.setStyle("-fx-background-color: #F0F0F0;");
 
      
-    Button closeButton = new Button("X");
-    closeButton.setStyle("-fx-background-color: transparent; -fx-text-fill: red; -fx-font-size: 12px;");
 
      
     VBox content = new VBox(chart, closeButton);
