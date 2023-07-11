@@ -46,25 +46,3 @@
 .table-row-cell:selected {
     -fx-background-color: #d4d4d4;
 }
-
-.alert {
-    -fx-font-size: 14px;
-}
-
-.alert .dialog-pane {
-    -fx-background-color: #ffffff;
-}
-
-.alert .dialog-pane .content-label {
-    -fx-font-weight: bold;
-}
-
-.alert .dialog-pane .button-bar .button {
-    -fx-background-color: #1e90ff;
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 14px;
-}
-
-.alert .dialog-pane .button-bar .button:hover {
-    -fx-background-color: #007bff;
-}

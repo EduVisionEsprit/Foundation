@@ -5,24 +5,28 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="406.0" prefWidth="735.0" styleClass="mainFxmlClass" stylesheets="@gestionprogrammeetudes.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.GestionProgrammeEtudesController">
+<AnchorPane id="AnchorPane" prefHeight="850.0" prefWidth="1500.0" styleClass="mainFxmlClass" stylesheets="@gestionprogrammeetudes.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.GestionProgrammeEtudesController">
 
     <children>
-        <Label prefHeight="40.0" prefWidth="735.0" style="-fx-underline: 2;" styleClass="label-title" text="Programmes d'études:" textFill="#341485">
+                <fx:include source="Sidebar.fxml" />
+
+        <Label prefHeight="40.0" prefWidth="1500.0" style="-fx-underline: 2;" styleClass="label-title" text="-- -- -- -- Programmes d'études -- -- -- -- " textFill="#341485">
             <font>
                 <Font name="Arial" size="24.0" />
             </font>
         </Label>
-        <TableView fx:id="programmesTable" layoutX="333.0" layoutY="53.0" prefHeight="263.0" prefWidth="387.0">
+        <TableView fx:id="programmesTable" layoutX="492.0" layoutY="259.0" prefHeight="263.0" prefWidth="538.0">
             <columns>
-                <TableColumn fx:id="desc_col" prefWidth="386.40001220703124" text="Nos Programme d'études " />
+                <TableColumn fx:id="desc_col" prefWidth="537.6000122070312" text="Nos Programme d'études " />
             </columns>
         </TableView>
-        <Pane layoutX="14.0" layoutY="66.0" prefHeight="134.0" prefWidth="302.0" styleClass="pane-description">
+        <Pane layoutX="556.0" layoutY="86.0" prefHeight="134.0" prefWidth="387.0" styleClass="pane-description">
             <children>
                 <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="219.0" styleClass="label-description" text="Intitulé du Programme">
                     <font>
@@ -32,8 +36,13 @@
                 <TextField fx:id="txt_description" layoutX="10.0" layoutY="39.0" prefHeight="76.0" prefWidth="279.0" styleClass="text-field-description" />
             </children>
         </Pane>
-        <Button fx:id="btn_add" layoutX="65.0" layoutY="220.0" mnemonicParsing="false" onAction="#add" prefHeight="30.0" prefWidth="74.0" styleClass="button-action" text="Ajouter" />
-        <Button fx:id="btn_update" layoutX="188.0" layoutY="221.0" mnemonicParsing="false" onAction="#update" styleClass="button-action" text="Modifier" />
-        <Button fx:id="btn_delete" layoutX="122.0" layoutY="262.0" mnemonicParsing="false" onAction="#delete" styleClass="button-action" text="Supprimer" />
+        <Button fx:id="btn_add" layoutX="638.0" layoutY="550.0" mnemonicParsing="false" onAction="#add" prefHeight="30.0" prefWidth="74.0" styleClass="button-action" text="Ajouter" />
+        <Button fx:id="btn_update" layoutX="761.0" layoutY="551.0" mnemonicParsing="false" onAction="#update" styleClass="button-action" text="Modifier" />
+        <Button fx:id="btn_delete" layoutX="695.0" layoutY="592.0" mnemonicParsing="false" onAction="#delete" styleClass="button-action" text="Supprimer" />
+      <ImageView fitHeight="440.0" fitWidth="279.0" layoutX="1075.0" layoutY="86.0">
+         <image>
+            <Image url="@./prog.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>
