@@ -17,9 +17,14 @@ import tn.eduVision.services.UserServices;
 import javafx.scene.control.cell.PropertyValueFactory;
 import tn.eduVision.entités.Role;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * FXML Controller class
@@ -68,6 +73,9 @@ public class AdminDashboadController implements Initializable {
     private Button Test;
     @FXML
     private Button Scholarité;
+    private Stage stage;
+    private Scene scene;
+    private Parent root; 
 
     /**
      * Initializes the controller class.
@@ -170,6 +178,90 @@ public class AdminDashboadController implements Initializable {
     
      public void addUserSearch() {  
                 
+    }
+
+    @FXML
+    private void openReservation(MouseEvent event) {
+        try {
+            //TODO: Add root for Reservation
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(AdminDashboadController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void openNote(MouseEvent event) {
+        try {
+            //TODO: Add root for Note
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(AdminDashboadController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void OpenStage(MouseEvent event) {
+        try {
+            //TODO: Add root for Stage
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(AdminDashboadController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void openClasses(MouseEvent event) {
+          try {
+            //TODO: Add root for Classes
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(AdminDashboadController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void openTest(MouseEvent event) {
+          try {
+            //TODO: Add root for Test
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(AdminDashboadController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void openScholarite(MouseEvent event) {
+        try {
+            //TODO: Add root for scholarité
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(AdminDashboadController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 

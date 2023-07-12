@@ -119,11 +119,11 @@
       </Pane>
       <TextField fx:id="seachfield" layoutX="254.0" layoutY="145.0" prefHeight="25.0" prefWidth="260.0" promptText=" " text=" " />
       <FontAwesomeIconView fx:id="searchIcon" glyphName="SEARCH" layoutX="491.0" layoutY="161.0" />
-      <Button fx:id="Reservation" layoutX="290.0" layoutY="190.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="179.0" text="Reservation" />
-      <Button fx:id="Note" layoutX="290.0" layoutY="498.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="179.0" text="Note" />
-      <Button fx:id="Stage" layoutX="487.0" layoutY="498.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="179.0" text="Stage" />
-      <Button fx:id="Classes" layoutX="487.0" layoutY="190.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="179.0" text="Classes" />
-      <Button fx:id="Test" layoutX="675.0" layoutY="498.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="179.0" text="Test" />
-      <Button fx:id="Scholarité" layoutX="675.0" layoutY="190.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="179.0" text="Scholarité" />
+      <Button fx:id="Reservation" layoutX="290.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#openReservation" prefHeight="45.0" prefWidth="179.0" text="Reservation" />
+      <Button fx:id="Note" layoutX="290.0" layoutY="498.0" mnemonicParsing="false" onMouseClicked="#openNote" prefHeight="45.0" prefWidth="179.0" text="Note" />
+      <Button fx:id="Stage" layoutX="487.0" layoutY="498.0" mnemonicParsing="false" onMouseClicked="#OpenStage" prefHeight="45.0" prefWidth="179.0" text="Stage" />
+      <Button fx:id="Classes" layoutX="487.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#openClasses" prefHeight="45.0" prefWidth="179.0" text="Classes" />
+      <Button fx:id="Test" layoutX="675.0" layoutY="498.0" mnemonicParsing="false" onMouseClicked="#openTest" prefHeight="45.0" prefWidth="179.0" text="Test" />
+      <Button fx:id="Scholarité" layoutX="675.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#openScholarite" prefHeight="45.0" prefWidth="179.0" text="Scholarité" />
    </children>
 </AnchorPane>

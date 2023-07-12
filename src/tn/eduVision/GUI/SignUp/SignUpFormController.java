@@ -37,6 +37,8 @@ import tn.eduVision.services.hashPassword;
  */
 public class SignUpFormController implements Initializable {
 
+    private Stage stage;
+    private Scene scene;
     private Parent root; 
     private static SignUpFormController instance;
     public static String role;
@@ -57,6 +59,9 @@ public class SignUpFormController implements Initializable {
     private PasswordField passwordField;
     @FXML
     private Button confirmButton;
+    @FXML
+    private Button Annuler;
+
 
     /**
      * Initializes the controller class.
@@ -89,6 +94,19 @@ public class SignUpFormController implements Initializable {
             }
         }
     }    
+
+    @FXML
+    private void returnToRole(MouseEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/SignUp/signRoleUp.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(SignUpFormController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
    
 

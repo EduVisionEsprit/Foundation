@@ -33,8 +33,7 @@ import tn.eduVision.GUI.Login.LoginWindow;
  */
 public class SignUpRoleController implements Initializable {
     
-    private Stage stage;
-    private Stage primaryStage;
+    private Stage stage;    
     private Scene scene;   
     @FXML
     private AnchorPane EnsAnchorPane;    
@@ -48,8 +47,7 @@ public class SignUpRoleController implements Initializable {
     private Button exit;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        this.primaryStage = stage;
+    public void initialize(URL url, ResourceBundle rb) {      
         // TODO
     }
 
@@ -83,13 +81,13 @@ public class SignUpRoleController implements Initializable {
 
     @FXML
     private void exitRole(MouseEvent event) {
-         try {
-        Parent root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/Login/login.fxml"));
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/Login/login.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-            } catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
         

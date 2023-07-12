@@ -17,6 +17,6 @@
       <TextField fx:id="prenomField" layoutX="303.0" layoutY="133.0" />
       <PasswordField fx:id="passwordField" layoutX="303.0" layoutY="221.0" />
       <Button fx:id="confirmButton" layoutX="148.0" layoutY="289.0" mnemonicParsing="false" onMouseClicked="#ConfirmAction" prefHeight="57.0" prefWidth="127.0" text="Confirmer" />
-      <Button fx:id="confirmButton2" layoutX="324.0" layoutY="289.0" mnemonicParsing="false" onMouseClicked="#ConfirmAction" prefHeight="57.0" prefWidth="127.0" text="Annuler" />
+      <Button fx:id="Annuler" layoutX="324.0" layoutY="289.0" mnemonicParsing="false" onMouseClicked="#returnToRole" prefHeight="57.0" prefWidth="127.0" text="Annuler" />
    </children>
 </AnchorPane>
