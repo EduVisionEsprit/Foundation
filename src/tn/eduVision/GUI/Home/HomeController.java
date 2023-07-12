@@ -10,13 +10,18 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
+import tn.eduVision.GUI.SignUp.SignUpRoleController;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tn.eduVision.GUI.SignUp.SignUpRoleController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * FXML Controller class
@@ -25,23 +30,74 @@ import tn.eduVision.GUI.SignUp.SignUpRoleController;
  */
 public class HomeController implements Initializable {
 
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    @FXML
+    private Text Emploi;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }  
-    public void switchTesting(ActionEvent event){
-         try {           
-            Parent root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/SignUp/SignUpFrom.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    }   
+
+    @FXML
+    private void openEmploi(MouseEvent event) {
+        try {
+            //TODO: Add root for Emploi
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
             stage.setScene(scene);
-            stage.show();       
+            stage.show();
         } catch (Exception ex) {
-            Logger.getLogger(SignUpRoleController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    @FXML
+    private void openTache(MouseEvent event) {
+        try {
+            //TODO: Add root for Tache
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void openNote(MouseEvent event) {
+        try {
+            //TODO: Add root for Note
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void openProfile(MouseEvent event) {
+        try {
+            //TODO: Add root for Profile
+            Parent root = FXMLLoader.load(getClass().getResource(""));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

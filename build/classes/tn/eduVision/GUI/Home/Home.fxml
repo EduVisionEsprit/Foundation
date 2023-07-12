@@ -12,24 +12,24 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <AnchorPane layoutX="51.0" layoutY="76.0" onMouseClicked="#switchTesting" prefHeight="123.0" prefWidth="135.0">
+      <AnchorPane layoutX="51.0" layoutY="76.0" onMouseClicked="#openEmploi" prefHeight="123.0" prefWidth="135.0">
          <children>
-            <Text layoutX="49.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Emploi" />
+            <Text fx:id="Emploi" layoutX="49.0" layoutY="66.0" onMouseClicked="#openEmploi" strokeType="OUTSIDE" strokeWidth="0.0" text="Emploi" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="51.0" layoutY="243.0" prefHeight="123.0" prefWidth="135.0">
          <children>
-            <Text layoutX="48.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tache" />
+            <Text layoutX="48.0" layoutY="64.0" onMouseClicked="#openTache" strokeType="OUTSIDE" strokeWidth="0.0" text="Tache" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="410.0" layoutY="76.0" prefHeight="123.0" prefWidth="135.0">
+      <AnchorPane layoutX="410.0" layoutY="76.0" onMouseClicked="#openProfile" prefHeight="123.0" prefWidth="135.0">
          <children>
-            <Text layoutX="58.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note" />
+            <Text layoutX="58.0" layoutY="68.0" onMouseClicked="#openNote" strokeType="OUTSIDE" strokeWidth="0.0" text="Note" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="422.0" layoutY="243.0" prefHeight="123.0" prefWidth="135.0">
          <children>
-            <Text layoutX="51.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
+            <Text layoutX="51.0" layoutY="77.0" onMouseClicked="#openProfile" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
          </children>
       </AnchorPane>
    </children>
