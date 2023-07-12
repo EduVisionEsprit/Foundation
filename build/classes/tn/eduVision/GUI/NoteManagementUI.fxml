@@ -93,13 +93,13 @@
         <Button fx:id="btnUpdateNote1" layoutX="776.0" layoutY="232.0" onAction="#updateNote" styleClass="button-modifier-note" text="Modifier Note" />
         <Button fx:id="btnSupprimerNote11" layoutX="952.0" layoutY="232.0" onAction="#deleteNote" styleClass="button-supprimer-note" text="Supprimer Note" />
         
-     <Label layoutY="14.0" prefHeight="40.0" prefWidth="1509.0" styleClass="title-text" text="                                                                               --- --- --- --- --- Mes Notes  --- --- --- --- ---" textAlignment="CENTER" wrapText="true">
+     <Label layoutY="14.0" prefHeight="40.0" prefWidth="1509.0" styleClass="title-text" text="                                                                               --- --- --- --- --- Mes Notes  --- --- --- --- ---" textAlignment="CENTER" textFill="#0396b0" wrapText="true">
     <font>
         <Font name="Baskerville Old Face" size="100.0" />
     </font>
 </Label>
 
-      <ImageView fitHeight="243.0" fitWidth="200.0" layoutX="272.0" layoutY="78.0">
+      <ImageView fitHeight="215.0" fitWidth="171.0" layoutX="312.0" layoutY="79.0">
          <image>
             <Image url="@prof.png" />
          </image>

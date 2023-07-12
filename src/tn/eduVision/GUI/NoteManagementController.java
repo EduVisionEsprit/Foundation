@@ -125,17 +125,29 @@ private void saisirNote() {
     float note = Float.parseFloat(txtNote.getText());
 
     if (validateNoteRange(note)) {
-        try {
-            noteManagementService.saisirNote(etudiant, matiere, note);
-            showInfoAlert("Note Saisie", "La note a été saisie avec succès.");
-            refreshTable();
-            clearFields();
-        } catch (IllegalArgumentException e) {
-            showErrorAlert("Erreur de Saisie", e.getMessage());
+        if (!isNoteExistsForEtudiantAndMatiere(etudiant, matiere)) {
+            try {
+                noteManagementService.saisirNote(etudiant, matiere, note);
+                showInfoAlert("Note Saisie", "La note a été saisie avec succès.");
+                refreshTable();
+                clearFields();
+            } catch (IllegalArgumentException e) {
+                showErrorAlert("Erreur de Saisie", e.getMessage());
+            }
+        } else {
+            showErrorAlert("Erreur de Saisie", "Une note existe déjà pour cet étudiant et cette matière.");
         }
     } else {
         showErrorAlert("Erreur de Saisie", "La note doit être comprise entre 1 et 20.");
     }
+}
+private boolean isNoteExistsForEtudiantAndMatiere(Etudiant etudiant, Matiere matiere) {
+    for (Note note : noteList) {
+        if (note.getEtudiant().equals(etudiant) && note.getMatiere().equals(matiere)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -160,14 +172,16 @@ private void updateNote() {
     }
 }
 
-
 private boolean isNoteExists(Etudiant etudiant, Matiere matiere) {
-    List<Note> notes = noteList.stream()
-            .filter(note -> note.getEtudiant().equals(etudiant) && note.getMatiere().equals(matiere))
-            .collect(Collectors.toList());
-
-    return !notes.isEmpty();
+    for (Note note : noteList) {
+        if (note.getEtudiant().equals(etudiant) && note.getMatiere().equals(matiere)) {
+            return true;
+        }
+    }
+    return false;
 }
+
+
 
 
     @FXML

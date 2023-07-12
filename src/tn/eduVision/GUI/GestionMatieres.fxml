@@ -22,7 +22,7 @@
     <children>
                 <fx:include source="Sidebar.fxml" />
 
-        <Label layoutX="156.0" prefHeight="35.0" prefWidth="1351.0" style="-fx-underline: 2;" styleClass="title-text" text="                                                                         -- -- -- -- Gestion Matieres -- -- -- --" textFill="#341485">
+        <Label layoutX="156.0" prefHeight="35.0" prefWidth="1351.0" style="-fx-underline: 2;" styleClass="title-text" text="                                                                         -- -- -- -- Gestion Matieres -- -- -- --" textFill="#0396b0">
          <font>
             <Font size="25.0" />
          </font></Label>

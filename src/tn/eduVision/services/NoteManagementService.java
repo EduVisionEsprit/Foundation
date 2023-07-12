@@ -41,6 +41,39 @@ public class NoteManagementService implements SaisiNotesService {
 
         return false;  
     }
+    @Override
+public void saisirNote(Etudiant etudiant, Matiere matiere, float note) {
+    
+
+    if (isNoteExistsForEtudiant(etudiant, matiere)) {
+        throw new IllegalArgumentException("Une note existe déjà pour cet étudiant et cette matière.");
+    }
+    else{
+
+    String query = "INSERT INTO notes (id_utilisateur, id_matiere, note) VALUES (?, ?, ?)";
+    try {
+        PreparedStatement statement = _connection.prepareStatement(query);
+        statement.setInt(1, etudiant.getIdUtilisateur());
+        statement.setInt(2, matiere.getIdMatiere());
+        statement.setFloat(3, note);
+        statement.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }}
+}
+
+private boolean isNoteExistsForEtudiant(Etudiant etudiant, Matiere matiere) {
+    List<Note> notes = getAllNotes();
+
+    for (Note note : notes) {
+        if (note.getEtudiant().equals(etudiant) && note.getMatiere().equals(matiere)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 
     public List<Note> getAllNotes() {
         List<Note> notes = new ArrayList<>();
@@ -65,35 +98,11 @@ public class NoteManagementService implements SaisiNotesService {
             e.printStackTrace();
         }
         return notes;
-    }
-@Override
-    public void saisirNote(Etudiant etudiant, Matiere matiere, float note) {
-        if (!isNoteExists(etudiant, matiere)) {
-            throw new IllegalArgumentException("La note existe déjà pour cette matière.");
-        }
-
-        String query = "INSERT INTO notes (id_utilisateur, id_matiere, note) VALUES (?, ?, ?)";
-        try {
-            PreparedStatement statement = _connection.prepareStatement(query);
-            statement.setInt(1, etudiant.getIdUtilisateur());
-            statement.setInt(2, matiere.getIdMatiere());
-            statement.setFloat(3, note);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }@Override
 public void modifierNote(int idNote, float nouvelleNote) {
     Note existingNote = getNoteById(idNote);
     if (existingNote == null) {
         throw new IllegalArgumentException("La note spécifiée n'existe pas.");
-    }
-    
-    Etudiant etudiant = existingNote.getEtudiant();
-    Matiere matiere = existingNote.getMatiere();
-    
-    if (isNoteExists(etudiant, matiere) && existingNote.getNote() != nouvelleNote) {
-        throw new IllegalArgumentException("Une note existe déjà pour cette matière.");
     }
 
     String query = "UPDATE notes SET note = ? WHERE id_note = ?";
