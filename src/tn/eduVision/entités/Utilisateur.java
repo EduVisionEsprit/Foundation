@@ -82,11 +82,6 @@ public class Utilisateur {
     }
       public int getEtat() {
          return etat;
-    }
- 
-     public Utilisateur() {
-    }
- 
-
-   
+    }  
+  
 }
