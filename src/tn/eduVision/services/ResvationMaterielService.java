@@ -148,7 +148,7 @@ public class ResvationMaterielService{
                 System.out.println(resultSet.getTime("heure_debut"));
             reservation = new Reservation(
                     resultSet.getInt("id_reservation"),
-                    new Utilisateur(resultSet.getInt("id_utilisateur"), "jobrane", "ben salah", "test@gmail.com", null, Role.ADMIN),
+                    new Utilisateur(resultSet.getInt("id_utilisateur"), "jobrane", "ben salah", "test@gmail.com", null, Role.admin),
                     resultSet.getDate("date_reservation"),
                     convertToLocaleTime(resultSet.getTime("heure_debut")),
                     convertToLocaleTime(resultSet.getTime("heure_fin")),
@@ -162,7 +162,7 @@ public class ResvationMaterielService{
                 reservation = new Reservation(
                     resultSet.getInt("id_reservation"),
                         //TODO change this when getUserById is done
-                    new Utilisateur(resultSet.getInt("id_utilisateur"), "jobrane", "ben salah", "test@gmail.com", null, Role.ADMIN),
+                    new Utilisateur(resultSet.getInt("id_utilisateur"), "jobrane", "ben salah", "test@gmail.com", null, Role.admin),
                     resultSet.getDate("date_reservation"),
                     convertToLocaleTime(resultSet.getTime("heure_debut")),
                     convertToLocaleTime(resultSet.getTime("heure_fin")),

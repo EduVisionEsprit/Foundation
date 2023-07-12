@@ -48,15 +48,15 @@
                
                 </Label>
                 <TextField fx:id="txt_coef" layoutX="112.0" layoutY="121.0" prefHeight="25.0" prefWidth="120.0" styleClass="text-field-description" />
+            <ImageView fitHeight="154.0" fitWidth="161.0" layoutX="301.0" layoutY="2.0">
+               <image>
+                  <Image url="@./matiere.png" />
+               </image>
+            </ImageView>
             </children>
         </Pane>
         <Button fx:id="btn_add" layoutX="717.0" layoutY="498.0" mnemonicParsing="false" onAction="#add" styleClass="button-action" text="Ajouter" />
         <Button fx:id="btn_update" layoutX="850.0" layoutY="498.0" mnemonicParsing="false" onAction="#update" styleClass="button-action" text="Modifier" />
         <Button fx:id="btn_delete" layoutX="787.0" layoutY="539.0" mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="111.0" styleClass="button-action" text="Supprimer" />
-      <ImageView fitHeight="395.0" fitWidth="253.0" layoutX="1119.0" layoutY="68.0">
-         <image>
-            <Image url="@./matiere.png" />
-         </image>
-      </ImageView>
     </children>
 </AnchorPane>

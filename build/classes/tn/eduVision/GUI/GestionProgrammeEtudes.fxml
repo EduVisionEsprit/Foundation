@@ -34,15 +34,15 @@
                     </font>
                 </Label>
                 <TextField fx:id="txt_description" layoutX="10.0" layoutY="39.0" prefHeight="76.0" prefWidth="279.0" styleClass="text-field-description" />
+            <ImageView fitHeight="124.0" fitWidth="133.0" layoutX="274.0" layoutY="6.0">
+               <image>
+                  <Image url="@./prog.png" />
+               </image>
+            </ImageView>
             </children>
         </Pane>
         <Button fx:id="btn_add" layoutX="638.0" layoutY="550.0" mnemonicParsing="false" onAction="#add" prefHeight="30.0" prefWidth="74.0" styleClass="button-action" text="Ajouter" />
         <Button fx:id="btn_update" layoutX="761.0" layoutY="551.0" mnemonicParsing="false" onAction="#update" styleClass="button-action" text="Modifier" />
         <Button fx:id="btn_delete" layoutX="695.0" layoutY="592.0" mnemonicParsing="false" onAction="#delete" styleClass="button-action" text="Supprimer" />
-      <ImageView fitHeight="440.0" fitWidth="279.0" layoutX="1075.0" layoutY="86.0">
-         <image>
-            <Image url="@./prog.png" />
-         </image>
-      </ImageView>
     </children>
 </AnchorPane>

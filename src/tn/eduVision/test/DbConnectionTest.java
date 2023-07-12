@@ -14,6 +14,7 @@ import tn.eduVision.entités.TypeSalle;
 import tn.eduVision.tools.SqlConnectionManager;
 import tn.eduVision.entités.TypeRessource;
 import tn.eduVision.services.MaterielService;
+import tn.eduVision.services.SallesService;
 
 /**
  *

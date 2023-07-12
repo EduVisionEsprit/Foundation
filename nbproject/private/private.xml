@@ -3,16 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/GestionProgrammeEtudesController.java</file>
-            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/GestionModulesController.java</file>
-            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/WelcomeApp.java</file>
-            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/Main.java</file>
-            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/GestionProgrammeEtudes.fxml</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/services/NoteManagementService.java</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/PublierResultatUI.fxml</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/TestCRUD_ProgrammeEtude.java</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/TestResultat_Statistiques.java</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/SideBarController.java</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/sidebar.css</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/resultat.css</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/SideBar.fxml</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/NoteManagementUI.fxml</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/PlanEtudeGUI.fxml</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/tools/CustomLogger.java</file>
             <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/GestionModules.fxml</file>
-            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/test.java</file>
-            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/Welcome.fxml</file>
-            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/WelcomeController.java</file>
-            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/GestionMatieres.fxml</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/services/ProgrammeEtudeService.java</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/ResultatEtudiantsController.java</file>
+            <file>file:/C:/Users/bhsan/OneDrive/Bureau/pi%20dev%20master/Foundation/src/tn/eduVision/GUI/NoteEtudiant.fxml</file>
         </group>
     </open-files>
 </project-private>

@@ -40,15 +40,15 @@
                     </font>
                 </Label>
                 <ComboBox fx:id="programmeComboBox" layoutX="112.0" layoutY="79.0" prefWidth="120.0" styleClass="combo-box-description" />
+            <ImageView fitHeight="126.0" fitWidth="143.0" layoutX="318.0" layoutY="4.0">
+               <image>
+                  <Image url="@./modules.png" />
+               </image>
+            </ImageView>
             </children>
         </Pane>
         <Button fx:id="btn_add" layoutX="643.0" layoutY="519.0" mnemonicParsing="false" onAction="#add" styleClass="button-action" text="Ajouter" />
         <Button fx:id="btn_update" layoutX="757.0" layoutY="519.0" mnemonicParsing="false" onAction="#update" styleClass="button-action" text="Modifier" />
         <Button fx:id="btn_delete" layoutX="707.0" layoutY="559.0" mnemonicParsing="false" onAction="#delete" styleClass="button-action" text="Supprimer" />
-      <ImageView fitHeight="351.0" fitWidth="248.0" layoutX="1069.0" layoutY="179.0">
-         <image>
-            <Image url="@./modules.png" />
-         </image>
-      </ImageView>
     </children>
 </AnchorPane>
