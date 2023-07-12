@@ -16,7 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tn.eduVision.GUI.SignUp.SignUpController;
+import tn.eduVision.GUI.SignUp.SignUpRoleController;
 
 /**
  * FXML Controller class
@@ -40,7 +40,7 @@ public class HomeController implements Initializable {
             stage.setScene(scene);
             stage.show();       
         } catch (Exception ex) {
-            Logger.getLogger(SignUpController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SignUpRoleController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

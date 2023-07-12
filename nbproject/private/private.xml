@@ -3,20 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/Login/login.fxml</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/SignUp/SignUpController.java</file>
+            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/Assets/Image/login/mental-health-medical-treatment-psychological-help-human-head-with-gears-determining-causes-mental-disorders_101087-584.jpg</file>
             <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/Login/LoginWindow.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/SignUp/SignUpForm.fxml</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/Home/Home.fxml</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/Home/HomeController.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/SignUp/ItemController.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/Login/GuiExample.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/entités/Utilisateur.java</file>
             <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/services/UserServices.java</file>
             <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/main/Main.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/SignUp/SignUp.java</file>
             <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/SignUp/SignUpFormController.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/SignUp/signUp.fxml</file>
+            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/SignUp/SignUpRoleController.java</file>
+            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/SignUp/signRoleUp.fxml</file>
             <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/GUI/Login/LoginController.java</file>
         </group>
     </open-files>

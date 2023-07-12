@@ -29,7 +29,7 @@
       </AnchorPane>
       <AnchorPane layoutX="422.0" layoutY="243.0" prefHeight="123.0" prefWidth="135.0">
          <children>
-            <Text layoutX="51.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plofil" />
+            <Text layoutX="51.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
          </children>
       </AnchorPane>
    </children>

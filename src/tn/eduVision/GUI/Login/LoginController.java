@@ -30,6 +30,7 @@ import javafx.scene.Node;
 import javafx.stage.StageStyle;
 import tn.eduVision.entités.Utilisateur;
 import tn.eduVision.services.UserServices;
+import tn.eduVision.services.hashPassword;
 
 /**
  * FXML Controller class
@@ -53,6 +54,7 @@ public class LoginController implements Initializable {
     private Parent root;
     private Stage stage;
     private Scene scene;    
+    static Boolean UserIsconnected = false;
 
     /**
      * Initializes the controller class.
@@ -65,24 +67,38 @@ public class LoginController implements Initializable {
     @FXML
     private void Login(ActionEvent event) {
         UserServices us = UserServices.getInstance();
+        hashPassword hashedpass=hashPassword.getHashInstance();
         List<Utilisateur> users = us.getAllUsers();
         if (tfID.getText().trim().isEmpty() == false && tfPassword.getText().trim().isEmpty() == false) {
             String login = tfID.getText();
             String password = tfPassword.getText();
-            String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-            Boolean connected = false;
+            String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";            
             if (login.matches(emailRegex)) {
                 for (Utilisateur user : users) {
-                    if (user.getEmail().equals(tfID.getText()) && user.getMotDePasse().equals(tfPassword.getText())) {
-                        connected = true;
+                    if (user.getEmail().equals(tfID.getText()) && user.getMotDePasse().equals(hashedpass.encrypt(tfPassword.getText()))) {
+                        UserIsconnected = true;
+                        if(user.getRole().toString().equals("admin")){
+                            try {
+                            root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/AdminDashboard/AdminDashboad.fxml"));
+                            scene = new Scene(root);
+                            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.show();
+                            } catch (Exception e) {
+                            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
+                        }
+                        }
+                        
+                        else{                                                    
                         try {
-                            Parent root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/Home/Home.fxml"));
-                            Scene scene = new Scene(root);
-                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/Home/Home.fxml"));
+                            scene = new Scene(root);
+                            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                             stage.setScene(scene);
                             stage.show();
                         } catch (Exception e) {
                             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
+                        }
                         }
 
                         /*
@@ -101,7 +117,7 @@ public class LoginController implements Initializable {
                          */
                     }
                 }
-                if (!connected) {
+                if (!UserIsconnected) {
                     loginMessageLabel.setText("Login or password incorrect");
                 }
 
@@ -126,11 +142,12 @@ public class LoginController implements Initializable {
              primaryStage.setScene(signUpScene);   
              */
 
-            Parent root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/SignUp/signUp.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/tn/eduVision/GUI/SignUp/signRoleUp.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene=new Scene(root);
             stage.setScene(scene);
             stage.show();
+            
         } catch (Exception ex) {
             Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
         }

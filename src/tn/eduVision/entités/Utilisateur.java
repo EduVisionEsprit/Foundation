@@ -16,6 +16,7 @@ public class Utilisateur {
     private String email;
     private String motDePasse;
     private Role role;
+    private int etat;
     
     public Utilisateur() {}
 
@@ -74,6 +75,13 @@ public class Utilisateur {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setEtat(int etat) {
+        this.etat = etat;
+    }
+      public int getEtat() {
+         return etat;
     }
  
     
