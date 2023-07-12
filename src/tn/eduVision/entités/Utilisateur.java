@@ -84,7 +84,8 @@ public class Utilisateur {
          return etat;
     }
  
-    
+     public Utilisateur() {
+    }
  
 
    

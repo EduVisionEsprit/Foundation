@@ -6,7 +6,21 @@
 package tn.eduVision.test;
 
 import java.sql.Connection;
+import java.util.List;
+import tn.eduVision.entités.Materiel;
+import tn.eduVision.entités.Role;
+import tn.eduVision.entités.Salle;
+import tn.eduVision.entités.StatutTest;
+import tn.eduVision.entités.Test;
+import tn.eduVision.entités.TypeRessource;
+import tn.eduVision.entités.TypeSalle;
+import tn.eduVision.services.SallesService;
 import tn.eduVision.tools.SqlConnectionManager;
+import tn.eduVision.entités.TypeRessource;
+import tn.eduVision.entités.TypeTest;
+import tn.eduVision.entités.Utilisateur;
+import tn.eduVision.services.MaterielService;
+import tn.eduVision.services.TestService;
 
 /**
  *
@@ -17,6 +31,20 @@ public class DbConnectionTest {
         SqlConnectionManager connectionManager = SqlConnectionManager.getInstance();
         Connection connection = connectionManager.getConnection();
         //sould only log info once
-        Connection connection2 = connectionManager.getConnection();
+        //Connection connection2 = connectionManager.getConnection();
+        MaterielService ms = new MaterielService();
+        Materiel m = new Materiel("test", 8, TypeRessource.Salle, 8);
+       // ms.add(m);
+        
+       // Salle s = new Salle("aaa", 75, "test", "test", TypeSalle.Amphi, 7);
+       // SallesService ss = new SallesService();
+        
+        //ss.delete(s);
+        
+        System.out.println();
+        
+       
+     
+        
     }
 }

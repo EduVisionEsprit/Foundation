@@ -4,27 +4,33 @@
  */
 package tn.eduVision.entités;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Sayf
  */
-public class Test {
+public class Test extends Quiz {
     private int idTest;
     private Utilisateur utilisateur;
-   private TypeTest typeTest;
-    private float note;
-    private StatutTest statut;
+    private int nbEtudiantsPasses ;
+    private int nbEtudiantsAdmis ;
+    private int duree ;
+    private String temps ;
     
-    public Test(int idTest, Utilisateur utilisateur, TypeTest typeTest, float note, StatutTest statut) {
-        this.idTest = idTest;
-        this.utilisateur = utilisateur;
-        this.typeTest = typeTest;
-        this.note = note;
-        this.statut = statut;
+    public Test() {
+        
     }
     
- 
-    // Ajoutez ici les getters et les setters
+    public Test(int id,String sujet,ArrayList<Question> questions){
+        super(id, sujet, questions);
+    }
+    
+    public Test(int id ,String sujet,int nbEtudiantsPasses,int nbEtudiantsAdmis){
+        super(id, sujet);
+        this.nbEtudiantsAdmis = nbEtudiantsAdmis ;
+        this.nbEtudiantsPasses = nbEtudiantsPasses ;
+    }
 
     public int getIdTest() {
         return idTest;
@@ -42,27 +48,37 @@ public class Test {
         this.utilisateur = utilisateur;
     }
 
-    public TypeTest getTypeTest() {
-        return typeTest;
+    public int getNbEtudiantsPasses() {
+        return nbEtudiantsPasses;
     }
 
-    public void setTypeTest(TypeTest typeTest) {
-        this.typeTest = typeTest;
+    public void setNbEtudiantsPasses(int nbEtudiantsPasses) {
+        this.nbEtudiantsPasses = nbEtudiantsPasses;
     }
 
-    public float getNote() {
-        return note;
+    public int getNbEtudiantsAdmis() {
+        return nbEtudiantsAdmis;
     }
 
-    public void setNote(float note) {
-        this.note = note;
+    public void setNbEtudiantsAdmis(int nbEtudiantsAdmis) {
+        this.nbEtudiantsAdmis = nbEtudiantsAdmis;
     }
 
-    public StatutTest getStatut() {
-        return statut;
+    public int getDuree() {
+        return duree;
     }
 
-    public void setStatut(StatutTest statut) {
-        this.statut = statut;
+    public void setDuree(int duree) {
+        this.duree = duree;
     }
+
+    public String getTemps() {
+        return temps;
+    }
+
+    public void setTemps(String temps) {
+        this.temps = temps;
+    }
+    
+    
 }
