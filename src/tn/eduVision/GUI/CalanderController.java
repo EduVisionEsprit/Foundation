@@ -40,6 +40,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
@@ -104,6 +105,7 @@ public class CalanderController implements Initializable {
         gridPane.addRow(2, createLabel("Heure Fin"), createValue(reservation.getHeureFin().toString()));
         gridPane.addRow(3, createLabel("Etat"), createValue(reservation.getEtat().name()));
         container.getChildren().add(gridPane);
+        container.getChildren().add(createSeparator());
     }
 
     ScrollPane scrollPane = new ScrollPane(container);
@@ -121,7 +123,11 @@ public class CalanderController implements Initializable {
         
     }
 }
-
+private Separator createSeparator() {
+    Separator separator = new Separator();
+    separator.setPadding(new Insets(10, 0, 10, 0));
+    return separator;
+}
 
 
    private void handleRectangleClick(ZonedDateTime clickedDate) {
