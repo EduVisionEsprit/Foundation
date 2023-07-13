@@ -5,7 +5,8 @@
  */
 package tn.eduVision.test;
 
-import java.sql.Connection;
+import tn.eduVision.entités.Module;
+import tn.eduVision.services.ServiceExample;
 import tn.eduVision.tools.SqlConnectionManager;
 
 /**
@@ -14,9 +15,11 @@ import tn.eduVision.tools.SqlConnectionManager;
  */
 public class DbConnectionTest {
     public static void main(String args[]){
-        SqlConnectionManager connectionManager = SqlConnectionManager.getInstance();
-        Connection connection = connectionManager.getConnection();
-        //sould only log info once
-        Connection connection2 = connectionManager.getConnection();
+        SqlConnectionManager c = SqlConnectionManager.getInstance();
+       ServiceExample a;
+        a = new ServiceExample();
+        Module m = new Module(1, "Matiere");
+        a.add(m);
+       
     }
 }

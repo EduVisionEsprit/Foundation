@@ -16,10 +16,9 @@ public class Module {
     
     private List<Matiere> matieres;
 
-    public Module(int idModule, String nomModule, List<Matiere> matieres) {
+    public Module(int idModule, String nomModule) {
         this.idModule = idModule;
         this.nomModule = nomModule;
-        this.matieres = matieres;
     }
 
     public int getIdModule() {

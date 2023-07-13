@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="899.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.GestionMatieresController">
+    <stylesheets>
+        <URL value="@gestionmatieres.css" />
+    </stylesheets>
+    
+    <children>
+        <Label layoutX="7.0" prefHeight="40.0" prefWidth="888.0" style="-fx-underline: 2;" styleClass="label-title" text="Gestion Matieres:" textFill="#341485">
+         <font>
+            <Font size="25.0" />
+         </font></Label>
+       <TableView fx:id="MatieresTable" layoutX="274.0" layoutY="66.0" prefHeight="231.0" prefWidth="719.0">
+    <columns>
+        <TableColumn fx:id="nom_col" prefWidth="160.0" text="Numero Groupe" />
+            <TableColumn fx:id="nom_col2" prefWidth="179.0" text="Specialite" />
+        <TableColumn fx:id="module_col" minWidth="0.0" prefWidth="108.0" text="Niveau" />
+            <TableColumn fx:id="nom_col1" minWidth="0.0" prefWidth="152.0" text="Departement" />
+        <TableColumn fx:id="coef_col" prefWidth="118.0" text="Email" />
+    </columns>
+</TableView>
+
+        <Pane layoutX="14.0" layoutY="66.0" prefHeight="154.0" prefWidth="283.0" styleClass="pane-description">
+            <children>
+                <Label layoutX="15.0" layoutY="3.0" prefHeight="17.0" prefWidth="219.0" styleClass="label-description" text="Numero Groupe">
+                
+                </Label>
+                <Label layoutX="15.0" layoutY="88.0" prefHeight="17.0" prefWidth="219.0" styleClass="label-description" text="Departement ">
+               
+                </Label>
+                <ComboBox fx:id="modulesComboBox" layoutX="125.0" layoutY="88.0" prefHeight="17.0" prefWidth="120.0" styleClass="combo-box-description" />
+                <Label layoutX="15.0" layoutY="121.0" prefHeight="17.0" prefWidth="219.0" styleClass="label-description" text="Specialite">
+               
+                </Label>
+                <TextField fx:id="txt_coef" layoutX="112.0" layoutY="121.0" prefHeight="25.0" prefWidth="120.0" styleClass="text-field-description" />
+            <Label layoutX="16.0" layoutY="63.0" prefHeight="17.0" prefWidth="219.0" styleClass="label-description" text="Email" />
+            <Label layoutX="16.0" layoutY="36.0" prefHeight="17.0" prefWidth="219.0" styleClass="label-description" text="niveau" />
+            <TextField fx:id="txt_coef1" layoutX="125.0" layoutY="-1.0" prefHeight="25.0" prefWidth="120.0" styleClass="text-field-description" />
+            <TextField fx:id="txt_coef2" layoutX="125.0" layoutY="32.0" prefHeight="25.0" prefWidth="120.0" styleClass="text-field-description" />
+            <TextField fx:id="txt_coef3" layoutX="125.0" layoutY="59.0" prefHeight="10.0" prefWidth="120.0" styleClass="text-field-description" />
+            </children>
+        </Pane>
+        <Button fx:id="btn_add" layoutX="34.0" layoutY="234.0" mnemonicParsing="false" onAction="#add" styleClass="button-action" text="Ajouter" />
+        <Button fx:id="btn_update" layoutX="167.0" layoutY="234.0" mnemonicParsing="false" onAction="#update" styleClass="button-action" text="Modifier" />
+        <Button fx:id="btn_delete" layoutX="104.0" layoutY="275.0" mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="111.0" styleClass="button-action" text="Supprimer" />
+    </children>
+</AnchorPane>

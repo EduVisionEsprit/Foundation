@@ -9,30 +9,42 @@ package tn.eduVision.entités;
  * @author Sayf
  */
 public class Departement {
-    private int idDep;
-    private String nomDep;
+    private int id;
+    private String titre;
+    private String description;
 
     // Constructeur, getters et setters
 
-    public Departement(int idDep, String nomDep) {
-        this.idDep = idDep;
-        this.nomDep = nomDep;
+    public Departement(int idDep, String nomDep,String description) {
+        this.id = idDep;
+        this.titre = nomDep;
+        this.description=description;
     }
 
-    public int getIdDep() {
-        return idDep;
+    public int getId() {
+        return id;
     }
 
-    public void setIdDep(int idDep) {
-        this.idDep = idDep;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNomDep() {
-        return nomDep;
+    public String getTitre() {
+        return titre;
     }
 
-    public void setNomDep(String nomDep) {
-        this.nomDep = nomDep;
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+   
     
 }

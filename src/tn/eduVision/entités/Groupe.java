@@ -11,10 +11,10 @@ import java.util.List;
  * @author Sayf
  */
 public class Groupe {
-    private int idGroupe;
-    private Integer num;
+    private int id;
+    private int num;
     private String email;
-    private String niveau;
+    private int niveau;
     private String specialite;
     private Departement departement;
 
@@ -22,8 +22,8 @@ public class Groupe {
     private List<Module> modules;
     // Getters and setters
 
-    public Groupe(int idGroupe, Integer num, String email, String niveau, String specialite, Departement departement, List<Etudiant> etudiants, List<Module> modules) {
-        this.idGroupe = idGroupe;
+    public Groupe(int id, int num, String email, int niveau, String specialite, Departement departement, List<Etudiant> etudiants, List<Module> modules) {
+        this.id = id;
         this.num = num;
         this.email = email;
         this.niveau = niveau;
@@ -33,12 +33,12 @@ public class Groupe {
         this.modules = modules;
     }
 
-    public int getIdGroupe() {
-        return idGroupe;
+    public int getId() {
+        return id;
     }
 
-    public void setIdGroupe(int idGroupe) {
-        this.idGroupe = idGroupe;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Integer getNum() {
@@ -57,11 +57,11 @@ public class Groupe {
         this.email = email;
     }
 
-    public String getNiveau() {
+    public int getNiveau() {
         return niveau;
     }
 
-    public void setNiveau(String niveau) {
+    public void setNiveau(int niveau) {
         this.niveau = niveau;
     }
 
