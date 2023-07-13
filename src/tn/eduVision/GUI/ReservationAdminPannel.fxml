@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.ReservationAdminPannelController">
+    <stylesheets>
+        <URL value="@reservationadminpannel.css"/>
+    </stylesheets>
+    
+   <children>
+      <TableView fx:id="reservationTable" layoutX="20.0" layoutY="20.0" prefHeight="360.0" prefWidth="560.0">
+         <columns>
+            <TableColumn fx:id="utilisateurColumn" prefWidth="150.0" text="Utilisateur" />
+            <TableColumn fx:id="dateReservationColumn" prefWidth="150.0" text="Date Reservation" />
+            <TableColumn fx:id="etatColumn" prefWidth="150.0" text="Etat" />
+         </columns>
+      </TableView>
+      <Button fx:id="showOptionsButton" layoutX="20.0" layoutY="385.0" mnemonicParsing="false" text="Show Options" />
+   </children>
+</AnchorPane>

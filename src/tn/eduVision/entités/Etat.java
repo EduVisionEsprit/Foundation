@@ -9,5 +9,5 @@ package tn.eduVision.entités;
  * @author Sayf
  */
 public enum Etat {
-    attente,traitee,refusee
+    attente,confirme,refuse
 }

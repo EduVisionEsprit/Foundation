@@ -1,0 +1,60 @@
+#tableView {
+    
+    -fx-background-color : gainsboro;
+}
+#nom_entreprise {
+    
+    -fx-background-color : goldenrod;
+}
+
+
+
+#nom_entreprise
+{
+-fx-background-color : deepskyblue;
+
+}
+
+#titre_stage
+{
+-fx-background-color : deepskyblue;
+
+}
+
+#description_stage
+{
+-fx-background-color : deepskyblue;
+
+}
+
+#Etudiant
+{
+-fx-background-color : deepskyblue;
+
+}
+
+#Enseignant
+{
+-fx-background-color : deepskyblue;
+
+}
+
+#Rapport
+{
+-fx-background-color : deepskyblue;
+
+}
+
+
+#Validation
+{
+-fx-background-color : deepskyblue;
+
+}
+
+
+#Note
+{
+-fx-background-color : deepskyblue;
+
+}

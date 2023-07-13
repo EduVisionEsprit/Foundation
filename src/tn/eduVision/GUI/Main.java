@@ -22,10 +22,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("calander.fxml"));
-     // FXMLLoader loader = new FXMLLoader(getClass().getResource("Test.fxml"));
-      // FXMLLoader loader = new FXMLLoader(getClass().getResource("cardTest.fxml"));
-   // FXMLLoader loader = new FXMLLoader(getClass().getResource("TestEtudiant.fxml"));
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("TestQuizAdmin.fxml")); //dash pour ladmin
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("Test.fxml"));
+       //FXMLLoader loader = new FXMLLoader(getClass().getResource("cardTest.fxml"));
+    //FXMLLoader loader = new FXMLLoader(getClass().getResource("TestEtudiant.fxml"));
+      //FXMLLoader loader = new FXMLLoader(getClass().getResource("TestQuizAdmin.fxml")); //dash pour ladmin
         Parent root = loader.load();
 
         primaryStage.setTitle("Calendar");

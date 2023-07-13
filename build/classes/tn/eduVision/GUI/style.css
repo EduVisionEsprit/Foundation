@@ -1,0 +1,48 @@
+.button{
+    
+    -fx-background-color : goldenrod;
+       
+}
+
+
+
+.button:hover
+{
+    
+    -fx-background-color : #07f7f7;
+    -fx-background-radius : 30 0 0 30;
+}
+
+#nom_entreprise:hover
+{
+-fx-background-color : deepskyblue;
+
+}
+
+#titre_stage:hover
+{
+-fx-background-color : deepskyblue;
+
+}
+
+#description_stage:hover
+{
+-fx-background-color : deepskyblue;
+
+}
+
+
+#path:hover
+{
+-fx-background-color : deepskyblue;
+
+}
+
+
+#typestage:hover
+{
+-fx-background-color : deepskyblue;
+
+}
+
+

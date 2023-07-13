@@ -6,6 +6,8 @@
 package tn.eduVision.GUI;
 
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import tn.eduVision.entités.Etat;
 
 /**
  *
@@ -15,15 +17,21 @@ public class CalendarActivity {
     private ZonedDateTime date;
     private String clientName;
     private Integer serviceNo;
+    private Etat etat;
 
-    public CalendarActivity(ZonedDateTime date, String clientName, Integer serviceNo) {
+    public CalendarActivity(ZonedDateTime date, String clientName, Integer serviceNo, Etat etat) {
         this.date = date;
         this.clientName = clientName;
         this.serviceNo = serviceNo;
+        this.etat = etat;
     }
 
     public ZonedDateTime getDate() {
-        return date;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss z");
+        String formattedDate = date.format(formatter);
+        System.out.println(formattedDate);
+
+    return date;
     }
 
     public void setDate(ZonedDateTime date) {
@@ -45,6 +53,15 @@ public class CalendarActivity {
     public void setServiceNo(Integer serviceNo) {
         this.serviceNo = serviceNo;
     }
+
+    public Etat getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Etat stat) {
+        this.etat = stat;
+    }
+    
 
     @Override
     public String toString() {

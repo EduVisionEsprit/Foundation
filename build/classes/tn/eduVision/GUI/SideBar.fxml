@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="850.0" prefWidth="1500.0" stylesheets="@./sidebar.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.SideBarController">
+   <ImageView fitHeight="850.0" fitWidth="1500.0" layoutX="168.0" layoutY="42.0" opacity="0.09">
+      <image>
+         <Image url="@./fac.png" />
+      </image>
+   </ImageView>
+    <VBox layoutX="3.0" layoutY="221.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="659.0" prefWidth="147.0">
+    <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleProgrammeClick" prefHeight="46.0" prefWidth="147.0" text="Programmes" />
+    <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleMatiereClick" prefHeight="46.0" prefWidth="147.0" text="Matieres" />
+    <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleModuleClick" prefHeight="46.0" prefWidth="147.0" text="Modules" />
+    <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleStatistiquesClick" prefHeight="46.0" prefWidth="147.0" text="Statistiques" />
+    <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlanEtudeClick" prefHeight="46.0" prefWidth="147.0" text="Plan Etude" />
+</VBox>
+   <Label alignment="CENTER" layoutX="4.0" prefHeight="219.0" prefWidth="1500.0" text="Welcome Admin" />
+</AnchorPane>

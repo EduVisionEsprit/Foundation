@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane id="GridPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@materielui.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="tn.eduVision.GUI.MaterielUIController">
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints hgrow="SOMETIMES" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="NEVER" />
+    </rowConstraints>
+    <children>
+        <TableView fx:id="materielTable" layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="500.0" stylesheets="@materielui.css" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+            <columns>
+                <TableColumn fx:id="nomMaterielColumn" prefWidth="150.0" text="Nom Materiel" />
+                <TableColumn fx:id="typeRessourceColumn" prefWidth="150.0" text="Type Ressource" />
+                <TableColumn fx:id="quantiteMaterielColumn" prefWidth="100.0" text="Quantite Materiel" />
+            </columns>
+        </TableView>
+        <Button fx:id="insertButton" onAction="#handleInsertButtonClicked" style="-fx-font-size: 14; -fx-pref-width: 100;" styleClass="insertButton" stylesheets="@materielui.css" text="Insert" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+    </children>
+</GridPane>

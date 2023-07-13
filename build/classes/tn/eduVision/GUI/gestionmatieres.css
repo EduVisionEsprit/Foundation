@@ -1,0 +1,41 @@
+.mainFxmlClass {
+    -fx-background-color: #f0f5ff;
+}
+
+.label-title {
+    -fx-alignment: CENTER;
+}
+
+.label-description {
+    -fx-font-weight: bold;
+}
+
+.title-text {
+    -fx-fill: #0396B0;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-border-color: #1e90ff;
+    -fx-border-width: 2px;
+}
+
+.text-field-description {
+    -fx-background-color: #ffffff;
+    -fx-font-size: 14px;
+}
+
+.pane-description {
+    -fx-background-color: #cfe3ff;
+    -fx-padding: 10px;
+}
+
+.button-action {
+    -fx-background-color: #1e90ff;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-pref-width: 100px;
+}
+
+.button-action:hover {
+    -fx-background-color: #007bff;
+}
+

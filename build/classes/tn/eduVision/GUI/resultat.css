@@ -1,0 +1,42 @@
+.resultat-pane {
+    -fx-background-color: #F0F0F0;
+    -fx-padding: 10px;
+}
+
+.table-view {
+    -fx-background-color: white;
+}
+
+.table-view .column-header {
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-background-color: #E0E0E0;
+}
+
+.table-view .table-row-cell {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .odd {
+    -fx-background-color: #F8F8F8;
+}
+
+.table-view .even {
+    -fx-background-color: #FFFFFF;
+}
+
+.button {
+    -fx-background-color: #0396B0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #036A7E;
+}
+
+.label {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-fill: #0396B0;
+}

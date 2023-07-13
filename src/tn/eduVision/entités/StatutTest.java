@@ -9,7 +9,7 @@ package tn.eduVision.entités;
  * @author Sayf
  */
 public enum StatutTest {
-    En_attente,
-    Passé,
-    Non_admis
+    EN_ATTENTE,
+    PASSE,
+    NON_ADMIS
 }
