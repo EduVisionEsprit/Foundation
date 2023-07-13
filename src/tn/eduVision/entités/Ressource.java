@@ -17,6 +17,27 @@ public class Ressource {
         this.typeRessource = typeRessource;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Ressource other = (Ressource) obj;
+        if (this.idRessource != other.idRessource) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+
     public int getIdRessource() {
         return idRessource;
     }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.eduVision.GUI.Home.HomeController">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="35.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accueil" wrappingWidth="84.37173461914062">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <AnchorPane layoutX="51.0" layoutY="76.0" onMouseClicked="#openEmploi" prefHeight="123.0" prefWidth="135.0">
+         <children>
+            <Text fx:id="Emploi" layoutX="49.0" layoutY="66.0" onMouseClicked="#openEmploi" strokeType="OUTSIDE" strokeWidth="0.0" text="Emploi" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="51.0" layoutY="243.0" onMouseClicked="#openTest" prefHeight="123.0" prefWidth="135.0">
+         <children>
+            <Text layoutX="48.0" layoutY="64.0" onMouseClicked="#openTest" strokeType="OUTSIDE" strokeWidth="0.0" text="Tests" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="410.0" layoutY="76.0" onMouseClicked="#openNote" prefHeight="123.0" prefWidth="135.0">
+         <children>
+            <Text layoutX="58.0" layoutY="68.0" onMouseClicked="#openNote" strokeType="OUTSIDE" strokeWidth="0.0" text="Note" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="422.0" layoutY="243.0" onMouseClicked="#openStage" prefHeight="123.0" prefWidth="135.0">
+         <children>
+            <Text layoutX="51.0" layoutY="77.0" onMouseClicked="#openStage" strokeType="OUTSIDE" strokeWidth="0.0" text="Stages" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

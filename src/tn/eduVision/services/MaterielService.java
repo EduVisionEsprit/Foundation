@@ -38,7 +38,7 @@ public class MaterielService implements Iservices<Materiel>{
             statement.setString(1, materiel.getTypeRessource().Materiel.name());
             statement.setString(2, materiel.getNomMateriel());
             statement.setInt(3, materiel.getQuantite());
-            System.out.println("statement"+statement);
+            
             int rowsAffected = statement.executeUpdate();
             
             if(rowsAffected == 0){
@@ -120,7 +120,8 @@ public class MaterielService implements Iservices<Materiel>{
     
 
     @Override
-    public List<Materiel> getAll() {
+    public List<Materiel> getAll() throws NoDataFoundException {
+
         boolean HasData = false;
         List<Materiel> salleList = new ArrayList<>();
         try{

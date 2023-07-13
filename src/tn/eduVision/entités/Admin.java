@@ -20,6 +20,10 @@ public class Admin extends Utilisateur{
         this.positionAdmin = positionAdmin;
     }
 
+    public Admin() {
+               
+    }
+
     public float getSalaire() {
         return salaire;
     }

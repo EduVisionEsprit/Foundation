@@ -1,0 +1,15 @@
+/* makevalidations.css */
+.pro-vibrant {
+    /* Add styles for the grid (TableView) here */
+    /* For example: */
+    -fx-background-color: #F0F0F0;
+    -fx-text-fill: #333333;
+}
+
+.pro-colors {
+    /* Add styles for buttons here */
+    /* For example: */
+    -fx-background-color: #F44336;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
