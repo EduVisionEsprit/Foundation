@@ -4,8 +4,6 @@
  */
 package tn.eduVision.entités;
 
-import java.util.List;
-
 /**
  *
  * @author Sayf
@@ -16,21 +14,39 @@ public class Groupe {
     private String email;
     private int niveau;
     private String specialite;
-    private Departement departement;
+    private int id_departement;
 
-    private List<Etudiant> etudiants;
-    private List<Module> modules;
+    public String getTitre_dep() {
+        return titre_dep;
+    }
+
+    public void setTitre_dep(String titre_dep) {
+        this.titre_dep = titre_dep;
+    }
+
+    private String titre_dep;
+
+    public int getDepartement() {
+        return id_departement;
+    }
+
+    public void setDepartement(int departement) {
+        this.id_departement = departement;
+    }
+
     // Getters and setters
+    public Groupe() {
 
-    public Groupe(int id, int num, String email, int niveau, String specialite, Departement departement, List<Etudiant> etudiants, List<Module> modules) {
+    }
+
+    public Groupe(int id, int num, String email, int niveau, String specialite, int departement, String titre_dep) {
         this.id = id;
         this.num = num;
         this.email = email;
         this.niveau = niveau;
         this.specialite = specialite;
-        this.departement = departement;
-        this.etudiants = etudiants;
-        this.modules = modules;
+        this.id_departement = departement;
+        this.titre_dep = titre_dep;
     }
 
     public int getId() {
@@ -73,29 +89,5 @@ public class Groupe {
         this.specialite = specialite;
     }
 
-    public Departement getDepartement() {
-        return departement;
-    }
-
-    public void setDepartement(Departement departement) {
-        this.departement = departement;
-    }
-
-    public List<Etudiant> getEtudiants() {
-        return etudiants;
-    }
-
-    public void setEtudiants(List<Etudiant> etudiants) {
-        this.etudiants = etudiants;
-    }
-
-    public List<Module> getModules() {
-        return modules;
-    }
-
-    public void setModules(List<Module> modules) {
-        this.modules = modules;
-    }
-    
     
 }

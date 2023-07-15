@@ -21,6 +21,9 @@ public class Departement {
         this.description=description;
     }
 
+    public Departement() {
+    }
+
     public int getId() {
         return id;
     }

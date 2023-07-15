@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="EduVisionFoundation">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/EduVisionFoundation.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

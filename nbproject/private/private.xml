@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/test/DbConnectionTest.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/tools/SqlConnectionManager.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/entités/Personne.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/tools/CustomLogger.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/services/Iservices.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/test/EntitiIdSample.java</file>
-            <file>file:/C:/Users/thinkpad/Desktop/Majdi/Projects/Github/EduvisionProject/Foundation/src/tn/eduVision/entités/IEntitiy.java</file>
+            <file>file:/C:/Users/Sayf/Documents/GitHub/Foundation/src/tn/eduVision/GUI/DbConnectionTest.java</file>
+            <file>file:/C:/Users/Sayf/Documents/GitHub/Foundation/src/tn/eduVision/services/ServiceGroupe.java</file>
+            <file>file:/C:/Users/Sayf/Documents/GitHub/Foundation/src/tn/eduVision/services/ServiceExample.java</file>
+            <file>file:/C:/Users/Sayf/Documents/GitHub/Foundation/src/tn/eduVision/GUI/GestionGroupe.fxml</file>
+            <file>file:/C:/Users/Sayf/Documents/GitHub/Foundation/src/tn/eduVision/entités/Admin.java</file>
+            <file>file:/C:/Users/Sayf/Documents/GitHub/Foundation/src/tn/eduVision/services/Iservices.java</file>
+            <file>file:/C:/Users/Sayf/Documents/GitHub/Foundation/src/tn/eduVision/GUI/GestionGroupeController.java</file>
         </group>
     </open-files>
 </project-private>

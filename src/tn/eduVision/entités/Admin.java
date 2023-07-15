@@ -4,8 +4,6 @@
  */
 package tn.eduVision.entités;
 
-import java.math.BigDecimal;
-
 /**
  *
  * @author Sayf
@@ -35,8 +33,5 @@ public class Admin extends Utilisateur{
     public void setPositionAdmin(String positionAdmin) {
         this.positionAdmin = positionAdmin;
     }
-
-  
-    
     
 }

@@ -1,261 +1,242 @@
 package tn.eduVision.GUI;
 
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.value.ObservableValue;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
-import tn.eduVision.entités.Admin;
+import tn.eduVision.entités.Departement;
 import tn.eduVision.entités.Groupe;
-import tn.eduVision.entités.Matiere;
-import tn.eduVision.entités.Module;
-import tn.eduVision.entités.Role;
-import tn.eduVision.entités.Utilisateur;
-import tn.eduVision.exceptions.NoDataFoundException;
+import tn.eduVision.services.ServiceDepartement;
+import tn.eduVision.services.ServiceGroupe;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class GestionGroupeController {
 
     @FXML
-    private TableView<Groupe> ;
+    private TableColumn<Groupe, Integer> num_grp1;
 
     @FXML
-    private TableColumn<Matiere, String> nom_col;
+    private Button supprnon;
 
     @FXML
-    private TableColumn<Matiere, Module> module_col;
+    private TextField txt_niveau;
 
     @FXML
-    private TableColumn<Matiere, Float> coef_col;
+    private ChoiceBox<String> DepChoiceBox;
 
     @FXML
-    private TextField txt_nomMatiere;
+    private TableColumn<Groupe,Integer> num_grp;
 
     @FXML
-    private TextField txt_coef;
+    private TextField txt_email;
 
     @FXML
-    private ComboBox<Module> modulesComboBox;
+    private Button supproui;
+
+    @FXML
+    private TableColumn<Groupe,String> spec;
+
+    @FXML
+    private TableColumn<Groupe, Integer> dep;
+
+    @FXML
+    private TextField txt_num;
 
     @FXML
     private Button btn_add;
 
     @FXML
-    private Button btn_update;
+    private Button modifoui;
+
+    @FXML
+    private TextField id_txt;
 
     @FXML
     private Button btn_delete;
 
-    private ObservableList<Matiere> matiereData = FXCollections.observableArrayList();
+    @FXML
+    private TableColumn<Groupe, Integer> niv;
 
-    private MatiereService matiereService = new MatiereService();
-    private ModuleService moduleService = new ModuleService();
- //private Utilisateur getCurrentUser() {
-    // Implement after Integration
-  //  return AuthenticationService.getCurrentUser();
-//}
-   private Utilisateur getCurrentUser() {
-    // Create a dummy user for testing purposes
-    Utilisateur dummyUser = new Admin(); 
-    dummyUser.setRole(Role.admin); 
+    @FXML
+    private TextField txt_specialite;
 
-    return dummyUser;
-}
-private void showAccessDeniedAlert() {
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Accès refusé");
-    alert.setHeaderText(null);
-    alert.setContentText("Accès refusé. Vous devez être un administrateur pour accéder à cette fonctionnalité.");
-    alert.showAndWait();
-}
+    @FXML
+    private Button btn_update;
 
-    public void initialize() {
+    @FXML
+    private TableColumn<Groupe, String> email;
 
-        nom_col.setCellValueFactory(new PropertyValueFactory<>("nomMatiere"));
-        module_col.setCellValueFactory(new PropertyValueFactory<>("module"));
-        coef_col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Matiere, Float>, ObservableValue<Float>>() {
-            @Override
-            public ObservableValue<Float> call(TableColumn.CellDataFeatures<Matiere, Float> param) {
-                Matiere matiere = param.getValue();
-                String nomMatiere = matiere.getNomMatiere();
-                float coef = matiereService.getCoefMatiere(nomMatiere);
-                return new SimpleFloatProperty(coef).asObject();
-            }
-        });
+    @FXML
+    private Button modifnon;
 
-        loadMatieresData();
-        loadModuleNames();
+    @FXML
+    private TableView<Groupe> GroupesTable;
+    ServiceGroupe s = new ServiceGroupe();
+    ServiceDepartement d = new ServiceDepartement();
+    // create a alert
+    Alert a = new Alert(Alert.AlertType.NONE);
 
-        MatieresTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                txt_nomMatiere.setText(newSelection.getNomMatiere());
-                        String nomMatiere = newSelection.getNomMatiere();
-
- float coef = (float) matiereService.getCoefMatiere(nomMatiere);
-        txt_coef.setText(Float.toString(coef));
-        modulesComboBox.getSelectionModel().select(newSelection.getModule());
-            } else {
-                txt_nomMatiere.clear();
-                txt_coef.clear();
-                modulesComboBox.getSelectionModel().clearSelection();
-            }
-        });
+    @FXML
+    private void initialize () {
+        /*
+        The setCellValueFactory(...) that we set on the table columns are used to determine
+        which field inside the Employee objects should be used for the particular column.
+        The arrow -> indicates that we're using a Java 8 feature called Lambdas.
+        (Another option would be to use a PropertyValueFactory, but this is not type-safe
+        We're only using StringProperty values for our table columns in this example.
+        When you want to use IntegerProperty or DoubleProperty, the setCellValueFactory(...)
+        must have an additional asObject():
+        */
+        ObservableList<String> list = (FXCollections.observableArrayList());
+        for (Departement departement : d.getAll()) {
+            String lib = String.valueOf(departement.getId()) +'/' + departement.getTitre();
+            list.add(lib);
+        }
+        DepChoiceBox.setItems(list);
+        ShowGroupes();
     }
 
-    private void loadModuleNames() {
-        try {
-            ObservableList<Module> moduleList = FXCollections.observableArrayList(moduleService.getAll());
-            modulesComboBox.setItems(moduleList);
+    public void ShowGroupes() {
+        num_grp1.setCellValueFactory(new PropertyValueFactory<>("id"));
+        num_grp.setCellValueFactory(new PropertyValueFactory<>("num"));
+        email.setCellValueFactory(new PropertyValueFactory<>("email"));
+        spec.setCellValueFactory(new PropertyValueFactory<>("specialite"));
+        dep.setCellValueFactory(new PropertyValueFactory<>("titre_dep"));
+        niv.setCellValueFactory(new PropertyValueFactory<>("niveau"));
+        GroupesTable.setItems(s.getAll());
 
-            modulesComboBox.setCellFactory(param -> new ListCell<Module>() {
-                @Override
-                protected void updateItem(Module module, boolean empty) {
-                    super.updateItem(module, empty);
-                    if (empty || module == null) {
-                        setText(null);
-                    } else {
-                        setText(module.getNomModule());
-                    }
-                }
-            });
+    }
+    @FXML
+    void add(ActionEvent event) {
 
-            modulesComboBox.setConverter(new StringConverter<Module>() {
-                @Override
-                public String toString(Module module) {
-                    if (module == null) {
-return "";
-                    } else {
-                        return module.getNomModule();
-                    }
-                }
-
-                @Override
-                public Module fromString(String string) {
-                    return null;
-                }
-            });
-        } catch (NoDataFoundException e) {
-            e.printStackTrace();
+        try{
+        var g = new Groupe();
+        g.setId(Integer.valueOf(id_txt.getText()));
+        g.setNum(Integer.valueOf(txt_num.getText()));
+        g.setEmail(txt_email.getText());
+        g.setNiveau(Integer.valueOf(txt_niveau.getText()));
+        g.setSpecialite(txt_specialite.getText());
+        g.setDepartement(Integer.valueOf(DepChoiceBox.getValue().substring(0,DepChoiceBox.getValue().indexOf('/'))));
+        s.add(g);
+        ShowGroupes();}
+        catch(Exception e){
+            // set alert type
+            a.setAlertType(Alert.AlertType.ERROR);
+            a.setContentText(e.getMessage());
+            // show the dialog
+            a.show();
         }
     }
 
-    private void loadMatieresData() {
-        try {
-            matiereData = FXCollections.observableArrayList(matiereService.getAll());
-            MatieresTable.setItems(matiereData);
-        } catch (NoDataFoundException e) {
-            e.printStackTrace();
+    @FXML
+    void update(ActionEvent event) {
+        try{
+            validateInput();
+        Groupe g = new Groupe();
+        g.setId(Integer.valueOf(id_txt.getText()));
+        g.setNum(Integer.valueOf(txt_num.getText()));
+        g.setEmail(txt_email.getText());
+        g.setNiveau(Integer.valueOf(txt_niveau.getText()));
+        g.setSpecialite(txt_specialite.getText());
+        g.setDepartement(Integer.valueOf(DepChoiceBox.getValue().substring(0,DepChoiceBox.getValue().indexOf('/'))));
+        s.update(g.getId(),g);
+        ShowGroupes();}
+        catch(Exception e){
+            // set alert type
+            a.setAlertType(Alert.AlertType.ERROR);
+            a.setContentText(e.getMessage());
+            // show the dialog
+            a.show();
         }
+
     }
-@FXML
-private void add() {
-    String nomMatiere = txt_nomMatiere.getText();
-    String coefText = txt_coef.getText();
-    Module selectedModule = modulesComboBox.getValue();
 
-    if (!nomMatiere.isEmpty() && !coefText.isEmpty() && selectedModule != null) {
-        try {
-            float coef = Float.parseFloat(coefText);
+    public static boolean isNumeric(String string) {
+        int intValue;
 
-            // Check if the matiere name already exists
-            if (isMatiereNameUnique(nomMatiere)) {
-                Matiere matiere = new Matiere();
-                matiere.setNomMatiere(nomMatiere);
-                matiere.setCoef(coef);
-                matiere.setModule(selectedModule);
 
-                matiereService.add(matiere);
-
-                txt_nomMatiere.clear();
-                txt_coef.clear();
-                modulesComboBox.getSelectionModel().clearSelection();
-
-                loadMatieresData();
-                showPopup("Matière ajoutée avec succès!");
-            } else {
-                showPopup("Le nom de la matière existe déjà!");
-            }
-        } catch (NumberFormatException e) {
-            showPopup("Le coefficient doit être un nombre valide!");
-        }
-    } else {
-        showPopup("Veuillez remplir tous les champs!");
-    }
-}
-
-private boolean isMatiereNameUnique(String nomMatiere) {
-    for (Matiere matiere : matiereData) {
-        if (matiere.getNomMatiere().equalsIgnoreCase(nomMatiere)) {
+        if(string == null || string.equals("")) {
             return false;
         }
+        try {
+            intValue = Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("Error Validation");
+        }
+        return true;
     }
-    return true;
-}
+
+    boolean validateInput() throws Exception {
+        if(!isNumeric(id_txt.getText())){
+            throw new Exception("id invalide");
+        }
+
+        if(!isNumeric(txt_num.getText())){
+            throw new Exception("numero invalide");
+        }
+        if(!isNumeric(txt_niveau.getText())){
+            throw new Exception("nieau invalide");
+        }
+        if(!isEmailValid(txt_email.getText())){
+            throw new Exception("email invalide");
+        }
+        return true;
+    }
+
+    Boolean isEmailValid(String email){
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
 
     @FXML
-    private void update() {
-        Matiere selectedMatiere = MatieresTable.getSelectionModel().getSelectedItem();
-        if (selectedMatiere != null) {
-            String nomMatiere = txt_nomMatiere.getText();
-            Module selectedModule = modulesComboBox.getValue();
-            String coefText = txt_coef.getText();
+    void delete(ActionEvent event) {
 
-            if (!nomMatiere.isEmpty() && selectedModule != null && !coefText.isEmpty()) {
-                try {
-                    float coef = Float.parseFloat(coefText);
-
-                    selectedMatiere.setNomMatiere(nomMatiere);
-                    selectedMatiere.setModule(selectedModule);
-                    selectedMatiere.setCoef(coef);
-
-                    matiereService.updateMatiere(selectedMatiere);
-
-                    txt_nomMatiere.clear();
-                    txt_coef.clear();
-                    modulesComboBox.getSelectionModel().clearSelection();
-
-                    loadMatieresData();
-                    showPopup("Matière mise à jour avec succès!");
-                } catch (NumberFormatException e) {
-                    showPopup("Le coefficient doit être un nombre valide!");
-                }
-            } else {
-                showPopup("Veuillez remplir tous les champs!");
+        try{
+        Groupe dep =GroupesTable.getSelectionModel().getSelectedItem();
+        s.delete(dep.getId());
+        ShowGroupes();}
+       catch(Exception e){
+                // set alert type
+                a.setAlertType(Alert.AlertType.ERROR);
+                a.setContentText(e.getMessage());
+                // show the dialog
+                a.show();
             }
-        } else {
-            showPopup("Veuillez sélectionner une matière à mettre à jour!");
-        }
     }
 
     @FXML
-    private void delete() {
-        Matiere selectedMatiere = MatieresTable.getSelectionModel().getSelectedItem();
+    void yes_modify(ActionEvent event) {
 
-        if (selectedMatiere != null) {
-            matiereService.delete(selectedMatiere);
-
-            txt_nomMatiere.clear();
-            txt_coef.clear();
-            modulesComboBox.getSelectionModel().clearSelection();
-
-            loadMatieresData();
-        }
     }
 
-    private void showPopup(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    @FXML
+    void no_modify(ActionEvent event) {
+
     }
+
+    @FXML
+    void yes_del(ActionEvent event) {
+
+    }
+
+    @FXML
+    void no_del(ActionEvent event) {
+
+    }
+
 }
